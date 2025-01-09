@@ -1,0 +1,8 @@
+.logo:hover {
+  fill: var(--hover-color);
+}
+
+.logo:active {
+  fill: var(--main-accent-color);
+}
+

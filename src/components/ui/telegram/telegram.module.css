@@ -1,0 +1,8 @@
+.icon:hover {
+  fill: var(--hover-color);
+}
+
+.icon:active {
+  fill: var(--main-accent-color);
+}
+

@@ -1,0 +1,29 @@
+.app {
+  background-color: var(--main-background-color);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* background-color: rgb(53, 52, 52); */
+  color:  var(--main-color);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid #8585ad;
+  background: #8585ad;
+}
+
+.detailPageWrap {
+  margin: 120px auto;
+}
+
+.detailHeader {
+  text-align: center;
+}

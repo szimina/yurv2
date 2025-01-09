@@ -1,0 +1,58 @@
+.circles {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  /* perspective: 1200px; */
+  border: 1px solid pink;
+}
+
+.circle {
+  height: 200px;
+  width: 200px;
+  border-radius: 200px;
+  background:  linear-gradient(21deg, var(--main-accent-color), var(--main-background-color) 40%,  var(--main-color)   )  ;
+  /* perspective: 1200px; */
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  font-family: var(--main-font);
+  font-size: clamp(1.125rem, 1.0114rem + 0.5682vw, 1.375rem);
+  font-weight: 400;
+}
+
+.one {
+  left: 200px;
+  z-index: 1;
+
+}
+
+.two {
+  left: -200px;
+}
+
+.three {
+  right: -200px;
+}
+
+.four {
+  right: 200px;
+}
+
+@media (width <=768px) {
+  .circle {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+
+@media (width <=768px) {
+  
+}
