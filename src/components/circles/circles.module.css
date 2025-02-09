@@ -1,58 +1,136 @@
 .circles {
-  position: relative;
-  height: 100vh;
   display: flex;
-  align-items: center;
+  height: 1300px;
+  overflow: hidden;
+}
+
+.moove {
+  position: absolute;
+  inset: 600px 0 0;
+  display: flex;
+  flex-wrap: nowrap;
   justify-content: center;
-  font-size: 3.5rem;
-  /* perspective: 1200px; */
-  border: 1px solid pink;
+  gap: clamp(1.88rem, -0.48rem + 4.9vw, 3.75rem);
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  /* border: 1px solid pink; */
 }
 
 .circle {
-  height: 200px;
-  width: 200px;
-  border-radius: 200px;
-  background:  linear-gradient(21deg, var(--main-accent-color), var(--main-background-color) 40%,  var(--main-color)   )  ;
-  /* perspective: 1200px; */
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 300px;
+  max-width: 300px;
+  min-height: 300px;
+  background: linear-gradient(
+    34deg,
+    var(--main-background-color) 0%,
+    var(--main-accent-color) 30%,
+    var(--main-background-color) 70%,
+    var(--dark-background-color) 100%
+  );
+  border-radius: 300px;
 }
 
 .text {
-  font-family: var(--main-font);
-  font-size: clamp(1.125rem, 1.0114rem + 0.5682vw, 1.375rem);
+  display: flex;
+  padding: 0 10px;
   font-weight: 400;
+  font-size: clamp(1rem, 0.92rem + 0.39vw, 1.25rem);
+  font-family: var(--main-font);
+  text-align: center;
 }
 
 .one {
-  left: 200px;
   z-index: 1;
-
 }
 
 .two {
-  left: -200px;
+  z-index: 2;
+  margin-right: 20px;
 }
 
 .three {
-  right: -200px;
+  z-index: 3;
+  margin-left: 20px;
 }
 
 .four {
-  right: 200px;
+  z-index: 4;
 }
 
-@media (width <=768px) {
+.five {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
+@media (376px <= width <=767px) {
+  .moove {
+    inset: 300px 0 0;
+    justify-content: center;
+    align-items: center;
+    height: 767px;
+  }
+
   .circle {
-    height: 100px;
-    width: 100px;
+    position: absolute;
+    min-width: 170px;
+    max-width: 170px;
+    min-height: 170px;
+    border-radius: 170px;
+  }
+
+  .two {
+    margin-right: 0;
+  }
+
+  .three {
+    margin-left: 0;
+  }
+
+  .five {
+    top: auto;
   }
 }
 
+@media (320px <= width <=375px) {
+  .moove {
+    inset: 300px 0 0;
+    justify-content: center;
+    align-items: center;
+    height: 375px;
+  }
 
-@media (width <=768px) {
-  
+  .circle {
+    position: absolute;
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 150px;
+    border-radius: 150px;
+  }
+
+  .two {
+    margin-right: 0;
+  }
+
+  .three {
+    margin-left: 0;
+  }
+
+  .five {
+    top: auto;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
 }

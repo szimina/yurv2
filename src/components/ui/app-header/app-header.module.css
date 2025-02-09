@@ -7,10 +7,10 @@
 .menu {
   display: flex;
   align-items: center;
-  border: 1px solid var(--main-color);
-  border-radius: 100px;
   gap: 10px;
   padding: 0 10px;
+  border: 1px solid var(--main-color);
+  border-radius: 100px;
 }
 
 .logo {
@@ -28,9 +28,9 @@
 
 .link {
   display: flex;
-  text-decoration: none;
   width: 100%;
   color: var(--main-color);
+  text-decoration: none;
 }
 
 .link:active {
@@ -43,22 +43,24 @@
 
 .telephone {
   display: flex;
-  white-space: nowrap;
-  font-family: var(--main-font);
-  font-size: clamp(0.625rem, 0.5114rem + 0.5682vw, 0.875rem);
   font-weight: 700;
+  font-size: clamp(0.63rem, 0.51rem + 0.58vw, 0.88rem);
+  font-family: var(--main-font);
+  white-space: nowrap;
 }
 
 @media (width <=768px) {
   .header {
     padding: 34px 10px;
   }
+
   .menu {
     gap: 5px;
   }
+
   .logo {
-    margin: 5px 30px 5px 5px;
     width: 30px;
+    margin: 5px 30px 5px 5px;
   }
 
   .icon {

@@ -1,0 +1,40 @@
+.container {
+	display: flex;
+}
+
+.svg {
+	display: block;
+}
+
+.path {
+	transition: stroke 0.3s ease;
+}
+
+.container:hover .path {
+	stroke: var(--main-accent-color); 
+}
+
+.textContainer {
+  position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+  color: var(--hover-color);
+  font-size: 60px;
+  font-family: var(--accent-font);
+}
+
+.animatedText {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	transition: opacity 0.5s ease; /* Плавное изменение прозрачности */
+}

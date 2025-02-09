@@ -1,52 +1,53 @@
 .intro {
   display: flex;
   flex-direction: column;
-  padding: 34px 20px;
   gap: 30px;
+  padding: 34px 20px 200px 34px;
 }
 
 .title {
+  z-index: 1;
   display: flex;
+  font-size: clamp(2.19rem, 0.9rem + 6.4vw, 5rem);
   font-family: var(--accent-font);
-  font-size: clamp(2.1875rem, 0.9091rem + 6.392vw, 5rem);
+  white-space: normal;
   text-transform: uppercase;
   word-wrap: break-word;
-  white-space: normal;
-  z-index: 1;
 }
 
 .text {
-  font-family: var(--main-font);
-  text-transform: uppercase;
-  font-size: clamp(1.125rem, 1.0114rem + 0.5682vw, 1.375rem);
-  font-weight: 600;
-  letter-spacing: 0.1em;
   z-index: 1;
+  font-weight: 600;
+  font-size: clamp(1.13rem, 1.01rem + 0.57vw, 1.38rem);
+  font-family: var(--main-font);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .gradient {
   position: absolute;
-  top: 400px;
+  top: 250px;
   left: -50px;
+  z-index: 0;
+  width: 300px;
   height: 300px;
-  width: 30vw;
-  border: 1px solid pink;
   background: radial-gradient(circle at 10% 0%, var(--main-accent-color), var(--main-background-color), var(--main-color));
   background-size: 400% 150%;
-  animation: gradient 10s ease infinite;
+  border-radius: 60%;
   transform: translate3d(0, 0, 0);
   filter: blur(50px);
-  border-radius: 50%;
-  z-index: 0;
+  animation: gradient 10s ease infinite;
 }
 
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
 	}
+
 	50% {
 		background-position: 100% 50%;
 	}
+
 	100% {
 		background-position: 0% 50%;
 	}
@@ -54,8 +55,8 @@
 
 @media (width <=768px) {
   .intro {
-    padding: 34px 10px;
     gap: 15px;
+    padding: 34px 10px;
   }
   
 } 

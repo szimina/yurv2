@@ -4,10 +4,10 @@ import { TelegramLogo } from "../telegram";
 import { WhatsappLogo } from "../whatsapp";
 
 export const AppHeaderUI = () => (
-  <header className={styles.header}>
+  <header className={styles.header} id="header">
     <nav className={styles.menu}>
       <div className={styles.logo}>
-        <a href="#" className={styles.link}>
+        <a href="http://localhost:8080/" className={styles.link}>
           <Logo
             fillContour="#c6c6c6"
             fillBody="#c6c6c6"
