@@ -1,1 +1,0 @@
-export { FolderWithAboutText } from './about';

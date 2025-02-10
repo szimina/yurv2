@@ -4,4 +4,5 @@ export * from './whatsapp';
 export * from './logo';
 export * from './intro';
 export * from './circle';
-export * from './about';
+export * from './statistic';
+

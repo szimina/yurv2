@@ -14,7 +14,7 @@
 	stroke: var(--main-accent-color); 
 }
 
-.textContainer {
+.headerContainer {
   position: relative;
 	display: flex;
 	justify-content: center;
@@ -25,6 +25,33 @@
   color: var(--hover-color);
   font-size: 60px;
   font-family: var(--accent-font);
+}
+
+.textContainer {
+  position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+  color: var(--light-background-color);
+	font-weight: 700;
+  font-size: 20px;
+  font-family: var(--main-font);
+	letter-spacing: 2px;
+}
+
+.animatedHeader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	transition: opacity 0.5s ease; /* Плавное изменение прозрачности */
 }
 
 .animatedText {

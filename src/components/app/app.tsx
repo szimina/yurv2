@@ -19,10 +19,11 @@ import {
   useNavigate
 } from 'react-router-dom';
 import { AppHeader } from '../app-header';
-import { IntroUI } from '../ui';
+import { IntroUI, StatisticCard } from '../ui';
 import { Circles } from '../circles';
 
-import { About } from '../about';
+import Femida from '../ui/femida/femida';
+import { Statistics } from '../statistics';
 
 
 
@@ -36,8 +37,8 @@ const App = () => {
       <AppHeader />
       <IntroUI title={'Спишем долги быстро и законно'} text={'На основании ФЗ "О банкротстве"'}/>
       <Circles text={['Какие мы крутые небольшой текст 1', 'Какие мы крутые небольшой текст 2', 'Какие мы крутые небольшой текст 3', 'Какие мы крутые небольшой текст 4']}></Circles>
-      <div><About/></div>
-      <div>Текст</div>
+      <div><Statistics/></div>
+      <Femida></Femida>
       <div>Текст</div>
       <div>Текст</div>
       <div>Текст</div>
