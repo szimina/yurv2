@@ -1,6 +1,11 @@
 .statistics {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 150px;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 150px;
 }
 
+@media (width <=1061px) {
+	.statistics {
+		flex-direction: column;
+	}
+}

@@ -11,34 +11,34 @@
 }
 
 .container:hover .path {
-	stroke: var(--main-accent-color); 
+	stroke: var(--main-accent-color);
 }
 
 .headerContainer {
-  position: relative;
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-  color: var(--hover-color);
-  font-size: 60px;
-  font-family: var(--accent-font);
+	color: var(--hover-color);
+	font-size: 60px;
+	font-family: var(--accent-font);
 }
 
 .textContainer {
-  position: relative;
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-  color: var(--light-background-color);
+	color: var(--light-background-color);
 	font-weight: 700;
-  font-size: 20px;
-  font-family: var(--main-font);
+	font-size: 20px;
+	font-family: var(--main-font);
 	letter-spacing: 2px;
 }
 
@@ -63,5 +63,25 @@
 	align-items: center;
 	width: 100%;
 	height: 100%;
-	transition: opacity 0.5s ease; /* Плавное изменение прозрачности */
+	transition: opacity 0.5s ease; 
+}
+
+@media (921px < width <=1061px) {
+	.container:nth-child(1) {
+		align-self: flex-start;
+	}
+
+	.container:nth-child(2) {
+		align-self: flex-end;
+	}
+
+	.container:nth-child(3) {
+		align-self: flex-start;
+	}
+}
+
+@media (width <=921px) {
+	.container {
+		align-self: center;
+	}
 }

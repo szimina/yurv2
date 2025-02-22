@@ -65,6 +65,7 @@
   --hover-color: #ffffff;
   --main-font: 'Manrope',  'Manrope Flex', sans-serif;
   --accent-font: 'Unbounded',  'Unbounded Flex', sans-serif;
+  --gradient: linear-gradient(135deg,var(--main-accent-color) 0%, var(--light-background-color) 70%, var(--main-background-color) 100%);
 }
 
 html,

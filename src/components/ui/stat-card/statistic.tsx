@@ -109,7 +109,7 @@ export const StatisticCard: FC<StatisticCardUIProps> = ({
   return (
     <div className={styles.container}>
       <svg
-        width='347'
+        width='320'
         height='239'
         viewBox='0 0 347 239'
         fill='none'

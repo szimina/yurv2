@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 3em;
+  overflow: hidden;
+  font-size: clamp(2.13rem, 1.21rem + 4.25vw, 4.88rem);  
+}
+
+.letter {
+  height: 1em;
+  font-weight: 700;
+  font-size: 1em;
+  font-family: var(--accent-font);
+  text-transform: uppercase;
+  opacity: 0; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+.space {
+  display: inline-block;
+  width: 15px; 
+}

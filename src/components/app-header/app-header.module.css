@@ -34,12 +34,13 @@
 }
 
 .link:active {
-  color: var(--main-accent-color);
-}
+  transform: scale(1.05);
+  transition: transform 0.2s ease; 
+} 
 
 .link:hover {
   color: var(--hover-color);
-}
+} 
 
 .telephone {
   display: flex;

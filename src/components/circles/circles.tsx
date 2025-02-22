@@ -193,10 +193,9 @@ export const Circles: FC<CircleProps> = ({ text }) => {
           >
             <div className={styles.logo}>
               <Logo
-                fillContour="#c6c6c6"
-                fillBody="#c6c6c6"
-                fillBodyOnHover="c6c6c6"
-              />
+                fill="var(--main-color)"
+                fillOnHover="var(--main-color)"
+               />
             </div>
           </Parallax>
         </Parallax>
@@ -261,9 +260,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
           >
             <div className={styles.logo}>
               <Logo
-                fillContour="#c6c6c6"
-                fillBody="#c6c6c6"
-                fillBodyOnHover="c6c6c6"
+                fill="var(--main-color)"
+                fillOnHover="var(--main-color)"                
               />
             </div>
           </Parallax>

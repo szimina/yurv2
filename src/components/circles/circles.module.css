@@ -17,25 +17,43 @@
 }
 
 .circle {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 300px;
   max-width: 300px;
   min-height: 300px;
-  background: linear-gradient(
-    34deg,
-    var(--main-background-color) 0%,
-    var(--main-accent-color) 30%,
-    var(--main-background-color) 70%,
-    var(--dark-background-color) 100%
-  );
+  overflow: hidden;
   border-radius: 300px;
 }
 
+.circle::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: var(--gradient);
+  animation: rotate-gradient 5s linear infinite;
+}
+
+@keyframes rotate-gradient {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .text {
+  z-index: 1;
   display: flex;
   padding: 0 10px;
+  color: var(--hover-color);
   font-weight: 400;
   font-size: clamp(1rem, 0.92rem + 0.39vw, 1.25rem);
   font-family: var(--main-font);
@@ -67,8 +85,10 @@
 }
 
 .logo {
+  z-index: 1;
   width: 100px;
   height: 100px;
+
 }
 
 @media (376px <= width <=767px) {

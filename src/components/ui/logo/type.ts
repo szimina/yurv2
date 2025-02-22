@@ -1,5 +1,5 @@
 export type LogoUIProps = {
-  fillContour: string;
-  fillBody: string;
-  fillBodyOnHover: string;
+  fill:string;
+  fillOnHover:string;
+  height?: string;
 };
