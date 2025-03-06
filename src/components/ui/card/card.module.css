@@ -1,0 +1,23 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  gap: 10px;
+  width: 326px;
+  height: 346px;
+  padding: 40px 24px;
+  background: var(--gradient);
+  border-radius: 22px;
+}
+
+.header {
+  font-size: 16px;
+  font-family: var(--accent-font);
+  text-transform: uppercase;
+}
+
+.text {
+  font-size: 14px;
+  font-family: var(--main-font);
+
+}

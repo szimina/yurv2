@@ -19,13 +19,12 @@ import {
   useNavigate
 } from 'react-router-dom';
 import { AppHeader } from '../app-header';
-import { IntroUI, StatisticCard } from '../ui';
+import { Intro, Nest, Pipe } from '../ui';
 import { Circles } from '../circles';
-
-import Femida from '../ui/femida/femida';
 import { Statistics } from '../statistics';
 import { FemidaBlock } from '../femida';
-import { AnimatedHeader } from '../ui/animated-header/animated-header';
+import { Cards } from '../cards';
+
 
 
 
@@ -36,11 +35,15 @@ const App = () => {
 
   return (
     <div className={styles.app}>
+      {/* <Background/> */}
       <AppHeader />
-      <IntroUI title={'Спишем долги быстро и законно'} text={'На основании ФЗ "О банкротстве"'}/>
+      <Intro title={'Спишем долги быстро и законно'} text={'На основании ФЗ "О банкротстве"'}/>
       <Circles text={['Законность и прозрачность', 'Комлексный подход', 'Экономия времени и нервов', 'Защита от коллекторов']}></Circles>
       <Statistics/>
       <FemidaBlock/>
+      <Cards/>
+      <Pipe/>
+      {/* <Nest/> */}
       <div>Текст</div>
       <div>Текст</div>
       <div>Текст</div>
@@ -93,10 +96,43 @@ const App = () => {
       <div>Текст</div>
       <div>Текст</div>
       <div>Текст</div>
-
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
 
 
         </div>
+        
   );
 };
 export default App;

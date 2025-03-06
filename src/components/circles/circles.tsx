@@ -1,4 +1,4 @@
-import { FC, useState, useLayoutEffect, useRef } from "react";
+import { FC, useState, useLayoutEffect } from "react";
 import { Logo } from "../ui";
 import styles from "./circles.module.css";
 import {
@@ -113,23 +113,14 @@ export const Circles: FC<CircleProps> = ({ text }) => {
 
       if (window.innerWidth > 767) {
         if (containerPosition + 150 < currentClientHeight / 2) {
-          console.log("case1")
-          setFromTop(0); //вот тут проработать
+          setFromTop(0); 
         } else {
-          console.log("case2")
           setFromTop(containerPosition + 150 - currentClientHeight / 2);
         }
       } else if (window.innerWidth <= 767) {
         if ((containerCenter + containerPosition)< currentClientHeight / 2) {
-          console.log("case3")
-          
-          setFromTop(0); //вот тут проработать
+          setFromTop(0); 
         } else {
-          console.log("case4")
-
-          console.log("containerPosition " + containerPosition);
-          console.log("containerCenter " + containerCenter);
-          console.log("высота" + currentClientHeight);
           setFromTop(
             containerPosition + containerCenter - currentClientHeight / 2,
           );

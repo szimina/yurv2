@@ -1,1 +1,1 @@
-export { IntroUI } from './intro';
+export { Intro } from './intro';
