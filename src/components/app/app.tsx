@@ -19,11 +19,12 @@ import {
   useNavigate
 } from 'react-router-dom';
 import { AppHeader } from '../app-header';
-import { Intro, Nest, Pipe } from '../ui';
+import { Intro, Nest, Pipe, ScrollIndicator } from '../ui';
 import { Circles } from '../circles';
 import { Statistics } from '../statistics';
 import { FemidaBlock } from '../femida';
 import { Cards } from '../cards';
+import { useRef } from 'react';
 
 
 
@@ -31,11 +32,11 @@ import { Cards } from '../cards';
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const pipeRef = useRef<HTMLElement | null>(null);
 
   return (
     <div className={styles.app}>
-      {/* <Background/> */}
+      <ScrollIndicator/>
       <AppHeader />
       <Intro title={'Спишем долги быстро и законно'} text={'На основании ФЗ "О банкротстве"'}/>
       <Circles text={['Законность и прозрачность', 'Комлексный подход', 'Экономия времени и нервов', 'Защита от коллекторов']}></Circles>

@@ -1,22 +1,31 @@
 .container {
 	position: relative;
-	top: 790px;
-	left: 0;
-	z-index: -1;
-  display: flex;
-  justify-content: center;
-	min-height: 364px;
-  max-height: 720px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 800px;
+  border: 1px solid red;
 }
 
-.svg {
+.pipecontainer {
+	position: relative;
+	top: -10px;
+	display: flex;
+	align-self: center;
+	width: calc(100vw - 17px);
+	max-width: 900px;
+	height: calc((100vw - 17px) * 1.1);
+	max-height: 990px;
+}
+
+.pipe {
 	position: absolute;
 	top: -2;
 	z-index: -1;
-  display: flex;
-  width: calc(100vw - 17px); 
-  max-width: 900px;
-  height: auto;
+	display: flex;
+	width: calc(100vw - 17px);
+	max-width: 900px;
+	height: calc((100vw - 17px) * 1.1);
+	max-height: 990px;
 }
 
 .flashcontainer {
@@ -30,11 +39,11 @@
 }
 
 .flashbox {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  width: 50%;
-  height: 300px;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	width: 50%;
+	height: 300px;
 }
 
 .flash {
@@ -53,5 +62,29 @@
 	border-radius: 50%;
 	box-shadow: 0 0 50px 20px var(--main-accent-color);
 	filter: blur(5px);
+}
+
+.netcontainer {
+	/* position: relative; */
+  margin-top: -20vw;
+	display: flex;
+	justify-content: center;
+	height: calc((100vw - 17px) / 1.37);
+	max-height: 729px;
+  width: calc(100vw - 17px);
+	max-width: 1000px;
+	overflow: visible;
+  align-self: center;
+  justify-self: flex-end;
+}
+
+.net {
+	position: absolute;
+	display: flex;
+	width: calc(100vw - 17px);
+	max-width: 1000px;
+  height: calc((100vw - 17px) / 1.37);
+	max-height: 729px;
+	height: auto;
 }
 

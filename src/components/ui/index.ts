@@ -8,4 +8,5 @@ export * from './card';
 export * from './background';
 export * from './pipe';
 export * from './nest';
+export * from './scroll-indicator'
 
