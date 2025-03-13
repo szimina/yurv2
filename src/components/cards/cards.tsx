@@ -2,8 +2,12 @@ import styles from './cards.module.css'
 import { CardUI, Pipe } from '../ui'
 import { useEffect, useRef, useState } from 'react'
 import { useParallax } from 'react-scroll-parallax'
+import { debounce } from 'lodash'
 
 export const Cards = () => {
+		const handleScroll = debounce(() => {
+		}, 16); 
+		window.addEventListener('scroll', handleScroll);
 	const [start, setStart] = useState<number>(0)
 
 	const sectionRef = useRef<HTMLElement | null>(null)
@@ -18,13 +22,14 @@ export const Cards = () => {
 		translateY: ['0px', '800px'],
 		startScroll: start,
 		endScroll: start + window.innerHeight,
+
 	})
 
 	const [rotate, setRotate] = useState(10)
 
 	useEffect(() => {
 		const handleResize = () => {
-			if (window.innerWidth <= 375) {
+			if (window.innerWidth <= 380) {
 				setRotate(3)
 			} else {
 				setRotate(10)

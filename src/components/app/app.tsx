@@ -19,7 +19,7 @@ import {
   useNavigate
 } from 'react-router-dom';
 import { AppHeader } from '../app-header';
-import { Intro, Nest, Pipe, ScrollIndicator } from '../ui';
+import { Intro, Pipe, ScrollIndicator } from '../ui';
 import { Circles } from '../circles';
 import { Statistics } from '../statistics';
 import { FemidaBlock } from '../femida';
@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      <ScrollIndicator/>
+      {/* <ScrollIndicator/> */}
       <AppHeader />
       <Intro title={'Спишем долги быстро и законно'} text={'На основании ФЗ "О банкротстве"'}/>
       <Circles text={['Законность и прозрачность', 'Комлексный подход', 'Экономия времени и нервов', 'Защита от коллекторов']}></Circles>
@@ -44,7 +44,7 @@ const App = () => {
       <FemidaBlock/>
       <Cards/>
       <Pipe/>
-      {/* <Nest/> */}
+      <div style={{marginTop: '5000px'}}>Текст</div>
       <div>Текст</div>
       <div>Текст</div>
       <div>Текст</div>
@@ -130,7 +130,90 @@ const App = () => {
       <div>Текст</div>
       <div>Текст</div>
       <div>Текст</div>
-
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
+      <div>Текст</div>
 
         </div>
         

@@ -1,0 +1,43 @@
+.container {
+	position: absolute;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	max-width: 300px;
+	padding: 10px;
+	transition: opacity 0.3s, transform 0.3s;
+}
+
+.circle {
+	display: flex;
+	width: 30px;
+	height: 30px;
+	border: 2px solid var(--main-color);
+	border-radius: 100%;
+}
+
+.header {
+	display: flex;
+	color: var(--main-color);
+	font: var(--main-font);
+	font-weight: 700;
+	font-size: clamp(0.87rem, 0.83rem + 0.19vw, 1rem);
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+
+.label {
+	padding: 10px;
+	color: var(--main-color);
+	font: var(--main-font);
+	font-size: clamp(0.75rem, 0.71rem + 0.19vw, 0.87rem);	
+	border: 1px solid var(--main-color);
+	border-radius: 20px;
+}

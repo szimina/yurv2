@@ -1,0 +1,1 @@
+export { Slip } from './slip';

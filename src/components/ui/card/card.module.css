@@ -8,6 +8,7 @@
   padding: 40px 24px;
   background: var(--gradient);
   border-radius: 22px;
+  will-change: transform;
 }
 
 .header {

@@ -4,6 +4,7 @@ import styles from './femida.module.css'
 import Femida from '../ui/femida/femida'
 import { Logo } from '../ui'
 import { AnimatedHeader } from '../ui/animated-header/animated-header'
+import { ShadowHeader } from '../ui/shadow-header'
 
 export const FemidaBlock = () => {
 	const [start, setStart] = useState<number>(0)
@@ -45,14 +46,6 @@ export const FemidaBlock = () => {
 		speed: -2,
 	})
 
-	const parallaxTulle = useParallax<HTMLDivElement>({
-		translateX: containerBottom ?  ['0%', '100%', 'easeOut']: [0, 0],
-		startScroll:  containerBottom ?  containerBottom - windowHeight/2: 0,
-		endScroll: containerBottom ? containerBottom +windowHeight: 0,
-		easing: 'easeOut',
-		speed: -2,
-	})
-
 	return (
 		<div ref={ref} className={styles.container}>
 			<AnimatedHeader text={'лидеры в'} />
@@ -71,17 +64,7 @@ export const FemidaBlock = () => {
 			<div className={styles.svg}>
 				<Femida />
 			</div>
-			<Parallax
-			translateX={['-5%', '10%', 'easeOutCubic']}
-			translateY={['5%', '-5%', 'easeOutCubic']}
-			>
-			<div className={styles.footer}>
-				<p> Добиваемся результатов</p>
-				<p> за счет жестких принципов</p>
-				<p>и мягких подходов</p>
-				<div ref={parallaxTulle.ref} className={styles.tulle}></div>
-			</div>
-			</Parallax>
+			<ShadowHeader start={containerBottom} text={['Добиваемся результатов', 'за счет жестких принципов', 'и мягких подходов' ]}/>
 		</div>
 	)
 }

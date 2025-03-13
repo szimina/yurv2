@@ -16,6 +16,8 @@ export const CardUI: FC<CardUIProps> = ({ header, text, color, background, rotat
       endScroll: startScroll? startScroll + window.innerHeight / 2: 0,
       easing: 'easeOut',
       rotate: rotate,
+      shouldAlwaysCompleteAnimation: true,
+
     })
 
   return (

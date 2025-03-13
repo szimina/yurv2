@@ -8,8 +8,13 @@ import {
 } from "./type";
 import clsx from "clsx";
 import { Parallax } from "react-scroll-parallax";
+import { debounce } from "lodash";
 
 export const Circles: FC<CircleProps> = ({ text }) => {
+    const handleScroll = debounce(() => {
+    }, 16); 
+    window.addEventListener('scroll', handleScroll);
+
   const [fromTop, setFromTop] = useState(0);
   const stateOneAndFour = {
     start: "0px",
@@ -139,6 +144,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
           startScroll={fromTop}
           endScroll={fromTop + 1000}
           className={styles.moove}
+          shouldAlwaysCompleteAnimation={true}
+
         >
           <Parallax
             id="one"
@@ -146,6 +153,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             translateX={[mooveOne.start, mooveOne.stop]}
             startScroll={fromTop + 300}
             endScroll={fromTop + 600}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <p className={styles.text}>{text[0]}</p>
           </Parallax>
@@ -155,6 +164,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             translateX={[mooveTwo.start, mooveTwo.stop]}
             startScroll={fromTop}
             endScroll={fromTop + 300}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <p className={styles.text}>{text[1]}</p>
           </Parallax>
@@ -164,6 +175,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             translateX={[mooveThree.start, mooveThree.stop]}
             startScroll={fromTop}
             endScroll={fromTop + 300}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <p className={styles.text}>{text[2]}</p>
           </Parallax>
@@ -173,6 +186,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             translateX={[mooveFour.start, mooveFour.stop]}
             startScroll={fromTop + 300}
             endScroll={fromTop + 600}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <p className={styles.text}>{text[3]}</p>
           </Parallax>
@@ -181,6 +196,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             opacity={[0, 1]}
             startScroll={fromTop + 550}
             endScroll={fromTop + 800}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <div className={styles.logo}>
               <Logo
@@ -202,6 +219,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
           startScroll={fromTop}
           endScroll={fromTop + 1000}
           className={styles.moove}
+          shouldAlwaysCompleteAnimation={true}
+
         >
           <Parallax
             id="one"
@@ -210,6 +229,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             translateY={[mooveOne.start, mooveOne.stop]}
             startScroll={fromTop + 300}
             endScroll={fromTop + 600}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <p className={styles.text}>{text[0]}</p>
           </Parallax>
@@ -220,6 +241,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             translateY={[mooveTwo.start, mooveTwo.opposit]}
             startScroll={fromTop + 300}
             endScroll={fromTop + 600}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <p className={styles.text}>{text[1]}</p>
           </Parallax>
@@ -230,6 +253,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             translateY={[mooveThree.start, mooveThree.opposit]}
             startScroll={fromTop + 300}
             endScroll={fromTop + 600}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <p className={styles.text}>{text[2]}</p>
           </Parallax>
@@ -240,6 +265,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             translateY={[mooveFour.start, mooveFour.stop]}
             startScroll={fromTop + 300}
             endScroll={fromTop + 600}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <p className={styles.text}>{text[3]}</p>
           </Parallax>
@@ -248,6 +275,8 @@ export const Circles: FC<CircleProps> = ({ text }) => {
             opacity={[1, 0]}
             startScroll={fromTop}
             endScroll={fromTop + 600}
+            shouldAlwaysCompleteAnimation={true}
+
           >
             <div className={styles.logo}>
               <Logo

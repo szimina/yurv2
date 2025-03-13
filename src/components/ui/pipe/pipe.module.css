@@ -3,7 +3,7 @@
 	display: flex;
 	flex-direction: column;
 	margin-top: 800px;
-  border: 1px solid red;
+	will-change: transform;
 }
 
 .pipecontainer {
@@ -65,17 +65,15 @@
 }
 
 .netcontainer {
-	/* position: relative; */
-  margin-top: -20vw;
 	display: flex;
 	justify-content: center;
+	place-self: center flex-end;
+	width: calc(100vw - 17px);
+	max-width: 1000px;
 	height: calc((100vw - 17px) / 1.37);
 	max-height: 729px;
-  width: calc(100vw - 17px);
-	max-width: 1000px;
+	margin-top: -20vw;
 	overflow: visible;
-  align-self: center;
-  justify-self: flex-end;
 }
 
 .net {
@@ -83,8 +81,14 @@
 	display: flex;
 	width: calc(100vw - 17px);
 	max-width: 1000px;
-  height: calc((100vw - 17px) / 1.37);
+	height: calc((100vw - 17px) / 1.37);
 	max-height: 729px;
-	height: auto;
 }
 
+.slips {
+	width: calc(100vw - 17px);
+	place-self: center flex-end;
+	height: 250px;
+	margin-top: 100px;
+	overflow: hidden;
+}
