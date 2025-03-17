@@ -9,3 +9,4 @@ export * from './background';
 export * from './pipe';
 export * from './scroll-indicator';
 export * from './slip';
+export * from './folder';

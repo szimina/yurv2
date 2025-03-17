@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { StatisticCard } from '../ui/stat-card'
 import styles from './statistics.module.css'
 

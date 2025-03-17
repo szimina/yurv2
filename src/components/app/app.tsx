@@ -25,18 +25,18 @@ import { Statistics } from '../statistics';
 import { FemidaBlock } from '../femida';
 import { Cards } from '../cards';
 import { useRef } from 'react';
+import { Folders } from '../folders';
+
 
 
 
 
 const App = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const pipeRef = useRef<HTMLElement | null>(null);
+
 
   return (
     <div className={styles.app}>
-      {/* <ScrollIndicator/> */}
+      <ScrollIndicator/>
       <AppHeader />
       <Intro title={'Спишем долги быстро и законно'} text={'На основании ФЗ "О банкротстве"'}/>
       <Circles text={['Законность и прозрачность', 'Комлексный подход', 'Экономия времени и нервов', 'Защита от коллекторов']}></Circles>
@@ -44,7 +44,10 @@ const App = () => {
       <FemidaBlock/>
       <Cards/>
       <Pipe/>
-      <div style={{marginTop: '5000px'}}>Текст</div>
+      <Folders/>
+
+    
+      
       <div>Текст</div>
       <div>Текст</div>
       <div>Текст</div>

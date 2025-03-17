@@ -1,0 +1,39 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 550px;
+	margin-top: 3600px;
+	will-change: transform;
+}
+
+.header {
+	align-self: center;
+	width: 60%;
+	color: var(--main-color);
+	font-size: clamp(1.37rem, 1.19rem + 0.87vw, 1.94rem);
+	font-family: var(--accent-font);
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.folders {
+	position: relative;
+	margin-top: 100px;
+}
+
+.highlight {
+  background: linear-gradient(90deg, var(--main-accent-color) 50%, transparent 50%);
+  background-position: 100% 0;
+  background-size: 200% 100%;
+}
+
+.moove {
+  animation: highlight-animation 1.5s forwards; /* Анимация и сохранение конечного состояния */
+}
+
+@keyframes highlight-animation {
+  to {
+    background-position: 0 0; /* Конечное состояние анимации */
+  }
+}
