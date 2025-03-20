@@ -10,3 +10,4 @@ export * from './pipe';
 export * from './scroll-indicator';
 export * from './slip';
 export * from './folder';
+export * from './scroll-y-container';

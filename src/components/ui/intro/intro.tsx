@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import styles from "./intro.module.css";
-import { IntroUIProps } from './type';
+import { IntroProps } from './type';
 
-export const Intro: FC<IntroUIProps> =  ({ title, text }) => (
-  <section className={styles.intro} id="intro">
+export const Intro: FC<IntroProps> =  ({ title, text }) => (
+  <section className={styles.container} id="intro">
     <h1 className={styles.title}>
     {title}
     </h1>

@@ -2,8 +2,11 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	margin-top: 800px;
+	/* margin-top: 100px;  */
 	will-change: transform;
+	height: 100%;
+	border: 1px solid gold;
+	z-index: -1;
 }
 
 .pipecontainer {
@@ -91,4 +94,10 @@
 	height: 250px;
 	margin-top: 100px;
 	overflow: hidden;
+}
+
+@media (width <=998px) {
+	.container {
+		margin-top: 700px;
+	}
 }

@@ -1,7 +1,8 @@
-.circles {
+.container {
   display: flex;
   height: 1300px;
   overflow: hidden;
+  border: 1px solid white;
 }
 
 .moove {

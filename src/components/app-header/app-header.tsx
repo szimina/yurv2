@@ -2,7 +2,7 @@ import styles from "./app-header.module.css";
 import { Logo, TelegramLogo, WhatsappLogo } from "../ui";
 
 export const AppHeader = () => (
-  <header className={styles.header} id="header">
+  <header className={styles.container} id="header">
     <nav className={styles.menu}>
       <div className={styles.logo}>
         <a href="http://localhost:8080/" className={styles.link}>

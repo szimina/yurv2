@@ -137,7 +137,7 @@ export const Circles: FC<CircleProps> = ({ text }) => {
   //для больших экранов
   if (window.innerWidth > 767) {
     return (
-      <div className={styles.circles}>
+      <div className={styles.container}>
         <Parallax
           id="container"
           translateY={[`0px`, `1000px`]}
@@ -212,7 +212,7 @@ export const Circles: FC<CircleProps> = ({ text }) => {
   } else if (window.innerWidth <= 767) {
     //для маленьких экранов
     return (
-      <div className={styles.circles}>
+      <div className={styles.container}>
         <Parallax
           id="container"
           translateY={[`0px`, `1000px`]}

@@ -3,7 +3,7 @@ import styles from './statistics.module.css'
 
 export const Statistics = () => {
 	return (
-		<div className={styles.statistics}>
+		<div className={styles.container}>
 			<StatisticCard
 				stroke={'var(--main-color)'}
 				header={'99%'}

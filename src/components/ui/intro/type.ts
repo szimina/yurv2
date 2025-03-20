@@ -1,4 +1,4 @@
-export type IntroUIProps = {
+export type IntroProps = {
   title: string;
   text: string;
 };

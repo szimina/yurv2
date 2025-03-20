@@ -1,23 +1,28 @@
 import { useEffect, useRef, useState } from 'react'
-import { Folder } from '../ui'
+import { Folder, ScrollYContainer } from '../ui'
 import styles from './folders.module.css'
-import { useParallax } from 'react-scroll-parallax'
-import { debounce } from 'lodash'
 
 export const Folders = () => {
 	const [start, setStart] = useState<number>(0)
 	const [left, setLeft] = useState<number>(0)
 	const [top, setTop] = useState<number>(0)
-  const [isVisible, setIsVisible]= useState<boolean>(false)
-	const ref = useRef<HTMLDivElement>(null)
+	const [isVisible, setIsVisible] = useState<boolean>(false)
+	const [isFinished, setIsFinished] = useState<boolean>(false)
+
+	const headerRef = useRef<HTMLDivElement>(null)
+	const foldersRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
-		if (ref.current) {
-			setStart(ref.current.getBoundingClientRect().top)
-			const viewportWidth = window.innerWidth
-			const containerWidt = ref.current.getBoundingClientRect().width
+		if (headerRef.current) {
+			setStart(headerRef.current.getBoundingClientRect().top)
+		}
+	}, [])
 
-				if (viewportWidth > 767) {
+	useEffect(() => {
+		if (foldersRef.current) {
+			const viewportWidth = window.innerWidth
+			const containerWidt = foldersRef.current.getBoundingClientRect().width
+			if (viewportWidth > 767) {
 				setLeft((containerWidt - 300) / 7)
 				setTop(300 - (containerWidt - 300) / 7)
 			} else {
@@ -27,43 +32,53 @@ export const Folders = () => {
 		}
 	}, [])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (start === 0) return;
-      const currentScrollPosition = window.scrollY;
-      if (currentScrollPosition > start  && !isVisible) {
-        setIsVisible(true); 
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
+	useEffect(() => {
+		const handleScroll = () => {
+			if (start === 0) return
+			const currentScrollPosition = window.scrollY
+			if (currentScrollPosition > start - 100 && !isVisible) {
+				setIsVisible(true)
+			}
+		}
+		window.addEventListener('scroll', handleScroll)
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isVisible, start]); 
+		return () => {
+			window.removeEventListener('scroll', handleScroll)
+		}
+	}, [isVisible, start])
 
-	const parallax = useParallax<HTMLDivElement>({
-		translateY: ['0px', '1600px'],
-		startScroll: start,
-		endScroll: start + 1600,
-		shouldAlwaysCompleteAnimation: true,
-	})
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollPosition = window.scrollY
+			if (currentScrollPosition <= start + 2000 && isFinished) {
+				setIsFinished(false)
+			} else if (currentScrollPosition > start + 2000 && !isFinished) {
+				setIsFinished(true)
+			}
+		}
+		window.addEventListener('scroll', handleScroll)
+		return () => {
+			window.removeEventListener('scroll', handleScroll)
+		}
+	}, [start, isFinished])
 
 	return (
-		<div
-			className={styles.container}
-			ref={(node) => {
-				if (node) {
-					parallax.ref.current = node
-				}
-				ref.current = node
-			}}
-		>
-			<div className={styles.header}>
+		<ScrollYContainer height={2200} stop={2000}>
+			<div
+				className={styles.header}
+				ref={headerRef}
+				style={{
+					top: isFinished ? '2000px' : '0',
+				}}
+			>
 				8 этапов работы нашей компании{' '}
-				<span className={`${styles.highlight} ${isVisible ? styles.moove : ''}`}>с клиентами</span>
+				<span
+					className={`${styles.highlight} ${isVisible ? styles.moove : ''}`}
+				>
+					с клиентами
+				</span>
 			</div>
-			<div className={styles.folders}>
+			<div className={styles.folders} ref={foldersRef}>
 				<Folder
 					title={'Консультация'}
 					startScroll={start}
@@ -102,7 +117,7 @@ export const Folders = () => {
 				<Folder
 					title={'Взаимодействие с кредиторами'}
 					startScroll={start + 1000}
-					top={top * 1.2}
+					top={top * 1.8}
 					left={left * 5 - 5}
 					zIndex={3}
 				/>
@@ -116,11 +131,11 @@ export const Folders = () => {
 				<Folder
 					title={'Завершение процедуры'}
 					startScroll={start + 1400}
-					top={top * 1.8}
+					top={top * 1.2}
 					left={left * 7}
 					zIndex={1}
 				/>
 			</div>
-		</div>
+		</ScrollYContainer>
 	)
 }

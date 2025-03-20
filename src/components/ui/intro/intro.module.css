@@ -1,8 +1,9 @@
-.intro {
+.container {
   display: flex;
   flex-direction: column;
   gap: 30px;
   padding: 34px 20px 200px 34px;
+  border: 1px solid yellow;
 }
 
 .title {

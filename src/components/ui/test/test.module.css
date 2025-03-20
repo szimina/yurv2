@@ -1,3 +1,13 @@
+.container {
+  display: flex;
+	flex-direction: column;
+	width: 100%;
+  max-width: 1192px;
+  height: 1800px;
+	will-change: transform;
+  transition: position 0.3s ease; 
+}
+
 .header {
   position: absolute; 
 	align-self: center;
@@ -11,8 +21,8 @@
 }
 
 .folders {
-	position: relative;
-	margin-top: 100px;
+  position: absolute;
+  top: 200px;
 }
 
 .highlight {
@@ -22,11 +32,11 @@
 }
 
 .moove {
-  animation: highlight-animation 1.5s forwards; /* Анимация и сохранение конечного состояния */
+  animation: highlight-animation 1.5s forwards;
 }
 
 @keyframes highlight-animation {
   to {
-    background-position: 0 0; /* Конечное состояние анимации */
+    background-position: 0 0; 
   }
 }

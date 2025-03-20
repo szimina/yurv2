@@ -6,9 +6,8 @@ import { Slip } from '../slip'
 
 export const Pipe = () => {
 	const [start, setStart] = useState<number>(0)
-	const [startScroll, setStartScroll] = useState(0);
-	const [endScroll, setEndScroll] = useState(0);
-
+	const [startScroll, setStartScroll] = useState(0)
+	const [endScroll, setEndScroll] = useState(0)
 
 	const sectionPipeRef = useRef<HTMLDivElement | null>(null)
 
@@ -19,8 +18,14 @@ export const Pipe = () => {
 					window.innerHeight / 2
 			)
 
-			const pipeContainer = ((window.innerWidth - 17) * 1.1 - 10) < 990 ? (window.innerWidth - 17) * 1.1 - 10 : 990
-			const netContainer = ((window.innerWidth *0.8 - 17) / 1.37 ) < 729 ? (window.innerWidth *0.8 - 17) / 1.37 : 729
+			const pipeContainer =
+				(window.innerWidth - 17) * 1.1 - 10 < 990
+					? (window.innerWidth - 17) * 1.1 - 10
+					: 990
+			const netContainer =
+				(window.innerWidth * 0.8 - 17) / 1.37 < 729
+					? (window.innerWidth * 0.8 - 17) / 1.37
+					: 729
 			const containerHeight = pipeContainer + netContainer + 100 + 250
 		}
 	}, [])
@@ -41,7 +46,7 @@ export const Pipe = () => {
 	const parallaxPipe = useParallax<HTMLDivElement>({
 		opacity: [0, 1],
 		startScroll: start,
-		endScroll: start + window.innerHeight,
+		endScroll: start + 300,
 		shouldAlwaysCompleteAnimation: true,
 	})
 
@@ -71,25 +76,39 @@ export const Pipe = () => {
 		}
 	}, [start])
 
-		const divRef = useRef<HTMLDivElement>(null);
-	
-		const parallax = useParallax<HTMLDivElement>({
-			translateY: ['0px', '3600px'],
-			startScroll: startScroll,
-			endScroll: endScroll,
-		});
-	
-		useEffect(() => {
-			if (divRef.current) {
-				const scrollPosition = divRef.current.getBoundingClientRect().bottom - window.innerHeight + window.scrollY + 270;
-			 setStartScroll(divRef.current.getBoundingClientRect().bottom - window.innerHeight + window.scrollY + 270);
-				setEndScroll(divRef.current.getBoundingClientRect().bottom - window.innerHeight + window.scrollY + 270 + 3600);
-			}
-		}, []);
+	const divRef = useRef<HTMLDivElement>(null)
+
+	const parallax = useParallax<HTMLDivElement>({
+		translateY: ['0px', '3600px'],
+		startScroll: startScroll,
+		endScroll: endScroll,
+	})
+
+	useEffect(() => {
+		if (divRef.current) {
+			const scrollPosition =
+				divRef.current.getBoundingClientRect().bottom -
+				window.innerHeight +
+				window.scrollY +
+				270
+			setStartScroll(
+				divRef.current.getBoundingClientRect().bottom -
+					window.innerHeight +
+					window.scrollY +
+					270
+			)
+			setEndScroll(
+				divRef.current.getBoundingClientRect().bottom -
+					window.innerHeight +
+					window.scrollY +
+					270 +
+					3600
+			)
+		}
+	}, [])
 
 	return (
-		<div className={styles.container} ref={parallax.ref} 
-		>
+		<div className={styles.container} ref={parallax.ref}>
 			<div
 				className={styles.pipecontainer}
 				ref={(node) => {
@@ -131,7 +150,6 @@ export const Pipe = () => {
 							}}
 						/>
 					</linearGradient>
-
 					<g
 						transform='translate(0.000000,1262.000000) scale(0.100000,-0.100000)'
 						fill='url(#gradient)'
@@ -1488,8 +1506,16 @@ c23 46 48 84 55 84 8 0 99 -16 203 -36z m606 -1 c-75 -133 -101 -173 -115
 							style={{ opacity: isTwoVisible ? 1 : 0 }}
 						/>
 					</Parallax>
-					<div style={{marginTop: `${route}px`}}>
-					<ShadowHeader text={['снижаем потери', 'за счет грамотного',  'планирования процедуры', 'банкротства']} start={start + route + 300} />
+					<div style={{ marginTop: `${route}px` }}>
+						<ShadowHeader
+							text={[
+								'снижаем потери',
+								'за счет грамотного',
+								'планирования процедуры',
+								'банкротства',
+							]}
+							start={start + route + 300}
+						/>
 					</div>
 					<Parallax
 						translateX={['100%', '60%']}
@@ -1686,15 +1712,33 @@ c23 46 48 84 55 84 8 0 99 -16 203 -36z m606 -1 c-75 -133 -101 -173 -115
 							/>
 						</g>
 					</svg>
-			
 				</div>
 			</div>
-			<div className={styles.slips} ref={divRef} >
-				<Slip startScroll={ startScroll} endScroll={ startScroll + 900} header={'Консультируем и сопровождаем'} buttons={['Юридически', 'Финансово', 'Психологически']}/>
-				<Slip startScroll={ startScroll + 900 } endScroll={ startScroll + 1800 } header={'Защищаем от кредиторов'} buttons={['Коллекторы', 'Банки', 'МФО', 'Суды']}/>
-				<Slip startScroll={ startScroll + 1800 } endScroll={ startScroll + 2700 } header={'Оформляем документы'} buttons={['Заявления', 'Отчеты', 'Ходатайства', 'Исковые']}/>
-				<Slip startScroll={startScroll + 2700} endScroll={startScroll + 3600} header={'Ведем судебные процессы'} buttons={['Арбитраж', 'Апелляции', 'Исполнительное', 'Обжалование']}/>
-
+			<div className={styles.slips} ref={divRef}>
+				<Slip
+					startScroll={startScroll}
+					endScroll={startScroll + 900}
+					header={'Консультируем и сопровождаем'}
+					buttons={['Юридически', 'Финансово', 'Психологически']}
+				/>
+				<Slip
+					startScroll={startScroll + 900}
+					endScroll={startScroll + 1800}
+					header={'Защищаем от кредиторов'}
+					buttons={['Коллекторы', 'Банки', 'МФО', 'Суды']}
+				/>
+				<Slip
+					startScroll={startScroll + 1800}
+					endScroll={startScroll + 2700}
+					header={'Оформляем документы'}
+					buttons={['Заявления', 'Отчеты', 'Ходатайства', 'Исковые']}
+				/>
+				<Slip
+					startScroll={startScroll + 2700}
+					endScroll={startScroll + 3600}
+					header={'Ведем судебные процессы'}
+					buttons={['Арбитраж', 'Апелляции', 'Исполнительное', 'Обжалование']}
+				/>
 			</div>
 		</div>
 	)
