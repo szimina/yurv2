@@ -26,6 +26,9 @@ import { FemidaBlock } from '../femida'
 import { Cards } from '../cards'
 import { useRef } from 'react'
 import { Folders } from '../folders'
+import { Net } from '../ui/net'
+import Header from '../ui/test/test'
+
 
 const App = () => {
 	return (
@@ -48,7 +51,8 @@ const App = () => {
 			<FemidaBlock />
 			<Cards />
 			<Pipe />
-			{/* <Folders /> */}
+      <Net/>
+			<Folders />
 			<div>Текст</div>
 			<div>Текст</div>
 			<div>Текст</div>

@@ -1,10 +1,11 @@
 import { FC, useState, useEffect } from 'react';
-import { useParallax } from 'react-scroll-parallax';
+import { Parallax, useParallax } from 'react-scroll-parallax';
 import styles from './slip.module.css';
-import { SlipUIProps } from './type';
+import { SlipUIProps, CSSEffect } from './type';
 
-export const Slip: FC<SlipUIProps> = ({ header, buttons, startScroll, endScroll }) => {
+export const Slip: FC<SlipUIProps> = ({ header, buttons, startScroll, endScroll, index }) => {
   const [progress, setProgress] = useState(0);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,8 +43,10 @@ export const Slip: FC<SlipUIProps> = ({ header, buttons, startScroll, endScroll 
   ? progress  
   : progress < 0.9 
     ? 1.1
-    : 1 - progress; 
+    : 1 - progress /4 ; 
 
+    const getTranslateX:CSSEffect[]=[['0%', '-100%', 'easeInCubic'], ['0%', '100%', 'easeInCubic'], ['0%', '100%', 'easeInCubic'], ['0%', '-100%', 'easeInCubic']]
+    const getTranslateY:CSSEffect[]=[['0px', '-1700px', 'easeInCubic'],['0px', '-1700px', 'easeInCubic'],['0px', '1700px', 'easeInCubic'], ['0px', '-1700px', 'easeInCubic'] ]
 
   return (
     <div
@@ -51,10 +54,25 @@ export const Slip: FC<SlipUIProps> = ({ header, buttons, startScroll, endScroll 
       style={{
         opacity: opacity,
         transform: `translateX(${translateX}px) scale(${scale})`,
+
         transition: 'opacity 0.3s, transform 0.3s',
       }}
     >
-      <div className={styles.circle}></div>
+      <div className={styles.circle}>
+					<Parallax
+						translateX={getTranslateX[index]}
+						translateY={getTranslateY[index]}
+						startScroll={startScroll+100}
+						endScroll={endScroll}
+						className={styles.flashbox}
+						shouldAlwaysCompleteAnimation={true}
+					>
+						<div
+							className={styles.flash}
+							style={{ opacity: progress > 0.1 || progress > 0.8 ? 1 : 0 }}
+						/>
+					</Parallax></div>
+     
       <h3 className={styles.header}>{header}</h3>
       <div className={styles.buttons}>
         {buttons.map((button, index) => (

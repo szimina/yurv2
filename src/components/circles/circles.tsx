@@ -11,10 +11,6 @@ import { Parallax } from "react-scroll-parallax";
 import { debounce } from "lodash";
 
 export const Circles: FC<CircleProps> = ({ text }) => {
-    const handleScroll = debounce(() => {
-    }, 16); 
-    window.addEventListener('scroll', handleScroll);
-
   const [fromTop, setFromTop] = useState(0);
   const stateOneAndFour = {
     start: "0px",
@@ -40,7 +36,6 @@ export const Circles: FC<CircleProps> = ({ text }) => {
     if (container) {
       const currentClientWidth = container.getBoundingClientRect().width;
 
-      //вычисляем смещение относительно текущей позиции для каждого отдельно взятого элемента
       const one = document.getElementById("one");
       const two = document.getElementById("two");
       const three = document.getElementById("three");
@@ -144,7 +139,6 @@ export const Circles: FC<CircleProps> = ({ text }) => {
           startScroll={fromTop}
           endScroll={fromTop + 1000}
           className={styles.moove}
-          shouldAlwaysCompleteAnimation={true}
 
         >
           <Parallax

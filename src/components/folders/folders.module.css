@@ -4,15 +4,15 @@
 	width: 60vw;
   height: 200px;
 	color: var(--main-color);
-	font-size: clamp(1.37rem, 1.19rem + 0.87vw, 1.94rem);
-	font-family: var(--accent-font);
+  font-size: clamp(1.5rem, 1rem + 2.32vw, 3rem);
+  font-family: var(--accent-font);
 	text-align: center;
 	text-transform: uppercase;
 }
 
 .folders {
 	position: relative;
-	margin-top: 100px;
+	margin-top: 300px;
 }
 
 .highlight {
@@ -22,11 +22,11 @@
 }
 
 .moove {
-  animation: highlight-animation 1.5s forwards; /* Анимация и сохранение конечного состояния */
+  animation: highlight-animation 1.5s forwards;
 }
 
 @keyframes highlight-animation {
   to {
-    background-position: 0 0; /* Конечное состояние анимации */
+    background-position: 0 0;
   }
 }

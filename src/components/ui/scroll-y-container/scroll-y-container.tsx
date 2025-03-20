@@ -21,7 +21,7 @@ export const ScrollYContainer: FC<ScrollYContainerProps> = ({
 			const sectionOffsetTop = currentScrollPosition + sectionTop
 			const touchPosition = sectionOffsetTop
 
-			if (currentScrollPosition < touchPosition) {
+			if (currentScrollPosition < touchPosition  ) {
 				if (isFixed) setIsFixed(false)
 				if (isReleased) setIsReleased(false)
 			} else if (
@@ -68,7 +68,7 @@ export const ScrollYContainer: FC<ScrollYContainerProps> = ({
 			style={{
 				height: `${height}px`,
 				position: 'relative',
-				border: '1px solid white',
+				// border: '1px solid white',
 			}}
 			ref={sectionRef}
 		>
@@ -78,7 +78,7 @@ export const ScrollYContainer: FC<ScrollYContainerProps> = ({
 				style={{
 					position: isReleased ? 'absolute' : isFixed ? 'fixed' : 'relative',
 					top: isReleased
-						? `${height - (height - stop)}px`
+						? `${height - (height - stop )}px`
 						: isFixed
 							? '0'
 							: 'auto',

@@ -1,42 +1,16 @@
-.container {
-  display: flex;
-	flex-direction: column;
-	width: 100%;
-  max-width: 1192px;
-  height: 1800px;
-	will-change: transform;
-  transition: position 0.3s ease; 
-}
-
 .header {
-  position: absolute; 
-	align-self: center;
-	width: 60vw;
-  height: 200px;
-	color: var(--main-color);
-	font-size: clamp(1.37rem, 1.19rem + 0.87vw, 1.94rem);
-	font-family: var(--accent-font);
-	text-align: center;
-	text-transform: uppercase;
-}
-
-.folders {
-  position: absolute;
-  top: 200px;
-}
-
-.highlight {
-  background: linear-gradient(90deg, var(--main-accent-color) 50%, transparent 50%);
-  background-position: 100% 0;
+  font-size: 3rem;
+  font-weight: bold;
+  color: gray; /* Изначальный цвет текста */
+  background: linear-gradient(90deg, white, white 50%, gray 50%, gray);
   background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-position: calc(-100% * var(--progress)) 0; /* Управляем позицией градиента */
+  transition: background-position 0.1s linear; /* Плавное обновление */
 }
 
-.moove {
-  animation: highlight-animation 1.5s forwards;
-}
+@keyframes slide {
 
-@keyframes highlight-animation {
-  to {
-    background-position: 0 0; 
-  }
 }

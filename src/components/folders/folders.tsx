@@ -7,7 +7,6 @@ export const Folders = () => {
 	const [left, setLeft] = useState<number>(0)
 	const [top, setTop] = useState<number>(0)
 	const [isVisible, setIsVisible] = useState<boolean>(false)
-	const [isFinished, setIsFinished] = useState<boolean>(false)
 
 	const headerRef = useRef<HTMLDivElement>(null)
 	const foldersRef = useRef<HTMLDivElement>(null)
@@ -47,28 +46,15 @@ export const Folders = () => {
 		}
 	}, [isVisible, start])
 
-	useEffect(() => {
-		const handleScroll = () => {
-			const currentScrollPosition = window.scrollY
-			if (currentScrollPosition <= start + 2000 && isFinished) {
-				setIsFinished(false)
-			} else if (currentScrollPosition > start + 2000 && !isFinished) {
-				setIsFinished(true)
-			}
-		}
-		window.addEventListener('scroll', handleScroll)
-		return () => {
-			window.removeEventListener('scroll', handleScroll)
-		}
-	}, [start, isFinished])
+
 
 	return (
-		<ScrollYContainer height={2200} stop={2000}>
+		<ScrollYContainer height={2200} stop={1700}>
 			<div
 				className={styles.header}
 				ref={headerRef}
 				style={{
-					top: isFinished ? '2000px' : '0',
+					marginTop: '100px'
 				}}
 			>
 				8 этапов работы нашей компании{' '}

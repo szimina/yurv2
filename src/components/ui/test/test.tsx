@@ -1,60 +1,47 @@
-import React, { useState, useEffect, useRef } from 'react';
+import  { FC, useRef, useState, useEffect } from 'react';
+import styles from './test.module.css'
+import { AnimatedHeaderProps } from './type';
 
-const StickyContainer = () => {
-  const [isSticky, setIsSticky] = useState(false);
-  const [offset, setOffset] = useState(0);
-  const parentRef = useRef<HTMLDivElement>(null); // Ref для родительского контейнера
+const Header: FC<AnimatedHeaderProps> = ({ text }) => {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0); // Прогресс анимации (от 0 до 1)
 
   useEffect(() => {
+    const headerElement = headerRef.current;
+
+    // Функция для обновления прогресса анимации
     const handleScroll = () => {
-      const parent = parentRef.current;
-      if (!parent) return;
+      if (headerElement) {
+        const rect = headerElement.getBoundingClientRect();
+        const viewportHeight = window.innerHeight * 10;
+        const elementHeight = rect.height;
 
-      const parentRect = parent.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const parentOffsetTop = parent.offsetTop;
-
-      // 1. Проверяем, достиг ли верхний край родителя верха экрана
-      if (parentRect.top <= 0) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-
-      // 2. Вычисляем, насколько родительский контейнер уехал за верхнюю границу экрана
-      const scrollOffset = scrollTop - parentOffsetTop;
-
-      // 3. Если прокручено больше 600px, начинаем двигать синий контейнер вверх
-      if (scrollOffset > 600) {
-        setOffset(scrollOffset - 600);
-      } else {
-        setOffset(0);
+        // Вычисляем прогресс анимации
+        const visibleHeight = Math.min(viewportHeight, rect.bottom) - Math.max(0, rect.top);
+        const newProgress = Math.max(0, Math.min(1, visibleHeight / elementHeight));
+        setProgress(newProgress);
       }
     };
 
+    // Добавляем обработчик скролла
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll(); // Инициализация при монтировании
+
+    // Убираем обработчик при размонтировании
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
-    <div
-      ref={parentRef}
-      style={{ height: '1000px', position: 'relative', border: '1px solid pink' }}
+    <h1
+      ref={headerRef}
+      className={styles.header}
+      style={{ '--progress': progress } as React.CSSProperties} // Передаем прогресс в CSS
     >
-      <div
-        style={{
-          height: '200px',
-          width: '100%',
-          backgroundColor: 'blue',
-          position: isSticky ? 'fixed' : 'absolute',
-          top: isSticky ? `${Math.max(-offset, 0)}px` : '0px',
-          transition: 'top 0.2s',
-        }}
-      >
-        {/* Содержимое синего контейнера */}
-      </div>
-    </div>
+      {text}
+    </h1>
   );
 };
 
-export default StickyContainer;
+export default Header;

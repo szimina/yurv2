@@ -3,7 +3,7 @@
 	flex-direction: column;
 	width: 100%;
   max-width: 1192px;
- 	will-change: transform;
 	height: 100%;
+ 	will-change: transform;
 }
 

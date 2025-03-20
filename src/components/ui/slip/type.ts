@@ -3,4 +3,11 @@ export type SlipUIProps = {
   buttons: string[];
   startScroll: number;
   endScroll: number;
+  index: number;
 };
+
+type EasingParam = 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic'; 
+
+export type CSSEffect = [string, string, EasingParam];
+
+

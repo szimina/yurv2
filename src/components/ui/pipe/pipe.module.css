@@ -1,12 +1,10 @@
 .container {
 	position: relative;
+	z-index: -1;
 	display: flex;
 	flex-direction: column;
-	/* margin-top: 100px;  */
-	will-change: transform;
 	height: 100%;
-	border: 1px solid gold;
-	z-index: -1;
+	will-change: transform;
 }
 
 .pipecontainer {
@@ -65,27 +63,6 @@
 	border-radius: 50%;
 	box-shadow: 0 0 50px 20px var(--main-accent-color);
 	filter: blur(5px);
-}
-
-.netcontainer {
-	display: flex;
-	justify-content: center;
-	place-self: center flex-end;
-	width: calc(100vw - 17px);
-	max-width: 1000px;
-	height: calc((100vw - 17px) / 1.37);
-	max-height: 729px;
-	margin-top: -20vw;
-	overflow: visible;
-}
-
-.net {
-	position: absolute;
-	display: flex;
-	width: calc(100vw - 17px);
-	max-width: 1000px;
-	height: calc((100vw - 17px) / 1.37);
-	max-height: 729px;
 }
 
 .slips {

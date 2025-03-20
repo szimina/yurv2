@@ -64,7 +64,7 @@ export const FemidaBlock = () => {
 			<div className={styles.svg}>
 				<Femida />
 			</div>
-			<ShadowHeader start={containerBottom} text={['Добиваемся результатов', 'за счет жестких принципов', 'и мягких подходов' ]}/>
+			<ShadowHeader start={containerBottom} text={['Добиваемся результатов', 'за счет жестких принципов', 'и мягких подходов' ]} marginTop={15}/>
 		</div>
 	)
 }

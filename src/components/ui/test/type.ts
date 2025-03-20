@@ -1,3 +1,3 @@
-export type ScrollYContainerProps = {
-  height: number;
+export type AnimatedHeaderProps = {
+  text: string;
 };

@@ -1,0 +1,37 @@
+.netcontainer {
+	position: relative;
+	top: -18vw;
+	display: flex;
+	justify-content: center;
+	place-self: center flex-end;
+	width: calc(100vw - 17px);
+	max-width: 1000px;
+	height: calc((100vw - 17px) / 1.37);
+	max-height: 729px;
+	overflow: visible;
+}
+
+.net {
+	position: absolute;
+	display: flex;
+	width: calc(100vw - 17px);
+	max-width: 1000px;
+	height: calc((100vw - 17px) / 1.37);
+	max-height: 729px;
+}
+
+.slips {
+	position: absolute;
+	top: 50vh;
+	display: flex;
+	width: calc(100vw - 17px);
+	place-self: center flex-end;
+	height: 300px;
+	overflow: visible;
+}
+
+@media (width <=998px) {
+	.container {
+		margin-top: 700px;
+	}
+}
