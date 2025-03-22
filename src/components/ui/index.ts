@@ -11,3 +11,5 @@ export * from './scroll-indicator';
 export * from './slip';
 export * from './folder';
 export * from './scroll-y-container';
+export * from './circle';
+export * from './scrollbar-width'

@@ -1,86 +1,97 @@
-import { FC, useState, useEffect } from 'react';
-import { Parallax, useParallax } from 'react-scroll-parallax';
-import styles from './slip.module.css';
-import { SlipUIProps, CSSEffect } from './type';
+import { FC, useState, useEffect } from 'react'
+import { Parallax, useParallax } from 'react-scroll-parallax'
+import styles from './slip.module.css'
+import { SlipUIProps, CSSEffect } from './type'
 
-export const Slip: FC<SlipUIProps> = ({ header, buttons, startScroll, endScroll, index }) => {
-  const [progress, setProgress] = useState(0);
-  
+export const Slip: FC<SlipUIProps> = ({
+	header,
+	buttons,
+	startScroll,
+	endScroll,
+	index,
+}) => {
+	const [progress, setProgress] = useState(0)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      if (currentScroll >= startScroll && currentScroll <= endScroll) {
-        const newProgress = (currentScroll - startScroll) / (endScroll - startScroll);
-        setProgress(newProgress);
-      } else if (currentScroll < startScroll) {
-        setProgress(0);
-      } else if (currentScroll > endScroll) {
-        setProgress(1);
-      }
-    };
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScroll = window.scrollY
+			if (currentScroll >= startScroll && currentScroll <= endScroll) {
+				const newProgress =
+					(currentScroll - startScroll) / (endScroll - startScroll)
+				setProgress(newProgress)
+			} else if (currentScroll < startScroll) {
+				setProgress(0)
+			} else if (currentScroll > endScroll) {
+				setProgress(1)
+			}
+		}
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [startScroll, endScroll]);
+		window.addEventListener('scroll', handleScroll)
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [startScroll, endScroll])
 
-  const opacity = progress < 0.3 
-  ? progress * 100 
-  : progress < 0.9 
-    ? 1
-    : 1 - progress; 
+	const opacity =
+		progress < 0.3 ? progress * 100 : progress < 0.9 ? 1 : 1 - progress
 
-  const distance = window.innerWidth - 350  
-  
-  const translateX = 
-  progress < 0.3 
-    ? -progress * distance *2 
-    : progress < 0.9 
-      ? -0.3 * distance 
-      : -progress * distance; 
-      
-  const scale = progress < 0.3 
-  ? progress  
-  : progress < 0.9 
-    ? 1.1
-    : 1 - progress /4 ; 
+	const distance = window.innerWidth - 350
 
-    const getTranslateX:CSSEffect[]=[['0%', '-100%', 'easeInCubic'], ['0%', '100%', 'easeInCubic'], ['0%', '100%', 'easeInCubic'], ['0%', '-100%', 'easeInCubic']]
-    const getTranslateY:CSSEffect[]=[['0px', '-1700px', 'easeInCubic'],['0px', '-1700px', 'easeInCubic'],['0px', '1700px', 'easeInCubic'], ['0px', '-1700px', 'easeInCubic'] ]
+	const translateX =
+		progress < 0.3
+			? -progress * distance * 2
+			: progress < 0.9
+				? -0.3 * distance
+				: -progress * distance
 
-  return (
-    <div
-      className={styles.container}
-      style={{
-        opacity: opacity,
-        transform: `translateX(${translateX}px) scale(${scale})`,
+	const scale =
+		progress < 0.3 ? progress : progress < 0.9 ? 1.1 : 1 - progress / 4
 
-        transition: 'opacity 0.3s, transform 0.3s',
-      }}
-    >
-      <div className={styles.circle}>
-					<Parallax
-						translateX={getTranslateX[index]}
-						translateY={getTranslateY[index]}
-						startScroll={startScroll+100}
-						endScroll={endScroll}
-						className={styles.flashbox}
-						shouldAlwaysCompleteAnimation={true}
-					>
-						<div
-							className={styles.flash}
-							style={{ opacity: progress > 0.1 || progress > 0.8 ? 1 : 0 }}
-						/>
-					</Parallax></div>
-     
-      <h3 className={styles.header}>{header}</h3>
-      <div className={styles.buttons}>
-        {buttons.map((button, index) => (
-          <p key={index} className={styles.label}>
-            {button}
-          </p>
-        ))}
-      </div>
-    </div>
-  );
-};
+	const getTranslateX: CSSEffect[] = [
+		['0%', '-50%', 'easeInCubic'],
+		['0%', '50%', 'easeInCubic'],
+		['0%', '50%', 'easeInCubic'],
+		['0%', '-50%', 'easeInCubic'],
+	]
+	const getTranslateY: CSSEffect[] = [
+		['0px', '-1700px', 'easeInCubic'],
+		['0px', '-1700px', 'easeInCubic'],
+		['0px', '1700px', 'easeInCubic'],
+		['0px', '-1700px', 'easeInCubic'],
+	]
+
+	return (
+		<div
+			className={styles.container}
+			style={{
+				opacity: opacity,
+				transform: `translateX(${translateX}px) scale(${scale})`,
+
+				transition: 'opacity 0.3s, transform 0.3s',
+			}}
+		>
+			<div className={styles.circle}>
+				<Parallax
+					translateX={getTranslateX[index]}
+					translateY={getTranslateY[index]}
+					startScroll={startScroll + 100}
+					endScroll={endScroll}
+					className={styles.flashbox}
+					shouldAlwaysCompleteAnimation={true}
+				>
+					<div
+						className={styles.flash}
+						style={{ opacity: progress > 0.1 || progress > 0.8 ? 1 : 0 }}
+					/>
+				</Parallax>
+			</div>
+
+			<h3 className={styles.header}>{header}</h3>
+			<div className={styles.buttons}>
+				{buttons.map((button, index) => (
+					<p key={index} className={styles.label}>
+						{button}
+					</p>
+				))}
+			</div>
+		</div>
+	)
+}

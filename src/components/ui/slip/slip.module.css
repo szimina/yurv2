@@ -16,16 +16,14 @@
 	height: 30px;
 	border: 2px solid var(--main-color);
 	border-radius: 100%;
-	
 }
-
 
 .flashbox {
 	position: absolute;
 	top: 5px;
 	left: -9px;
 	display: flex;
-	width: 300px;
+	width: 220px;
 	height: 300px;
 }
 

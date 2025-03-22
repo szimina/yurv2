@@ -17,7 +17,7 @@ export const Cards = () => {
 	useEffect(() => {
 		const handleResize = () => {
 			if (window.innerWidth <= 380) {
-				setRotate(3)
+				setRotate(2)
 			} else {
 				setRotate(10)
 			}

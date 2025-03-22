@@ -58,6 +58,11 @@
     gap: 15px;
     padding: 34px 10px;
   }
+
+  .flash {
+    width: 300px;
+    height: 300px;
+  }  
   
 } 
 

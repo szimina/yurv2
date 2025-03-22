@@ -28,3 +28,16 @@
     transform: rotate(360deg);
   }
 }
+
+.text {
+  z-index: 1;
+  display: flex;
+  padding: 0 10px;
+  color: var(--hover-color);
+  font-weight: 400;
+  font-size: clamp(1rem, 0.92rem + 0.39vw, 1.25rem);
+  font-family: var(--main-font);
+  text-align: center;
+}
+
+

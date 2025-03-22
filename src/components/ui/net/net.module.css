@@ -4,27 +4,25 @@
 	display: flex;
 	justify-content: center;
 	place-self: center flex-end;
-	width: calc(100vw - 17px);
+	width: calc(100vw - var(--scrollbar-width));
 	max-width: 1000px;
-	height: calc((100vw - 17px) / 1.37);
+	height: calc((100vw - var(--scrollbar-width)) / 1.37);
 	max-height: 729px;
 	overflow: visible;
+	border: 1px solid orange;
 }
 
 .net {
 	position: absolute;
-	display: flex;
-	width: calc(100vw - 17px);
-	max-width: 1000px;
-	height: calc((100vw - 17px) / 1.37);
-	max-height: 729px;
+	width: calc(100vw - var(--scrollbar-width));
+	aspect-ratio: 1710 / 1244;
 }
 
 .slips {
 	position: absolute;
 	top: 50vh;
 	display: flex;
-	width: calc(100vw - 17px);
+	width: calc(100vw - var(--scrollbar-width));
 	place-self: center flex-end;
 	height: 300px;
 	overflow: visible;
