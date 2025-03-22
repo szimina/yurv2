@@ -1,42 +1,20 @@
-.container {
-  display: flex;
-  height: 1300px;
-  overflow: visible;
-}
-
-.moove {
-  position: absolute;
-  inset: 600px 0 0;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  gap: clamp(1.88rem, -0.48rem + 4.9vw, 3.75rem);
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  will-change: transform;
-}
-
 .circle {
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 300px;
-  max-width: 300px;
-  min-height: 300px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 300px;
   will-change: transform;
 }
 
 .circle::before {
   content: "";
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: var(--gradient);
   animation: rotate-gradient 5s linear infinite;
 }
@@ -48,110 +26,5 @@
 
   100% {
     transform: rotate(360deg);
-  }
-}
-
-.text {
-  z-index: 1;
-  display: flex;
-  padding: 0 10px;
-  color: var(--hover-color);
-  font-weight: 400;
-  font-size: clamp(1rem, 0.92rem + 0.39vw, 1.25rem);
-  font-family: var(--main-font);
-  text-align: center;
-}
-
-.one {
-  z-index: 1;
-}
-
-.two {
-  z-index: 2;
-  margin-right: 20px;
-}
-
-.three {
-  z-index: 3;
-  margin-left: 20px;
-}
-
-.four {
-  z-index: 4;
-}
-
-.five {
-  position: absolute;
-  top: 0;
-  z-index: 5;
-}
-
-.logo {
-  z-index: 1;
-  width: 100px;
-  height: 100px;
-
-}
-
-@media (376px <= width <=767px) {
-  .moove {
-    inset: 300px 0 0;
-    justify-content: center;
-    align-items: center;
-    height: 767px;
-  }
-
-  .circle {
-    position: absolute;
-    min-width: 170px;
-    max-width: 170px;
-    min-height: 170px;
-    border-radius: 170px;
-  }
-
-  .two {
-    margin-right: 0;
-  }
-
-  .three {
-    margin-left: 0;
-  }
-
-  .five {
-    top: auto;
-  }
-}
-
-@media (320px <= width <=375px) {
-  .moove {
-    inset: 300px 0 0;
-    justify-content: center;
-    align-items: center;
-    height: 375px;
-  }
-
-  .circle {
-    position: absolute;
-    min-width: 150px;
-    max-width: 150px;
-    min-height: 150px;
-    border-radius: 150px;
-  }
-
-  .two {
-    margin-right: 0;
-  }
-
-  .three {
-    margin-left: 0;
-  }
-
-  .five {
-    top: auto;
-  }
-
-  .logo {
-    width: 70px;
-    height: 70px;
   }
 }

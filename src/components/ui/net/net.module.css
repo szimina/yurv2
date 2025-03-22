@@ -4,17 +4,17 @@
 	display: flex;
 	justify-content: center;
 	place-self: center flex-end;
-	width: calc(100vw - var(--scrollbar-width));
+	width: calc(100vw - var(--scrollbar-width) - 2px);
 	max-width: 1000px;
-	height: calc((100vw - var(--scrollbar-width)) / 1.37);
+	height: calc((100vw - var(--scrollbar-width) - 2px ) / 1.37);
 	max-height: 729px;
 	overflow: visible;
 	border: 1px solid orange;
 }
 
 .net {
-	position: absolute;
-	width: calc(100vw - var(--scrollbar-width));
+	position: absolute; 
+	width: calc(100vw - var(--scrollbar-width) - 2px );
 	aspect-ratio: 1710 / 1244;
 }
 
@@ -22,7 +22,7 @@
 	position: absolute;
 	top: 50vh;
 	display: flex;
-	width: calc(100vw - var(--scrollbar-width));
+	width: calc(100vw - var(--scrollbar-width) - 2px);
 	place-self: center flex-end;
 	height: 300px;
 	overflow: visible;
