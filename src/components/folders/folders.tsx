@@ -1,21 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { Folder, ScrollYContainer } from '../ui'
 import styles from './folders.module.css'
+import { useScrollPosition } from '../../utils/useScrollPosition'
 
 export const Folders = () => {
-	const [start, setStart] = useState<number>(0)
 	const [left, setLeft] = useState<number>(0)
 	const [top, setTop] = useState<number>(0)
 	const [isVisible, setIsVisible] = useState<boolean>(false)
 
-	const headerRef = useRef<HTMLDivElement>(null)
+	const headerRef = useRef<HTMLDivElement>(null!)
 	const foldersRef = useRef<HTMLDivElement>(null)
 
-	useEffect(() => {
-		if (headerRef.current) {
-			setStart(headerRef.current.getBoundingClientRect().top)
-		}
-	}, [])
+	const start = useScrollPosition(headerRef)
 
 	useEffect(() => {
 		if (foldersRef.current) {
@@ -46,20 +42,19 @@ export const Folders = () => {
 		}
 	}, [isVisible, start])
 
-
-
 	return (
-		<ScrollYContainer height={2200} stop={1700}>
+		<ScrollYContainer height={2500} stop={1700}>
 			<div
 				className={styles.header}
 				ref={headerRef}
 				style={{
-					marginTop: '100px'
+					marginTop: '100px',
 				}}
 			>
 				8 этапов работы нашей компании{' '}
 				<span
 					className={`${styles.highlight} ${isVisible ? styles.moove : ''}`}
+					data-text='с клиентами' 
 				>
 					с клиентами
 				</span>

@@ -1,119 +1,52 @@
-import { Parallax, useParallax } from 'react-scroll-parallax'
-import styles from './pipe.module.css'
-import { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
+interface PipeSvgProps extends React.SVGProps<SVGSVGElement> {
+	ref?: React.Ref<SVGSVGElement>
+}
 
-export const Pipe = () => {
-	const [start, setStart] = useState<number>(0)
-
-	const sectionPipeRef = useRef<HTMLDivElement | null>(null)
-
-	useEffect(() => {
-		if (sectionPipeRef.current) {
-			setStart(
-				sectionPipeRef.current.getBoundingClientRect().top -
-					window.innerHeight / 2
-			)
-		}
-	}, [])
-
-	const [route, setRoute] = useState<number>(0)
-	const svgRef = useRef<SVGSVGElement | null>(null)
-
-	useEffect(() => {
-		if (svgRef.current) {
-			setRoute(svgRef.current.getBoundingClientRect().height)
-		}
-	}, [])
-
-	const [isOneVisible, setOneVisible] = useState(true)
-	const [isTwoVisible, setTwoVisible] = useState(false)
-	const [isThreeVisible, setThreeVisible] = useState(false)
-
-	const parallaxPipe = useParallax<HTMLDivElement>({
-		opacity: [0, 1],
-		startScroll: start,
-		endScroll: start + 300,
-		shouldAlwaysCompleteAnimation: true,
-	})
-
-	useEffect(() => {
-		const handleScroll = () => {
-			const scrollPosition = window.scrollY
-
-			if (scrollPosition >= start + 300 + route * 0.7) {
-				setOneVisible(false)
-				setTwoVisible(false)
-				setThreeVisible(true)
-			} else if (scrollPosition >= start + 300 + route * 0.4) {
-				setOneVisible(false)
-				setTwoVisible(true)
-				setThreeVisible(false)
-			} else {
-				setOneVisible(true)
-				setTwoVisible(false)
-				setThreeVisible(false)
-			}
-		}
-
-		window.addEventListener('scroll', handleScroll)
-
-		return () => {
-			window.removeEventListener('scroll', handleScroll)
-		}
-	}, [start])
-
-	return (
-		<div className={styles.container}>
-			<div
-				className={styles.pipecontainer}
-				ref={(node) => {
-					if (node) {
-						parallaxPipe.ref.current = node
-					}
-					sectionPipeRef.current = node
-				}}
+export const PipeSvg = React.forwardRef<SVGSVGElement, PipeSvgProps>(
+	({ className, ...props }, ref) => (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			width='100%'
+			height='100%'
+			viewBox='0 60 1080 1200'
+			fill='none'
+			className={className}
+			ref={ref}
+			{...props}
+		>
+			<linearGradient id='gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
+				<stop
+					offset='0%'
+					style={{
+						stopColor: 'var(--main-accent-color)',
+						stopOpacity: 1,
+					}}
+				/>
+				<stop
+					offset='70%'
+					style={{
+						stopColor: 'var(--light-background-color)',
+						stopOpacity: 1,
+					}}
+				/>
+				<stop
+					offset='100%'
+					style={{
+						stopColor: 'var(--main-background-color)',
+						stopOpacity: 1,
+					}}
+				/>
+			</linearGradient>
+			<g
+				transform='translate(0.000000,1262.000000) scale(0.100000,-0.100000)'
+				fill='url(#gradient)'
+				stroke='url(#gradient)'
 			>
-				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					width='100%'
-					height='100%'
-					viewBox='0 60 1080 1200'
-					fill='none'
-					className={styles.pipe}
-					ref={svgRef}
-				>
-					<linearGradient id='gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
-						<stop
-							offset='0%'
-							style={{
-								stopColor: 'var(--main-accent-color)',
-								stopOpacity: 1,
-							}}
-						/>
-						<stop
-							offset='70%'
-							style={{
-								stopColor: 'var(--light-background-color)',
-								stopOpacity: 1,
-							}}
-						/>
-						<stop
-							offset='100%'
-							style={{
-								stopColor: 'var(--main-background-color)',
-								stopOpacity: 1,
-							}}
-						/>
-					</linearGradient>
-					<g
-						transform='translate(0.000000,1262.000000) scale(0.100000,-0.100000)'
-						fill='url(#gradient)'
-						stroke='url(#gradient)'
-					>
-						<path
-							stroke='url(#gradient)'
-							d='M8278 11943 l-167 -13 -182 -70 c-100 -39 -190 -75 -201 -81 -11 -6
+				<path
+					stroke='url(#gradient)'
+					d='M8278 11943 l-167 -13 -182 -70 c-100 -39 -190 -75 -201 -81 -11 -6
 -90 -62 -176 -125 l-157 -114 -119 -163 c-68 -93 -141 -207 -171 -267 -86
 -170 -160 -243 -475 -471 -214 -155 -831 -476 -1275 -664 -82 -35 -190 -82
 -240 -105 -109 -50 -237 -99 -495 -190 -107 -37 -251 -89 -320 -115 -137 -51
@@ -1431,58 +1364,10 @@ m298 -65 c-4 -7 -29 -47 -56 -90 l-49 -76 -102 -40 c-168 -65 -227 -85 -233
 c23 46 48 84 55 84 8 0 99 -16 203 -36z m606 -1 c-75 -133 -101 -173 -115
 -177 -30 -10 -155 -24 -265 -31 l-108 -7 44 88 45 89 188 21 c104 12 195 22
 202 23 7 0 11 -2 9 -6z'
-						/>
-					</g>
-				</svg>
-				<div className={styles.flashcontainer}>
-					<Parallax
-						translateX={['100%', '0%', 'easeInCubic']}
-						translateY={['0px', `${route * 0.4}px`]}
-						startScroll={start + 300}
-						endScroll={start + 300 + route * 0.4}
-						className={styles.flashbox}
-						shouldAlwaysCompleteAnimation={true}
-					>
-						<div
-							className={styles.flash}
-							style={{ opacity: isOneVisible ? 1 : 0 }}
-						/>
-					</Parallax>
-					<Parallax
-						translateX={['0%', '100%', 'easeOutCubic']}
-						translateY={['0px', `${route * 0.3}px`]}
-						startScroll={start + 300 + route * 0.4}
-						endScroll={start + 300 + route * 0.7}
-						className={styles.flashbox}
-						style={{ top: `${route * 0.4}px` }}
-						shouldAlwaysCompleteAnimation={true}
-					>
-						<div
-							className={styles.flash}
-							style={{ opacity: isTwoVisible ? 1 : 0 }}
-						/>
-					</Parallax>
-
-					<Parallax
-						translateX={['100%', '60%']}
-						translateY={['0px', `${route * 0.2}px`]}
-						startScroll={start + 300 + route * 0.7}
-						endScroll={start + 300 + route}
-						className={styles.flashbox}
-						style={{ top: `${route * 0.7}px` }}
-						shouldAlwaysCompleteAnimation={true}
-					>
-						<div
-							className={styles.flash}
-							style={{
-								opacity: isThreeVisible ? 1 : 0,
-								transform: `scale(${isThreeVisible ? 3 : 1})`,
-								transition: 'transform 0.5s ease-out, opacity 0.5s ease-out',
-							}}
-						/>
-					</Parallax>
-				</div>
-			</div>
-		</div>
+				/>
+			</g>
+		</svg>
 	)
-}
+)
+
+PipeSvg.displayName = 'PipeSvg'

@@ -1,0 +1,22 @@
+.heart {
+  display: inline-block;
+  align-self: center;
+  width: 200px;
+  height: 30vh;
+  overflow: hidden;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.beat {
+  animation: beat 2s infinite;
+}
+
+@keyframes beat {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.4); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.6); }
+  60% { transform: scale(1); }
+  100% { transform: scale(1); }
+}

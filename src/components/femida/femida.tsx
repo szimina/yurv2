@@ -1,54 +1,62 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useLayoutEffect } from 'react'
 import { Parallax, useParallax } from 'react-scroll-parallax'
 import styles from './femida.module.css'
-import Femida from '../ui/femida/femida'
-import { Logo } from '../ui'
-import { AnimatedHeader } from '../ui/animated-header/animated-header'
-import { ShadowHeader } from '../ui/shadow-header'
+
+import { FemidaSvg, Logo, AnimatedHeader, ShadowHeader } from '../ui'
+import { useScrollPosition } from '../../utils/useScrollPosition'
 
 export const FemidaBlock = () => {
-	const [start, setStart] = useState<number>(0)
-  const [containerBottom, setcontainerBottom] = useState<number>(0)
+	const [containerBottom, setcontainerBottom] = useState<number>(0)
 
-
-	const ref = useRef<HTMLDivElement>(null)
+	const ref = useRef<HTMLDivElement>(null!)
 	const windowHeight = window.innerHeight
+	const start = useScrollPosition(ref)
 
 	useEffect(() => {
-		if (ref.current) {
-			setStart(ref.current.getBoundingClientRect().top)
-			setcontainerBottom(ref.current.getBoundingClientRect().bottom)
+		const handleLoad = () => {
+			if (ref.current) {
+				const rect = ref.current.getBoundingClientRect();
+				setcontainerBottom(window.scrollY + rect.bottom)
+			}
+		};
+	
+		if (document.readyState === 'complete') {
+			handleLoad();
+		} else {
+			window.addEventListener('load', handleLoad);
+			return () => window.removeEventListener('load', handleLoad);
 		}
-	}, [])
+	}, []);
 
 	const parallaxLogo = useParallax<HTMLDivElement>({
-		translateY: start ? ['1200px', '0px', 'easeOut'] : [0, 0],
-		startScroll: start ? start - windowHeight / 2: 0,
-		endScroll: start ? start : 0,
+		translateY: ['1200px', '0px', 'easeOut'],
+		startScroll: start - window.innerHeight / 3,
+		endScroll: start - 100,
 		easing: 'easeOut',
-		opacity: start ? [0, 1] : [0, 0],
+		opacity: [0, 1],
 		speed: -1,
 	})
 
 	const parallaxDescription = useParallax<HTMLDivElement>({
-		translateY: start ? ['300px', '0px', 'easeOut'] : [0, 0],
-		startScroll: start ? start - windowHeight / 2 : 0,
-		endScroll: start ? start + windowHeight /4: 0,
+		translateY: ['300px', '0px', 'easeOut'],
+		startScroll: start - window.innerHeight / 3,
+		endScroll: start - 100 ,
 		easing: 'easeOut',
+		opacity: [0, 1],
 		speed: -2,
 	})
 
 	const parallaxCurtain = useParallax<HTMLDivElement>({
-		translateY: start ? ['0%', '100%', 'easeOut'] : [0, 0],
-		startScroll: start ? start - windowHeight / 2 : 0,
-		endScroll: start ? start + windowHeight /3 : 0,
+		translateY: ['0%', '100%', 'easeOut'],
+		startScroll: start - windowHeight / 2,
+		endScroll: start - 100,
 		easing: 'easeOut',
 		speed: -2,
 	})
 
 	return (
 		<div ref={ref} className={styles.container}>
-			<AnimatedHeader text={'лидеры в'} />
+			<AnimatedHeader text={'лидеры в'} start={start - windowHeight } />
 			<div className={styles.logo} ref={parallaxLogo.ref}>
 				<Logo fill='var(--main-color)' fillOnHover='var(--main-color)' />
 			</div>
@@ -62,9 +70,17 @@ export const FemidaBlock = () => {
 				списании долгов
 			</div>
 			<div className={styles.svg}>
-				<Femida />
+				<FemidaSvg />
 			</div>
-			<ShadowHeader start={containerBottom} text={['Добиваемся результатов', 'за счет жестких принципов', 'и мягких подходов' ]} marginTop={15}/>
+			<ShadowHeader
+				start={containerBottom - windowHeight /3 }
+				text={[
+					'Добиваемся результатов',
+					'за счет жестких принципов',
+					'и мягких подходов',
+				]}
+				marginTop={15}
+			/>
 		</div>
 	)
 }

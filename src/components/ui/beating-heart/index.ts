@@ -1,0 +1,1 @@
+export { BeatingHeart } from './beating-heart';

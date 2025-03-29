@@ -321,7 +321,7 @@
           "fill-rule",
           "clip-rule",
           "stroke",
-          "stroke-width"
+          "strokeWidth"
       ]
   }
 }

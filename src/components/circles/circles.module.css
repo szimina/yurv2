@@ -5,7 +5,8 @@
   align-items: center;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  will-change: transform;
+  will-change: transform, opacity;
+  opacity: 0;
 }
 
 .circle::before {
@@ -26,5 +27,11 @@
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (width <=767px) {
+  .circle {
+    opacity: 1;
   }
 }

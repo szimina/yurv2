@@ -12,6 +12,7 @@
 	justify-content: center;
 	margin-top: 50px;
 	padding: 25px 0;
+	/* border: 1px solid yellow; */
 }
 
 @media (width <=998px) {

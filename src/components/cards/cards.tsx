@@ -1,36 +1,30 @@
 import styles from './cards.module.css'
-import { CardUI, Pipe, ScrollYContainer } from '../ui'
+import { CardUI, ScrollYContainer } from '../ui'
 import { useEffect, useRef, useState } from 'react'
-import { useParallax } from 'react-scroll-parallax'
+import { useScrollPosition } from '../../utils/useScrollPosition'
+
 
 export const Cards = () => {
-	const [start, setStart] = useState<number>(0)
 	const [rotate, setRotate] = useState<number>(10)
-	const sectionRef = useRef<HTMLElement | null>(null)
+	const sectionRef = useRef<HTMLElement>(null!)
+	const start = useScrollPosition(sectionRef)
 
 	useEffect(() => {
-		if (sectionRef.current) {
-			setStart(sectionRef.current.getBoundingClientRect().top)
-		}
-	}, [])
+    const handleResize = () => {
+      setRotate(window.innerWidth <= 380 ? 2 : 10);
+    };
+    handleResize();
 
-	useEffect(() => {
-		const handleResize = () => {
-			if (window.innerWidth <= 380) {
-				setRotate(2)
-			} else {
-				setRotate(10)
-			}
-		}
-		handleResize()
-		window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize);
 
-		return () => window.removeEventListener('resize', handleResize)
-	}, [])
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
 
 	return (
-		<ScrollYContainer height={1000} stop={600}>
+		<ScrollYContainer height={1050} stop={600}>
 			<section
 				className={styles.container}
 				ref={sectionRef}
@@ -55,7 +49,7 @@ export const Cards = () => {
 							'Наши клиенты могут быть уверены в профессионализме команды, которая учитывает все нюансы законодательства и предлагает проверенные решения',
 						]}
 						color={'var(--main-background-color)'}
-						startScroll={start + 350}
+						startScroll={start + 250}
 						rotate={[`${rotate}deg`, `-${rotate}deg`]}
 					/>
 
@@ -67,7 +61,7 @@ export const Cards = () => {
 						]}
 						background={'var(--main-color)'}
 						color={'var(--main-background-color)'}
-						startScroll={start + 600}
+						startScroll={start + 500}
 						rotate={[`-${rotate}deg`, `${rotate}deg`]}
 					/>
 				</div>

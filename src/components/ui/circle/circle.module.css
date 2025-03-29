@@ -1,12 +1,18 @@
 .circle {
   position: absolute;
+  top: var(--top);
+  left: var(--left);
+  z-index: var(--z-index);
   display: flex;
   justify-content: center;
   align-items: center;
+  width: var(--size);
+  height: var(--size);
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  will-change: transform;
-}
+  border-radius: var(--size);
+  will-change: transform, opacity;
+  }
 
 .circle::before {
   content: "";

@@ -9,7 +9,6 @@
 	height: calc((100vw - var(--scrollbar-width) - 2px ) / 1.37);
 	max-height: 729px;
 	overflow: visible;
-	border: 1px solid orange;
 }
 
 .net {

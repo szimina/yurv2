@@ -5,7 +5,7 @@
   align-items: flex-start;
   height: 3em;
   overflow: hidden;
-  font-size: clamp(2.13rem, 1.21rem + 4.25vw, 4.88rem);  
+  font-size: clamp(2.13rem, 1.21rem + 4.25vw, 4.88rem); 
 }
 
 .letter {
@@ -15,7 +15,6 @@
   font-family: var(--accent-font);
   text-transform: uppercase;
   opacity: 0; 
-  transition: opacity 0.3s ease-in-out;
 }
 
 .space {

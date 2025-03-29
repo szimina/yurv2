@@ -40,7 +40,7 @@ export const StatisticCard: FC<StatisticCardUIProps> = ({
           }
         });
       },
-      { threshold: 0.8 } // Анимация начнется, когда 80% элемента будет видно
+      { threshold: 0.99 } // Анимация начнется, когда 99% элемента будет видно
     );
 
     if (containerRef.current) {
