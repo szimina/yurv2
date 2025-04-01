@@ -1,5 +1,3 @@
-import { CSSEffect } from "parallax-controller";
-
 type EasingParam = 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'easeIn';
 
 export type CircleUIProps = {

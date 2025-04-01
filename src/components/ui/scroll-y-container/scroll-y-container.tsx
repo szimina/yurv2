@@ -3,6 +3,7 @@ import styles from './scroll-y-container.module.css'
 import { ScrollYContainerUIProps } from './type'
 import { throttle } from 'lodash'
 
+
 export const ScrollYContainerUI: FC<
 ScrollYContainerUIProps & {
 		ref?: RefObject<HTMLDivElement | null>
