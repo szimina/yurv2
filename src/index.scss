@@ -1,54 +1,49 @@
 @font-face {
-  font-display: swap;
   font-family: 'Unbounded';
+  src: url('/src/assets/fonts/Unbounded-Bold.woff2') format('woff2'),
+      url('/src/assets/fonts/Unbounded-Bold.woff') format('woff');
+  font-weight: bold;
   font-style: normal;
-  font-weight: 700;
-  src: url("/src/assets/fonts/Unbounded-Bold.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: 'Unbounded Flex';
-  src:
-    local('Unbounded Flex'),
-    url("/src/assets/fonts/Unbounded-VariableFont_wght.ttf") format('woff2 supports variations'),
-    url("/src/assets/fonts/Unbounded-VariableFont_wght.ttf") format('woff2-variations');
   font-display: swap;
 }
 
 @font-face {
-  font-display: swap;
   font-family: 'Manrope';
+  src: url('/src/assets/fonts/Manrope-SemiBold.woff2') format('woff2'),
+      url('/src/assets/fonts/Manrope-SemiBold.woff') format('woff');
+  font-weight: 600;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/src/assets/fonts/Manrope-Regular.woff2') format('woff2'),
+      url('/src/assets/fonts/Manrope-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/src/assets/fonts/Manrope-Medium.woff2') format('woff2'),
+      url('/src/assets/fonts/Manrope-Medium.woff') format('woff');
   font-weight: 500;
-  src: url("/src/assets/fonts/Manrope-Medium.ttf") format("truetype");
-}
-
-@font-face {
-  font-display: swap;
-  font-family: 'Manrope';
   font-style: normal;
-  font-weight: 400;
-  src: url("/src/assets/fonts/Manrope-Regular.ttf") format("truetype");
-}
-
-
-@font-face {
-  font-family: 'Unbounded Flex';
-  src:
-    local('Unbounded Flex'),
-    url("/src/assets/fonts/Unbounded-VariableFont_wght.ttf") format('woff2 supports variations'),
-    url("/src/assets/fonts/Unbounded-VariableFont_wght.ttf") format('woff2-variations');
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Manrope Flex';
-  src:
-    local('Manrope Flex'),
-    url("/src/assets/fonts/Manrope-VariableFont_wght.ttf") format('woff2 supports variations'),
-    url("/src/assets/fonts/Manrope-VariableFont_wght.ttf") format('woff2-variations');
+  font-family: 'Manrope';
+  src: url('/src/assets/fonts/Manrope-Bold.woff2') format('woff2'),
+      url('/src/assets/fonts/Manrope-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
   font-display: swap;
 }
+
+
 
 * {
   box-sizing: border-box;
@@ -63,8 +58,8 @@
   --main-accent-color: #adff2f;
   --main-color: #c7c7c7;
   --hover-color: #ffffff;
-  --main-font: 'Manrope',  'Manrope Flex', sans-serif;
-  --accent-font: 'Unbounded',  'Unbounded Flex', sans-serif;
+  --main-font: 'Manrope', sans-serif;
+  --accent-font: 'Unbounded', sans-serif;
   --gradient: linear-gradient(135deg,var(--main-accent-color) 0%, var(--light-background-color) 70%, var(--main-background-color) 100%);
 }
 
