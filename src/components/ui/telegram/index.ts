@@ -1,1 +1,1 @@
-export { TelegramLogo } from './telegram';
+export { TelegramLogoUI } from './telegram';

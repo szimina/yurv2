@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styles from './telegram.module.css';
 import { TelegramUIProps } from './type';
 
-export const TelegramLogo: FC<TelegramUIProps> = ({ fill }) => (
+export const TelegramLogoUI: FC<TelegramUIProps> = ({ fill }) => (
   <div>
     <svg
       className={styles.icon}

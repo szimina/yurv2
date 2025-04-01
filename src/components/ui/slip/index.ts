@@ -1,1 +1,1 @@
-export { Slip } from './slip';
+export { SlipUI } from './slip';

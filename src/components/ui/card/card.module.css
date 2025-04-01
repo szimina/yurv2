@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-self: center;
   gap: 10px;
+  box-sizing: border-box;
   width: 326px;
   height: 346px;
   padding: 40px 24px;

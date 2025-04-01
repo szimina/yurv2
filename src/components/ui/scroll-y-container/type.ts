@@ -1,8 +1,7 @@
-import { ReactNode, RefObject } from "react";
+import { ReactNode } from "react";
 
-export type ScrollYContainerProps = {
+export type ScrollYContainerUIProps = {
   height: number;
-  // start?: number;
   stop: number;
   children: ReactNode;
   marginTop?: number;

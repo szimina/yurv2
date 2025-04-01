@@ -1,9 +1,9 @@
-export interface ButtonProps {
+export interface ButtonUIProps {
+  label: string; 
   onClick?: () => void;
-  children: React.ReactNode;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
-  href?: string;          
+  href?: string;
   openInNewTab?: boolean;
 }

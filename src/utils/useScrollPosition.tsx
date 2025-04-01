@@ -10,7 +10,7 @@ const throttle = (fn: Function, delay: number) => {
   };
 };
 
-export const useScrollPosition = (ref: RefObject<HTMLElement> ) => {
+export const useScrollPosition = (ref: React.RefObject<Element> ) => {
   const [start, setStart] = useState<number>(0);
 
   useEffect(() => {

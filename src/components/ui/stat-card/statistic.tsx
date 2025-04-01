@@ -1,101 +1,38 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import styles from './statistic.module.css';
 import { StatisticCardUIProps } from './type';
 import { abracadabraPhraseGenerator } from '../../../utils/abracadabraGenerator';
 
-export const StatisticCard: FC<StatisticCardUIProps> = ({
+export const StatisticCardUI: FC<StatisticCardUIProps> = ({
   stroke,
   header,
   text,
 }) => {
-  // Извлекаем число из строки
-  const headerNumberValue = parseFloat(header.replace(/\D/g, ''));
-  // Извлекаем символы (не цифры) из строки
-  const symbol = header.replace(/\d/g, '');
-  // Определяем позицию символов: начало, конец или их отсутствие
-  const symbolPosition =
-    header.indexOf(symbol) === 0
-      ? 'start'
-      : header.indexOf(symbol) === header.length - symbol.length
-      ? 'end'
-      : 'none';
+  // Мемоизированные значения для заголовка
+  const { headerNumberValue, symbol, symbolPosition } = useMemo(() => {
+    const numberValue = parseFloat(header.replace(/\D/g, ''));
+    const symbolChars = header.replace(/\d/g, '');
+    const position = 
+      header.indexOf(symbolChars) === 0
+        ? 'start'
+        : header.indexOf(symbolChars) === header.length - symbolChars.length
+        ? 'end'
+        : 'none';
+    
+    return {
+      headerNumberValue: numberValue,
+      symbol: symbolChars,
+      symbolPosition: position
+    };
+  }, [header]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [currentHeaderValue, setCurrentHeaderValue] = useState(0); // Текущее числовое значение
-	const [currentText, setCurrentText] = useState(abracadabraPhraseGenerator(text));
+  const [currentHeaderValue, setCurrentHeaderValue] = useState(0);
+  const [currentText, setCurrentText] = useState(() => abracadabraPhraseGenerator(text));
 
-
-  // Используем useRef для сохранения индекса между рендерами
-  const indexRef = useRef(0);
-
-  // Используем Intersection Observer для отслеживания видимости
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target); // Останавливаем наблюдение после запуска анимации
-          }
-        });
-      },
-      { threshold: 0.99 } // Анимация начнется, когда 99% элемента будет видно
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
-    };
-  }, []);
-
-  // Анимация изменения значения от 0 до целевого числа
-  useEffect(() => {
-    if (isVisible) {
-      const interval = setInterval(() => {
-        setCurrentHeaderValue((prev) => {
-          if (prev >= headerNumberValue) {
-            clearInterval(interval); // Останавливаем анимацию при достижении целевого значения
-            return headerNumberValue;
-          }
-          return prev + 1; // Увеличиваем значение на 1
-        });
-      }, 10); // Интервал 10 мс для плавной анимации
-
-      return () => clearInterval(interval); // Очистка интервала при размонтировании
-    }
-  }, [isVisible, headerNumberValue]);
-
-
-	  // Анимация изменения текста
-		useEffect(() => {
-			if (isVisible) {
-				let index = 0;
-				const interval = setInterval(() => {
-					if (index < text.length) {
-						const newText = text
-							.split('')
-							.map((char, i) => (i <= index ? text[i] : currentText[i]))
-							.join('');
-						setCurrentText(newText);
-						index++;
-					} else {
-						clearInterval(interval);
-					}
-		
-				}, 15); // Интервал 15 мс для плавной анимации
-	
-				return () => clearInterval(interval); // Очистка интервала при размонтировании
-			}
-		}, [isVisible, currentText]);
- 
-  // Форматируем текущее значение с учетом символов
-  const formatValue = (value: number) => {
+  // Форматирование значения с мемоизацией
+  const formatValue = useCallback((value: number) => {
     switch (symbolPosition) {
       case 'start':
         return `${symbol}${value}`;
@@ -104,7 +41,72 @@ export const StatisticCard: FC<StatisticCardUIProps> = ({
       default:
         return `${value}`;
     }
-  };
+  }, [symbol, symbolPosition]);
+
+  // Intersection Observer для ленивой загрузки
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 } // Более оптимальный порог видимости
+    );
+
+    const currentRef = containerRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
+  // Анимация числового значения
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const duration = 1000; // Общая длительность анимации в мс
+    const startTime = performance.now();
+    const step = (timestamp: number) => {
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const value = Math.floor(progress * headerNumberValue);
+      
+      setCurrentHeaderValue(value);
+      
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    const frameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameId);
+  }, [isVisible, headerNumberValue]);
+
+  // Анимация текста
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index >= text.length) {
+        clearInterval(interval);
+        return;
+      }
+
+      setCurrentText(prev => 
+        text.slice(0, index + 1) + prev.slice(index + 1)
+      );
+      index++;
+    }, 30); // Увеличен интервал для лучшей производительности
+
+    return () => clearInterval(interval);
+  }, [isVisible, text]);
 
   return (
     <div className={styles.container}>
@@ -115,8 +117,12 @@ export const StatisticCard: FC<StatisticCardUIProps> = ({
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
         className={styles.svg}
+        aria-labelledby="statistic-title statistic-desc"
       >
-        <g opacity='0.3'>
+        <title id="statistic-title">{formatValue(headerNumberValue)}</title>
+        <desc id="statistic-desc">{text}</desc>
+        
+        <g opacity='0.3' aria-hidden="true">
           <path
             d='M9.54492 30C9.54492 19.2305 18.2754 10.5 29.0449 10.5H325.625C336.604 10.5 345.415 19.5271 345.098 30.4983C344.268 59.1425 342.716 110.108 341.567 132.474C340.474 153.735 340.832 191.515 341.196 214.504C341.364 225.095 333.159 233.913 322.585 234.333C302.2 235.143 268.958 236.288 238.389 236.554C223.104 236.687 208.492 236.601 196.492 236.143C184.472 235.684 175.129 234.854 170.345 233.518C165.553 232.181 156.824 231.358 145.866 230.893C134.89 230.428 121.627 230.319 107.736 230.427C79.9518 230.643 49.6339 231.724 30.0314 232.543C18.8746 233.009 9.54492 224.108 9.54492 212.945V30Z'
             stroke={stroke}
@@ -134,19 +140,28 @@ export const StatisticCard: FC<StatisticCardUIProps> = ({
           />
         </g>
 
-        {/* Добавляем foreignObject для вставки текста */}
-        <foreignObject x='50' y='30' width='247' height='139'>
+        <foreignObject 
+          x='50' 
+          y='30' 
+          width='247' 
+          height='139'
+          role="presentation"
+        >
           <div ref={containerRef} className={styles.headerContainer}>
-            {/* Текст с изменяющимся значением */}
-            <div className={styles.animatedHeader}>
+            <div className={styles.animatedHeader} aria-live="polite">
               {formatValue(currentHeaderValue)}
             </div>
           </div>
         </foreignObject>
-        <foreignObject x='50' y='80' width='247' height='139'>
-				<div className={styles.textContainer}>
-            {/* Текст с изменяющимся значением */}
-            <div className={styles.animatedText}>
+        <foreignObject 
+          x='50' 
+          y='80' 
+          width='247' 
+          height='139'
+          role="presentation"
+        >
+          <div className={styles.textContainer}>
+            <div className={styles.animatedText} aria-live="polite">
               {currentText}
             </div>
           </div>

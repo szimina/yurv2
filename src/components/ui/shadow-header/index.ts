@@ -1,1 +1,1 @@
-export { ShadowHeader } from './shadow-header'
+export { ShadowHeaderUI } from './shadow-header'

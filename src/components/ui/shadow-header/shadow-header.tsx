@@ -3,7 +3,7 @@ import { Parallax, useParallax } from 'react-scroll-parallax'
 import styles from './shadow-header.module.css'
 import { ShadowHeaderUIProps } from './type'
 
-export const ShadowHeader: FC<ShadowHeaderUIProps> = ({
+export const ShadowHeaderUI: FC<ShadowHeaderUIProps> = ({
 	text,
 	start,	
 	marginTop=0,

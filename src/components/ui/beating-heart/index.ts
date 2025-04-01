@@ -1,1 +1,1 @@
-export { BeatingHeart } from './beating-heart';
+export { BeatingHeartUI } from './beating-heart';

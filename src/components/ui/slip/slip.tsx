@@ -1,9 +1,9 @@
 import { FC, useState, useEffect } from 'react'
-import { Parallax, useParallax } from 'react-scroll-parallax'
+import { Parallax } from 'react-scroll-parallax'
 import styles from './slip.module.css'
 import { SlipUIProps, CSSEffect } from './type'
 
-export const Slip: FC<SlipUIProps> = ({
+export const SlipUI: FC<SlipUIProps> = ({
 	header,
 	buttons,
 	startScroll,

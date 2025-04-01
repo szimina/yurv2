@@ -1,31 +1,27 @@
 import { FC, MouseEvent } from 'react';
-import { ButtonProps } from './type';
 import styles from './button.module.css';
+import { ButtonUIProps } from './type';
 
-export const Button: FC<ButtonProps> = ({
+export const ButtonUI: FC<ButtonUIProps> = ({
+  label,
   onClick,
-  children,
   disabled = false,
   type = 'button',
-  className,
+  className = '',
   href,
-  openInNewTab = false, // По умолчанию false
+  openInNewTab = false,
 }) => {
-  const styleClasses = `${styles.button} ${className}`;
+  const styleClasses = `${styles.button} ${className}`.trim();
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (disabled) return;
 
-    // Если есть href, открываем ссылку
     if (href) {
-      if (openInNewTab) {
-        window.open(href, '_blank', 'noopener,noreferrer'); // Безопасное открытие
-      } else {
-        window.location.href = href; // Обычный переход
-      }
+      openInNewTab 
+        ? window.open(href, '_blank', 'noopener,noreferrer')
+        : (window.location.href = href);
     }
 
-    // Вызываем пользовательский onClick, если он есть
     onClick?.();
   };
 
@@ -35,8 +31,9 @@ export const Button: FC<ButtonProps> = ({
       onClick={handleClick}
       disabled={disabled}
       className={styleClasses}
+      aria-label={label} // Для доступности
     >
-      {children}
+      {label}
     </button>
   );
 };

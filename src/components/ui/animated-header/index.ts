@@ -1,1 +1,1 @@
-export { AnimatedHeader } from './animated-header';
+export { AnimatedHeaderUI } from './animated-header';

@@ -1,5 +1,5 @@
 import styles from './footer.module.css'
-import { Logo, TelegramLogo, WhatsappLogo } from '../ui'
+import { LogoUI, TelegramLogoUI, WhatsappLogoUI } from '../ui'
 
 export const Footer = () => (
 	<footer className={styles.container} id='header'>
@@ -7,7 +7,7 @@ export const Footer = () => (
 			<div className={styles.innerContainer}>
 				<div className={styles.logo}>
 					<a href='http://localhost:8080/' className={styles.link}>
-						<Logo fill='var(--main-color)' fillOnHover='var(--hover-color)' />
+						<LogoUI fill='var(--main-color)' fillOnHover='var(--hover-color)' />
 					</a>
 				</div>
 				<a href='http://localhost:8080/' className={styles.policy}>
@@ -25,8 +25,11 @@ export const Footer = () => (
 						href='https://t.me/+79111005005'
 						target='_blank'
 						className={styles.link}
+						rel="noopener noreferrer"
+						aria-label="Свяжитесь с нами по Telegram"
+
 					>
-						<TelegramLogo fill='#c6c6c6' />
+						<TelegramLogoUI fill='#c6c6c6' />
 					</a>
 				</div>
 				<div className={styles.icon}>
@@ -34,8 +37,10 @@ export const Footer = () => (
 						href='https://wa.me/79111005005'
 						target='_blank'
 						className={styles.link}
+						rel="noopener noreferrer"
+						aria-label="Свяжитесь с нами по Whatsapp"
 					>
-						<WhatsappLogo fill='#c6c6c6' />
+						<WhatsappLogoUI fill='#c6c6c6' />
 					</a>
 				</div>
 			</div>

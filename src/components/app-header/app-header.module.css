@@ -31,6 +31,7 @@
   width: 100%;
   color: var(--main-color);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .link:active {
@@ -39,6 +40,10 @@
 } 
 
 .link:hover {
+  color: var(--hover-color);
+} 
+
+.link:focus {
   color: var(--hover-color);
 } 
 
@@ -51,7 +56,7 @@
 }
 
 @media (width <=768px) {
-  .header {
+  .container {
     padding: 34px 10px;
   }
 

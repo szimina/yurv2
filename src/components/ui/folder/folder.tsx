@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import styles from './folder.module.css'
-import { FolderProps } from './type'
+import { FolderUIProps } from './type'
 import { useParallax } from 'react-scroll-parallax'
 
-export const Folder: FC<FolderProps> = ({
+export const FolderUI: FC<FolderUIProps> = ({
 	title,
 	startScroll,
 	top,

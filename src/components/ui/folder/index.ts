@@ -1,1 +1,1 @@
-export { Folder } from './folder';
+export { FolderUI } from './folder';

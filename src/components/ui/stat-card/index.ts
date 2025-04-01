@@ -1,1 +1,1 @@
-export { StatisticCard } from './statistic';
+export { StatisticCardUI } from './statistic';

@@ -1,4 +1,4 @@
-export interface BeatingHeartProps {
+export interface BeatingHeartUIProps {
   start: number;
   className?: string;
 }

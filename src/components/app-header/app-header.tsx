@@ -1,12 +1,12 @@
 import styles from "./app-header.module.css";
-import { Logo, TelegramLogo, WhatsappLogo } from "../ui";
+import { LogoUI, TelegramLogoUI, WhatsappLogoUI } from "../ui";
 
 export const AppHeader = () => (
   <header className={styles.container} id="header">
     <nav className={styles.menu}>
       <div className={styles.logo}>
         <a href="http://localhost:8080/" className={styles.link}>
-          <Logo
+          <LogoUI
             fill="var(--main-color)"
             fillOnHover="var(--hover-color)"
            />
@@ -22,8 +22,10 @@ export const AppHeader = () => (
           href="https://t.me/+79111005005"
           target="_blank"
           className={styles.link}
+          rel="noopener noreferrer"
+          aria-label="Свяжитесь с нами по Telegram"
         >
-          <TelegramLogo fill="#c6c6c6" />
+          <TelegramLogoUI fill="#c6c6c6" />
         </a>
       </div>
       <div className={styles.icon}>
@@ -31,8 +33,10 @@ export const AppHeader = () => (
           href="https://wa.me/79111005005"
           target="_blank"
           className={styles.link}
+          rel="noopener noreferrer"
+          aria-label="Свяжитесь с нами по Whatsapp"
         >
-          <WhatsappLogo fill="#c6c6c6" />
+          <WhatsappLogoUI fill="#c6c6c6" />
         </a>
       </div>
     </nav>

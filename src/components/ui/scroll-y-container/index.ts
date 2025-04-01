@@ -1,1 +1,1 @@
-export { ScrollYContainer } from './scroll-y-container'
+export { ScrollYContainerUI } from './scroll-y-container'

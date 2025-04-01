@@ -1,43 +1,49 @@
 import { useParallax } from 'react-scroll-parallax'
 import styles from './animated-header.module.css'
-import { HeaderUIProps } from './type'
-import { FC } from 'react'
+import { AnimatedHeaderUIProps } from './type'
+import { FC, Ref, useMemo } from 'react'
 
-export const AnimatedHeader: FC<HeaderUIProps> = ({ text, start }) => {
 
-	const parallaxEffects = text.split('').map((char, index) => {
-		if (char === ' ') {
-			return null 
-		}
-		return useParallax<HTMLDivElement>({
-			translateY:  [0, 190, 'easeOutQuad'],
-			startScroll: start - (200 - index * 30), 
-			endScroll: start + window.innerHeight - 100,
-			opacity: [0, 1, 'easeOutQuad'],
-			shouldAlwaysCompleteAnimation: true,
-		})
-	})
+const PARALLAX_OFFSET = 185;
+const LETTER_DELAY = 30;
+const BASE_START_OFFSET = -50;
 
-	return (
-		<div  className={styles.container}>
-			{text.split('').map((char, index) => {
-				if (char === ' ') {
-					return (
-						<span key={index} className={styles.space}>
-							{' '}
-						</span>
-					) 
-				}
-				return (
-					<div
-						key={index}
-						ref={parallaxEffects[index]?.ref}
-						className={styles.letter}
-					>
-						{char}
-					</div>
-				)
-			})}
-		</div>
-	)
-}
+
+export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({ text = '', start = 0 }) => {
+  const characters = useMemo(() => text.split(''), [text]);
+  
+  // Явная типизация для effects
+  const effects: Array<ReturnType<typeof useParallax> | null> = 
+    characters.map((char, index) => {
+      if (char === ' ') return null;
+      
+      return useParallax({
+        translateY: [0, PARALLAX_OFFSET],
+        opacity: [0, 1],
+        easing: 'easeOutQuad',
+        shouldAlwaysCompleteAnimation: true,
+        startScroll: start - (BASE_START_OFFSET - index * LETTER_DELAY),
+        endScroll: start + (typeof window !== 'undefined' ? window.innerHeight : 0) - 100,
+      });
+    });
+
+  return (
+    <h2 aria-label={text} className={styles.container}>
+      {characters.map((char, index) => (
+        char === ' ' 
+          ? <span key={index} className={styles.space}>&nbsp;</span>
+          : (
+            <div
+              key={index}
+              ref={effects[index]?.ref as Ref<HTMLDivElement> | undefined}
+              className={styles.letter}
+              aria-hidden="true"
+							role="presentation"
+            >
+              {char}
+            </div>
+          )
+      ))}
+    </h2>
+  );
+};

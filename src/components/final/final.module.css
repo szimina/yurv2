@@ -36,6 +36,11 @@ height: 800px;
   /* border: 1px solid green; */
 }
 
+.logoWrapper {
+  position: absolute;
+  z-index: 2;
+}
+
 .logoContainer {
   position: relative;
   width: 50px;

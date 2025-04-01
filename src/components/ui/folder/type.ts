@@ -1,4 +1,4 @@
-export type FolderProps = {
+export type FolderUIProps = {
   title: string;
   startScroll: number;
   top: number;

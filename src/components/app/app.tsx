@@ -1,5 +1,5 @@
 import styles from './app.module.css'
-import { Button, ScrollIndicator, ScrollbarWidth, HeardSvg } from '../ui'
+import { ScrollIndicator, ScrollbarWidth  } from '../ui'
 import {
 	AppHeader,
 	Intro,

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { LogoUIProps } from './type'
 
-export const Logo: FC<LogoUIProps> = ({
+export const LogoUI: FC<LogoUIProps> = ({
 	fill,
 	fillOnHover,
 	height = '100%',

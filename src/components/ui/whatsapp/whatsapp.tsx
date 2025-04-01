@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styles from './whatsapp.module.css';
 import { WhatsappUIProps } from './type';
 
-export const WhatsappLogo: FC<WhatsappUIProps> = ({ fill }) => (
+export const WhatsappLogoUI: FC<WhatsappUIProps> = ({ fill }) => (
   <div>
     <svg
       className={styles.icon}

@@ -1,1 +1,1 @@
-export { WhatsappLogo } from './whatsapp';
+export { WhatsappLogoUI } from './whatsapp';
