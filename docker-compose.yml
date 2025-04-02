@@ -3,8 +3,8 @@ version: '3.8'
 services:
   frontend:
     container_name: frontend
-    # image: ghcr.io/szimina/yurv2/frontend:latest
-    build: .
+    image: ghcr.io/szimina/yurv2/frontend:latest
+    # build: .
     ports:
       - 80:80
 

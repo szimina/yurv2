@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 permissions:
-  packages: write  # Важно для GHCR!
+  packages: write 
 
 jobs:
   build-and-push:
