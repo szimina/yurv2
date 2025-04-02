@@ -1,7 +1,7 @@
 import styles from './footer.module.css'
 import { LogoUI, TelegramLogoUI, WhatsappLogoUI } from '../ui'
 
-export const Footer = () => (
+const Footer = () => (
 	<footer className={styles.container} id='header'>
 		<div className={styles.content}>
 			<div className={styles.innerContainer}>
@@ -47,3 +47,6 @@ export const Footer = () => (
 		</div>
 	</footer>
 )
+
+
+export default Footer;

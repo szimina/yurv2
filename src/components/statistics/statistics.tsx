@@ -1,7 +1,7 @@
 import { StatisticCardUI } from '../ui/stat-card'
 import styles from './statistics.module.css'
 
-export const Statistics = () => {
+const Statistics = () => {
 	return (
 		<div className={styles.container}>
 			<StatisticCardUI
@@ -22,3 +22,5 @@ export const Statistics = () => {
 		</div>
 	)
 }
+
+export default Statistics;

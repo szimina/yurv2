@@ -16,7 +16,7 @@ const SCROLL_OFFSET = 200;
 const TEXT_ITEM_HEIGHT = 160;
 const LOGO_OFFSET = 25;
 
-export const Final = () => {
+const Final = () => {
     const sectionRef = useRef<HTMLElement>(null!);
     const [center, setCenter] = useState(0);
     const start = useScrollPosition(sectionRef);
@@ -117,3 +117,5 @@ export const Final = () => {
 
 		
 };
+
+export default Final;

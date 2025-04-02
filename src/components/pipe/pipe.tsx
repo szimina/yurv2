@@ -3,7 +3,7 @@ import styles from './pipe.module.css'
 import { useEffect, useRef, useState } from 'react'
 import { PipeSvg } from '../ui/svg'
 
-export const Pipe = () => {
+const Pipe = () => {
 	// Состояния
 	const [start, setStart] = useState<number>(0)
 	const [route, setRoute] = useState<number>(0)
@@ -134,3 +134,5 @@ export const Pipe = () => {
 		</div>
 	)
 }
+
+export default Pipe;

@@ -10,7 +10,7 @@ const CIRCLE_TEXT = [
   'Защита от коллекторов',
 ];
 
-export const Circles = memo(() => {
+const Circles = memo(() => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [dimensions, setDimensions] = useState({
@@ -191,3 +191,5 @@ export const Circles = memo(() => {
     </ScrollYContainerUI>
   );
 });
+
+export default Circles;

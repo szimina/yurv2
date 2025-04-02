@@ -62,7 +62,7 @@ const FOLDERS_DATA = [
 	},
 ]
 
-export const Folders = () => {
+const Folders = () => {
 	const [state, setState] = useState({
 		left: 0,
 		top: 0,
@@ -139,3 +139,6 @@ export const Folders = () => {
 		</ScrollYContainerUI>
 	)
 }
+
+
+export default Folders;

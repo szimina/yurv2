@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styles from "./intro.module.css";
 import { IntroProps } from './type';
 
-export const Intro: FC<IntroProps> =  ({ title, text }) => (
+const Intro: FC<IntroProps> =  ({ title, text }) => (
   <section className={styles.container} id="intro">
     <h1 className={styles.title}>
     {title}
@@ -11,3 +11,5 @@ export const Intro: FC<IntroProps> =  ({ title, text }) => (
     <div className={styles.flash}></div>
   </section>
 );
+
+export default Intro;

@@ -4,7 +4,7 @@ import styles from './femida.module.css';
 import { FemidaSvg, LogoUI, AnimatedHeaderUI, ShadowHeaderUI } from '../ui';
 import { useScrollPosition } from '../../utils/useScrollPosition';
 
-export const FemidaBlock = () => {
+const FemidaBlock = () => {
     const [containerBottom, setContainerBottom] = useState(0);
     const ref = useRef<HTMLDivElement>(null!);
     const windowHeight = useRef(window.innerHeight).current;
@@ -87,3 +87,5 @@ export const FemidaBlock = () => {
         </div>
     );
 };
+
+export default FemidaBlock;

@@ -25,7 +25,7 @@ const SLIP_DATA = [
   },
 ];
 
-export const Net: React.FC = () => {
+const Net: React.FC = () => {
   const divRef = useRef<HTMLDivElement>(null!);
   const start = useScrollPosition(divRef);
 
@@ -69,3 +69,5 @@ export const Net: React.FC = () => {
     </ScrollYContainerUI>
   );
 };
+
+export default Net;

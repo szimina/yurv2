@@ -1,7 +1,7 @@
 import styles from "./app-header.module.css";
 import { LogoUI, TelegramLogoUI, WhatsappLogoUI } from "../ui";
 
-export const AppHeader = () => (
+ const AppHeader = () => (
   <header className={styles.container} id="header">
     <nav className={styles.menu}>
       <div className={styles.logo}>
@@ -42,3 +42,5 @@ export const AppHeader = () => (
     </nav>
   </header>
 );
+
+export default AppHeader;

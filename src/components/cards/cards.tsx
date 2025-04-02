@@ -11,7 +11,7 @@ const MOBILE_BREAKPOINT = 380
 const SECTION_HEIGHT = 1050
 const SCROLL_STOP = 600
 
-export const Cards = () => {
+const Cards = () => {
 	const [rotate, setRotate] = useState<number>(ROTATION_DESKTOP)
 	const [isMounted, setIsMounted] = useState(false)
 	const sectionRef = useRef<HTMLElement>(null)
@@ -104,3 +104,5 @@ export const Cards = () => {
 		</ScrollYContainerUI>
 	)
 }
+
+export default Cards;
