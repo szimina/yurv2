@@ -15,7 +15,7 @@ export const ShadowHeaderUI: FC<ShadowHeaderUIProps> = ({
 		translateX: ['0%', '100%', 'easeOut'],
 		startScroll: start - windowHeight / 2 ,
 		endScroll: start + windowHeight,
-		speed: -2,
+		// speed: -2,
 	})
 
 	return (

@@ -36,21 +36,21 @@ const FemidaBlock = () => {
         ...commonParallaxProps,
         translateY: ['1200px', '0px'],
         opacity: [0, 1],
-        speed: -1,
+        // speed: -1,
     });
 
     const parallaxDescription = useParallax<HTMLDivElement>({
         ...commonParallaxProps,
         translateY: ['300px', '0px'],
         opacity: [0, 1],
-        speed: -2,
+        // speed: -2,
     });
 
     const parallaxCurtain = useParallax<HTMLDivElement>({
         ...commonParallaxProps,
         translateY: ['0%', '100%'],
         startScroll: start - windowHeight / 2,
-        speed: -2,
+        // speed: -2,
     });
 
     return (
