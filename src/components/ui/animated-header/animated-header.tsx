@@ -1,8 +1,7 @@
 import { useParallax } from 'react-scroll-parallax'
 import styles from './animated-header.module.css'
 import { AnimatedHeaderUIProps } from './type'
-import { FC, Ref, useMemo } from 'react'
-import { useIsMounted } from '../../../utils/useIsMounted'
+import { FC, Ref, useMemo, useState, useEffect } from 'react'
 
 const PARALLAX_OFFSET = 185
 const LETTER_DELAY = 30
@@ -12,19 +11,25 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
   text = '',
   start = 0,
 }) => {
-  const isMounted = useIsMounted()
   const characters = useMemo(() => text.split(''), [text])
+  const [isVisible, setIsVisible] = useState(false) // Состояние видимости
 
   const effects = characters.map((char, index) => {
     if (char === ' ') return null
     
     return useParallax({
-      translateY: isMounted ? [0, PARALLAX_OFFSET] : [0, 0],
-      opacity: isMounted ? [0, 1] : [0, 0], 
+      translateY: [0, PARALLAX_OFFSET],
+      opacity: [0, 1],
       easing: 'easeOutQuad',
       shouldAlwaysCompleteAnimation: true,
       startScroll: start - (BASE_START_OFFSET - index * LETTER_DELAY),
       endScroll: start + (typeof window !== 'undefined' ? window.innerHeight : 0) - 100,
+      onProgressChange: (progress) => {
+        // Если анимация началась (progress > 0), делаем видимым
+        if (progress > 0 && !isVisible) {
+          setIsVisible(true)
+        }
+      },
     })
   })
 
@@ -40,11 +45,8 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
             className={styles.letter}
             aria-hidden="true"
             role="presentation"
-            style={!isMounted ? { 
-              visibility: 'hidden',
-              opacity: 0 
-            } : { 
-              visibility: 'visible'
+            style={{
+              visibility: isVisible ? 'visible' : 'hidden',
             }}
           >
             {char}
