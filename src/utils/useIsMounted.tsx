@@ -5,7 +5,7 @@ export const useIsMounted = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    return () => setIsMounted(false); // Опционально: сброс при размонтировании
+    return () => setIsMounted(false); 
   }, []);
 
   return isMounted;

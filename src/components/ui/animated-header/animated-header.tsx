@@ -20,7 +20,7 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
     
     return useParallax({
       translateY: isMounted ? [0, PARALLAX_OFFSET] : [0, 0],
-      opacity: isMounted ? [0, 1] : [1, 1],
+      opacity: isMounted ? [0, 1] : [0, 0], 
       easing: 'easeOutQuad',
       shouldAlwaysCompleteAnimation: true,
       startScroll: start - (BASE_START_OFFSET - index * LETTER_DELAY),
@@ -40,7 +40,12 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
             className={styles.letter}
             aria-hidden="true"
             role="presentation"
-            style={!isMounted ? { visibility: 'hidden' } : { visibility: 'visible' }}
+            style={!isMounted ? { 
+              visibility: 'hidden',
+              opacity: 0 
+            } : { 
+              visibility: 'visible'
+            }}
           >
             {char}
           </div>

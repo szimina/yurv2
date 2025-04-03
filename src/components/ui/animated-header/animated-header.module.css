@@ -14,6 +14,7 @@
   font-size: 1em;
   font-family: var(--accent-font);
   text-transform: uppercase;
+  will-change: opacity, transform;
 }
 
 .space {

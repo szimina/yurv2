@@ -1,9 +1,9 @@
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 30px;
   padding: 34px 20px 200px 34px;
-  position: relative;
   overflow: visible;
 }
 
@@ -34,14 +34,14 @@
   width: 300px;
   height: 500px;
   background: radial-gradient(
-    ellipse at center, /* эллиптическая форма */
+    ellipse at center, 
     var(--main-accent-color) 0%,
-    transparent 70% /* плавное исчезновение */
+    transparent 70% 
   );
   border-radius: 50%;
-  transform: scaleX(1.5); /* растягиваем по горизонтали */
-  filter: blur(60px); /* сильное размытие */
-  opacity: 0.8; /* смягчаем яркость */
+  transform: scaleX(1.5); 
+  opacity: 0.8; 
+  filter: blur(60px); 
   animation: gradient 10s ease infinite;
   -webkit-backface-visibility: hidden; /* фикс для Safari */
 }
@@ -67,7 +67,7 @@
   }
 
   .flash {
-    width: 300px;
+    width: 250px;
     height: 300px;
   }  
   
