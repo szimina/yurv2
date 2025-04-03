@@ -3,9 +3,9 @@ import { LogoUI, TelegramLogoUI, WhatsappLogoUI } from "../ui";
 
  const AppHeader = () => (
   <header className={styles.container} id="header">
-    <nav className={styles.menu}>
+    <div className={styles.menu}>
       <div className={styles.logo}>
-        <a href="http://localhost:8080/" className={styles.link}>
+        <a href="https://szimina.students.nomorepartiesco.ru/" className={styles.link}>
           <LogoUI
             fill="var(--main-color)"
             fillOnHover="var(--hover-color)"
@@ -13,13 +13,13 @@ import { LogoUI, TelegramLogoUI, WhatsappLogoUI } from "../ui";
         </a>
       </div>
       <div>
-        <a href="tel:+79111005005" className={styles.link}>
-          <p className={styles.telephone}>+7 (911) 100-50-05</p>
+        <a href="tel:+79263544901" className={styles.link}>
+          <p className={styles.telephone}>+7 (926) 354-49-01</p>
         </a>
       </div>
       <div className={styles.icon}>
         <a
-          href="https://t.me/+79111005005"
+          href="https://t.me/+79263544901"
           target="_blank"
           className={styles.link}
           rel="noopener noreferrer"
@@ -30,7 +30,7 @@ import { LogoUI, TelegramLogoUI, WhatsappLogoUI } from "../ui";
       </div>
       <div className={styles.icon}>
         <a
-          href="https://wa.me/79111005005"
+          href="https://wa.me/79263544901"
           target="_blank"
           className={styles.link}
           rel="noopener noreferrer"
@@ -39,7 +39,7 @@ import { LogoUI, TelegramLogoUI, WhatsappLogoUI } from "../ui";
           <WhatsappLogoUI fill="#c6c6c6" />
         </a>
       </div>
-    </nav>
+    </div>
   </header>
 );
 

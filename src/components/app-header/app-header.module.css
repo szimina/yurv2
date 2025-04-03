@@ -1,14 +1,14 @@
 .container {
   display: flex;
   align-items: flex-start;
-  padding: 34px 20px;
 }
 
 .menu {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding: 0 10px;
+  gap: 20px;
+  padding: 20px;
   border: 1px solid var(--main-color);
   border-radius: 100px;
 }
@@ -17,13 +17,11 @@
   display: flex;
   width: 50px;
   max-width: 50px;
-  margin: 10px 40px 10px 10px;
 }
 
 .icon {
   display: flex;
   width: 30px;
-  margin: 0 10px;
 }
 
 .link {
@@ -50,18 +48,19 @@
 .telephone {
   display: flex;
   font-weight: 700;
-  font-size: clamp(0.63rem, 0.51rem + 0.58vw, 0.88rem);
+  font-size: clamp(0.94rem, 0.79rem + 0.68vw, 1.38rem);  
   font-family: var(--main-font);
   white-space: nowrap;
 }
 
 @media (width <=768px) {
   .container {
-    padding: 34px 10px;
+    padding: 34px 0;
   }
 
   .menu {
-    gap: 5px;
+    gap: 10px;
+    padding: 10px;
   }
 
   .logo {
@@ -74,4 +73,7 @@
   }
 }
 
-
+@media (width <=430px) {
+  .container {
+    place-self: center;
+  }}
