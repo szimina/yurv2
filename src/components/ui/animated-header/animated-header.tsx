@@ -27,6 +27,7 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
       onProgressChange: (progress) => {
         // Если анимация началась (progress > 0), делаем видимым
         if (progress > 0 && !isVisible) {
+          console.log(progress)
           setIsVisible(true)
         }
       },
@@ -47,6 +48,7 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
             role="presentation"
             style={{
               visibility: isVisible ? 'visible' : 'hidden',
+              opacity: !isVisible ? '0': 'undefined'
             }}
           >
             {char}

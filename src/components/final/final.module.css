@@ -75,7 +75,7 @@ height: 800px;
   height: 160px;
   color: var(--hover-color);
   font-weight: 500;
-  font-size: clamp(0.75rem, 0.63rem + 0.58vw, 1.13rem);
+  font-size: clamp(0.87rem, 0.79rem + 0.39vw, 1.13rem);  
   font-family: var(--main-font);
   text-align: inherit;
   /* border: 1px solid pink; */
@@ -101,7 +101,11 @@ height: 800px;
     width: 80%;
   }
 
+  /* .left{
+    margin-right: -20px;
+  } */
   .text{
     width: 100%;
+    right: -20px;
 }
 }

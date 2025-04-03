@@ -11,9 +11,9 @@
 	font-family: var(--main-font);
 	letter-spacing: 2px;
 	text-transform: uppercase;
+	background: var(--main-accent-color);
 	border: 1px solid var(--hover-color);
 	border-radius: 65px;
-	background: var(--main-accent-color);
 	cursor: pointer;
 	transition:
 		transform 0.2s ease,

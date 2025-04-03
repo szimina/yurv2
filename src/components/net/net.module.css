@@ -19,7 +19,7 @@
 
 .slips {
   position: absolute;
-  top: 50vh;
+  top: 60vh;
   display: flex;
   width: calc(100vw - var(--scrollbar-width) - 2px);
   place-self: center flex-end;

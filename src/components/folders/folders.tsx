@@ -6,56 +6,56 @@ import { useScrollPosition } from '../../utils/useScrollPosition'
 const FOLDERS_DATA = [
 	{
 		title: 'Консультация',
-		startOffset: 0,
+		startOffset: 200,
 		topCalc: (top: number) => top,
 		leftCalc: (_left: number) => 0,
 		zIndex: 8,
 	},
 	{
 		title: 'Анализ долгов',
-		startOffset: 200,
+		startOffset: 400,
 		topCalc: (_top: number) => 0,
 		leftCalc: (left: number) => left + 5,
 		zIndex: 7,
 	},
 	{
 		title: 'Сбор документов',
-		startOffset: 400,
+		startOffset: 600,
 		topCalc: (top: number) => top * 1.5,
 		leftCalc: (left: number) => left * 2,
 		zIndex: 6,
 	},
 	{
 		title: 'Подача заявления',
-		startOffset: 600,
+		startOffset: 800,
 		topCalc: (top: number) => top * 0.3,
 		leftCalc: (left: number) => left * 3 - 7,
 		zIndex: 5,
 	},
 	{
 		title: 'Судебное сопровождение',
-		startOffset: 800,
+		startOffset: 1000,
 		topCalc: (top: number) => top * 0.1,
 		leftCalc: (left: number) => left * 4,
 		zIndex: 4,
 	},
 	{
 		title: 'Взаимодействие с кредиторами',
-		startOffset: 1000,
+		startOffset: 1200,
 		topCalc: (top: number) => top * 1.8,
 		leftCalc: (left: number) => left * 5 - 5,
 		zIndex: 3,
 	},
 	{
 		title: 'Реализация имущества',
-		startOffset: 1200,
+		startOffset: 1400,
 		topCalc: (top: number) => top * 0.1,
 		leftCalc: (left: number) => left * 6 + 7,
 		zIndex: 2,
 	},
 	{
 		title: 'Завершение процедуры',
-		startOffset: 1400,
+		startOffset: 1600,
 		topCalc: (top: number) => top * 1.2,
 		leftCalc: (left: number) => left * 7,
 		zIndex: 1,
@@ -110,7 +110,7 @@ const Folders = () => {
 	}, [handleScroll])
 
 	return (
-		<ScrollYContainerUI height={2500} stop={1700}>
+		<ScrollYContainerUI height={2500} stop={1900}>
 			<div
 				className={styles.header}
 				ref={headerRef}
