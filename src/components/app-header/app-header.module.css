@@ -1,6 +1,7 @@
 .container {
   display: flex;
   align-items: flex-start;
+  padding: 34px 0;
 }
 
 .menu {
@@ -54,10 +55,6 @@
 }
 
 @media (width <=768px) {
-  .container {
-    padding: 34px 0;
-  }
-
   .menu {
     gap: 10px;
     padding: 10px;
