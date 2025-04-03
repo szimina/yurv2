@@ -40,7 +40,7 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
             className={styles.letter}
             aria-hidden="true"
             role="presentation"
-            style={!isMounted ? { opacity: 1 } : undefined}
+            style={!isMounted ? { visibility: 'hidden' } : { visibility: 'visible' }}
           >
             {char}
           </div>

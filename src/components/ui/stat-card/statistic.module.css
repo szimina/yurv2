@@ -25,7 +25,7 @@
 	justify-content: center;
 	align-items: center;
 	place-self: center;
-	width: 100%;
+	width: 300px;
 	height: 100%;
 	overflow: hidden;
 	color: var(--hover-color);
@@ -39,7 +39,7 @@
 	justify-content: center;
 	align-items: center;
 	place-self: center;
-	width: 100%;
+	width: 300px;
 	height: 100%;
 	overflow: hidden;
 	color: var(--light-background-color);
@@ -58,7 +58,7 @@
 	justify-content: center;
 	align-items: center;
 	place-self: center;
-	width: 100%;
+	width: 300px;
 	height: 100%;
 	transition: opacity 0.5s ease; /* Плавное изменение прозрачности */
 	border: 1px solid yellow;
@@ -73,7 +73,7 @@
 	justify-content: center;
 	align-items: center;
 	place-self: center;
-	width: 100%;
+	width: 300px;
 	height: 100%;
 	transition: opacity 0.5s ease; 
 	border: 1px solid pink;
