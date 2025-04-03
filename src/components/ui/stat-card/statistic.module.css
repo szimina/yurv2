@@ -1,5 +1,10 @@
 .container {
 	display: flex;
+	width: 300px;
+	aspect-ratio: 347 / 239;
+	border: 1px solid green;
+	flex-direction: column;
+	place-content: center;
 }
 
 .svg {
