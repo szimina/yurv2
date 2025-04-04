@@ -6,49 +6,43 @@ import useWindowHeight from '../../../utils/useWindowHeight'
 
 export const ShadowHeaderUI: FC<ShadowHeaderUIProps> = ({
 	text,
-	start,	
-	marginTop=0,
+	start,
+	marginTop = 0,
 }) => {
+	const windowHeight = useWindowHeight()
 
-  const windowHeight = useWindowHeight();
+	const [disabled, setDisabled] = useState(true)
 
-	// const parallaxTulle = useParallax<HTMLDivElement>({
-	// 	translateX: ['0%', '100%', 'easeOut'],
-	// 	startScroll: start - windowHeight / 2 ,
-	// 	endScroll: start + windowHeight,
-	// })
+	useEffect(() => {
+		setDisabled(false)
+	}, [])
 
-	// return (
-	// 	<Parallax
-	// 		translateX={['-5%', '10%', 'easeOutCubic']}
-	// 		translateY={['5%', '-5%', 'easeOutCubic']}
-	// 	>
-	// 		<div style={{marginTop: `${marginTop}px`}}>
-	// 		<div className={styles.text}>
-	// 			{text.map((phrase, index) => (
-	// 				<p key={index}>{phrase}</p>
-	// 			))}
-	// 			{/* <div ref={parallaxTulle.ref} className={styles.tulle}></div> */}
-	// 		</div>
-	// 		</div>
-	// 	</Parallax>
-	// )
+	const parallaxText = useParallax<HTMLDivElement>({
+		translateX: ['0%', '15%', 'easeInCubic'],
+		translateY: ['50%', '-10%', 'easeInCubic'],
+		startScroll: start - windowHeight / 3,
+		endScroll: start,
+		disabled,
+		shouldAlwaysCompleteAnimation: true,
+	})
+
+	const parallaxTulle = useParallax<HTMLDivElement>({
+		translateX: ['0%', '100%', 'easeOut'],
+		startScroll: start - windowHeight / 3,
+		endScroll: start,
+		disabled,
+		shouldAlwaysCompleteAnimation: true,
+
+	})
 
 	return (
-    <Parallax
-      translateX={['-5%', '10%', 'easeOutCubic']}
-      translateY={['5%', '-5%', 'easeOutCubic']}
-      startScroll={start - windowHeight / 2}
-      endScroll={start + windowHeight}
-    >
-      <div style={{marginTop: `${marginTop}px`}}>
-        <div className={styles.text}>
-          {text.map((phrase, index) => (
-            <p key={index}>{phrase}</p>
-          ))}
-          <div className={styles.tulle}></div>
-        </div>
-      </div>
-    </Parallax>
-  );
+		<div ref={parallaxText.ref} style={{ marginTop: `${marginTop}px` }}>
+			<div className={styles.text}>
+				{text.map((phrase, index) => (
+					<p key={index}>{phrase}</p>
+				))}
+				<div ref={parallaxTulle.ref} className={styles.tulle}></div>
+			</div>
+		</div>
+	)
 }

@@ -24,7 +24,7 @@
   height: 130%;
   overflow: hidden;
   background-color: var(--main-background-color);
-  will-change: transform, opacity;
-  transform: translateX(-100%);
+  will-change: transform;
+  transform: translate3d(-100%, 0, 0);
   opacity: 0.7;
 }

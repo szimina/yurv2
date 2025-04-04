@@ -58,7 +58,8 @@ const FemidaBlock = () => {
     const parallaxCurtain = useParallax<HTMLDivElement>({
         ...commonParallaxProps,
         translateY: ['0%', '100%'],
-        startScroll: start - windowHeight / 2,
+        startScroll: start - windowHeight / 3,
+        disabled
         // speed: -2,
     });
 
