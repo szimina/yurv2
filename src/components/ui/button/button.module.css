@@ -19,6 +19,8 @@
 		transform 0.2s ease,
 		border-color 0.3s ease;
 	pointer-events: auto;
+	-webkit-text-stroke: 1px var(--hover-color);
+  paint-order: stroke fill;
 }
 
 

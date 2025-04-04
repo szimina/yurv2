@@ -20,7 +20,7 @@ export const SlipUI: FC<SlipUIProps> = ({
       const currentScroll = window.scrollY
       
       // Пропускаем обработку, если скролл не изменился значительно
-      if (Math.abs(currentScroll - lastScrollY.current) < 5) return
+      if (Math.abs(currentScroll - lastScrollY.current) < 10) return
       lastScrollY.current = currentScroll
 
       if (currentScroll >= startScroll && currentScroll <= endScroll) {
