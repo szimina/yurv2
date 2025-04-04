@@ -2,6 +2,7 @@ import { CardUIProps } from "./type";
 import { FC } from 'react';
 import styles from "./card.module.css";
 import { useParallax } from "react-scroll-parallax";
+import useWindowHeight from "../../../utils/useWindowHeight";
 
 export const CardUI: FC<CardUIProps> = ({ header, text, color, background, rotate, startScroll }) => {
   // Определяем стиль для фона
@@ -10,10 +11,12 @@ export const CardUI: FC<CardUIProps> = ({ header, text, color, background, rotat
     color: color,
   };
 
+  const windowHeight = useWindowHeight();
+
   const parallax= useParallax<HTMLDivElement>({
       translateY: startScroll ? ['500px', '0px', 'easeOut'] : [0, 0],
-      startScroll: startScroll? startScroll - window.innerHeight / 3: 0, 
-      endScroll: startScroll? startScroll + window.innerHeight / 2: 0,
+      startScroll: startScroll? startScroll - windowHeight / 3: 0, 
+      endScroll: startScroll? startScroll + windowHeight / 2: 0,
       easing: 'easeOut',
       rotate: rotate,
       shouldAlwaysCompleteAnimation: true,

@@ -3,11 +3,18 @@ import { ParallaxProps, useParallax } from 'react-scroll-parallax';
 import styles from './femida.module.css';
 import { FemidaSvg, LogoUI, AnimatedHeaderUI, ShadowHeaderUI } from '../ui';
 import { useScrollPosition } from '../../utils/useScrollPosition';
+import useWindowHeight from '../../utils/useWindowHeight';
 
 const FemidaBlock = () => {
     const [containerBottom, setContainerBottom] = useState(0);
     const ref = useRef<HTMLDivElement>(null!);
-    const windowHeight = useRef(window.innerHeight).current;
+    const windowHeight = useWindowHeight();
+    const [disabled, setDisabled] = useState(true);
+
+    useEffect(() => {
+      setDisabled(false);
+    }, []);
+
     const start = useScrollPosition(ref);
 
     useEffect(() => {
@@ -34,8 +41,9 @@ const FemidaBlock = () => {
 
     const parallaxLogo = useParallax<HTMLDivElement>({
         ...commonParallaxProps,
-        translateY: ['1200px', '0px'],
+        translateY: ['800px', '0px'],
         opacity: [0, 1],
+        disabled,
         // speed: -1,
     });
 
@@ -43,6 +51,7 @@ const FemidaBlock = () => {
         ...commonParallaxProps,
         translateY: ['300px', '0px'],
         opacity: [0, 1],
+        disabled,
         // speed: -2,
     });
 

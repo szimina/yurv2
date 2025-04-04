@@ -52,10 +52,10 @@ export const SlipUI: FC<SlipUIProps> = ({
 		['0%', '-50%', 'easeInCubic'],
 	]
 	const getTranslateY: CSSEffect[] = [
-		['0px', '-1000px', 'easeInCubic'],
-		['0px', '-1000px', 'easeInCubic'],
-		['0px', '1000px', 'easeInCubic'],
-		['0px', '-1000px', 'easeInCubic'],
+		['0%', '-250%', 'easeInCubic'],
+		['0%', '-250%', 'easeInCubic'],
+		['0%', '200%', 'easeInCubic'],
+		['0%', '200%', 'easeInCubic'],
 	]
 
 	return (

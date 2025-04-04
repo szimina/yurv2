@@ -12,6 +12,7 @@
   font-family: var(--accent-font);
   text-align: left;
   text-transform: uppercase;
+  will-change: transform;
 }
 
 .tulle {
@@ -23,7 +24,7 @@
   height: 130%;
   overflow: hidden;
   background-color: var(--main-background-color);
+  will-change: transform, opacity;
   transform: translateX(-100%);
   opacity: 0.7;
-
 }

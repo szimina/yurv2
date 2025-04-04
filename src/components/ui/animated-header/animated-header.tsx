@@ -1,38 +1,38 @@
-import { useParallax } from 'react-scroll-parallax'
-import styles from './animated-header.module.css'
-import { AnimatedHeaderUIProps } from './type'
-import { FC, Ref, useMemo, useState, useEffect } from 'react'
+import { ParallaxProps, useParallax } from 'react-scroll-parallax';
+import styles from './animated-header.module.css';
+import { AnimatedHeaderUIProps } from './type';
+import { FC, useMemo, useState, useEffect, Ref } from 'react';
 
-const PARALLAX_OFFSET = 185
-const LETTER_DELAY = 30
-const BASE_START_OFFSET = -50
+const LETTER_DELAY = 30;
+const BASE_START_OFFSET = -50;
 
 export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
   text = '',
   start = 0,
 }) => {
-  const characters = useMemo(() => text.split(''), [text])
-  const [isVisible, setIsVisible] = useState(false) // Состояние видимости
+  const characters = useMemo(() => text.split(''), [text]);
+  const [disabled, setDisabled] = useState(true);
 
-  const effects = characters.map((char, index) => {
-    if (char === ' ') return null
-    
-    return useParallax({
-      translateY: [0, PARALLAX_OFFSET],
+  useEffect(() => {
+    setDisabled(false);
+  }, []);
+
+  const parallaxConfigs = useMemo<ParallaxProps[]>(() => {
+    return characters.map((char, index) => ({
+      translateY: [-300, -14],
       opacity: [0, 1],
       easing: 'easeOutQuad',
       shouldAlwaysCompleteAnimation: true,
       startScroll: start - (BASE_START_OFFSET - index * LETTER_DELAY),
       endScroll: start + (typeof window !== 'undefined' ? window.innerHeight : 0) - 100,
-      onProgressChange: (progress) => {
-        // Если анимация началась (progress > 0), делаем видимым
-        if (progress > 0 && !isVisible) {
-          console.log(progress)
-          setIsVisible(true)
-        }
-      },
-    })
-  })
+      disabled,
+    }));
+  }, [characters, start, disabled]);
+
+  const effects = characters.map((char, index) => {
+    if (char === ' ') return null;
+    return useParallax(parallaxConfigs[index]);
+  });
 
   return (
     <h2 aria-label={text} className={styles.container}>
@@ -46,15 +46,11 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
             className={styles.letter}
             aria-hidden="true"
             role="presentation"
-            style={{
-              visibility: isVisible ? 'visible' : 'hidden',
-              opacity: !isVisible ? '0': 'undefined'
-            }}
           >
             {char}
           </div>
         )
       )}
     </h2>
-  )
-}
+  );
+};
