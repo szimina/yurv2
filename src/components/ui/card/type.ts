@@ -5,4 +5,5 @@ export type CardUIProps = {
   color: string;
   rotate?: [string, string];
   startScroll?: number;
+  disabled: boolean,
 };

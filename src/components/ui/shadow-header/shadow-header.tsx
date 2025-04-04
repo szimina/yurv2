@@ -18,7 +18,7 @@ export const ShadowHeaderUI: FC<ShadowHeaderUIProps> = ({
 	}, [])
 
 	const parallaxText = useParallax<HTMLDivElement>({
-		translateX: ['0%', '15%', 'easeInCubic'],
+		translateX: ['0%', '10%', 'easeInCubic'],
 		translateY: ['50%', '-10%', 'easeInCubic'],
 		startScroll: start - windowHeight / 3,
 		endScroll: start,

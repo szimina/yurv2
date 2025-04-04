@@ -14,6 +14,8 @@ const SCROLL_STOP = 600
 const Cards = () => {
 	const [rotate, setRotate] = useState<number>(ROTATION_DESKTOP)
 	const [isMounted, setIsMounted] = useState(false)
+	const [disabled, setDisabled] = useState(true);
+
 	const sectionRef = useRef<HTMLElement>(null)
 	const startScrollPosition = useScrollPosition(
 		sectionRef as RefObject<HTMLElement>
@@ -21,6 +23,7 @@ const Cards = () => {
 
 	// Оптимизированная обработка изменения размера окна
 	useEffect(() => {
+		setDisabled(false);
 		const handleResize = () => {
 			setRotate(
 				window.innerWidth <= MOBILE_BREAKPOINT
@@ -47,6 +50,7 @@ const Cards = () => {
 		}
 	}, [])
 
+
 	// Данные для карточек вынесены в отдельный массив для улучшения читаемости
 	const cardsData: CardUIProps[] = [
 		{
@@ -59,6 +63,7 @@ const Cards = () => {
 			color: 'var(--main-color)',
 			rotate: ['0deg', '0deg'],
 			startScroll: startScrollPosition + 0,
+			disabled: disabled,
 		},
 		{
 			header: 'Надежность и экспертность',
@@ -69,6 +74,7 @@ const Cards = () => {
 			color: 'var(--main-background-color)',
 			rotate: [`${rotate}deg`, `-${rotate}deg`],
 			startScroll: startScrollPosition + 250,
+			disabled: disabled,
 		},
 		{
 			header: 'Комплексное обслуживание "под ключ"',
@@ -80,6 +86,7 @@ const Cards = () => {
 			color: 'var(--main-background-color)',
 			rotate: [`-${rotate}deg`, `${rotate}deg`],
 			startScroll: startScrollPosition + 500,
+			disabled: disabled,
 		},
 	]
 
@@ -97,6 +104,7 @@ const Cards = () => {
 								color={card.color}
 								startScroll={card.startScroll}
 								rotate={card.rotate}
+								disabled={card.disabled}
 							/>
 						))}
 				</div>

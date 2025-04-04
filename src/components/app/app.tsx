@@ -17,13 +17,13 @@ const Footer = lazy(() => import('../footer/footer'))
 const App = () => {
 	return (
 		<div className={styles.app}>
-			<ScrollIndicator />
+			{/* <ScrollIndicator /> */}
 			<AppHeader />
 			<Intro
 				title={'Спишем долги быстро и законно'}
 				text={'На основании ФЗ "О банкротстве"'}
 			/>
-			{/* <Circles /> */}
+			<Circles />
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Statistics />
 			</Suspense>

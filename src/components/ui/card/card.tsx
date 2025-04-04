@@ -4,7 +4,7 @@ import styles from "./card.module.css";
 import { useParallax } from "react-scroll-parallax";
 import useWindowHeight from "../../../utils/useWindowHeight";
 
-export const CardUI: FC<CardUIProps> = ({ header, text, color, background, rotate, startScroll }) => {
+export const CardUI: FC<CardUIProps> = ({ header, text, color, background, rotate, startScroll, disabled }) => {
   // Определяем стиль для фона
   const sectionStyle = {
     background: background || undefined, // Если background передан, используем его, иначе undefined
@@ -20,7 +20,7 @@ export const CardUI: FC<CardUIProps> = ({ header, text, color, background, rotat
       easing: 'easeOut',
       rotate: rotate,
       shouldAlwaysCompleteAnimation: true,
-
+      disabled,
     })
 
   return (

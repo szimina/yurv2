@@ -22,7 +22,7 @@
 
 .icon {
   display: flex;
-  width: 30px;
+  width: 40px;
 }
 
 .link {
@@ -66,7 +66,7 @@
   }
 
   .icon {
-    width: 20px;
+    width: 30px;
   }
 }
 

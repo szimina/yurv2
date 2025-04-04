@@ -41,7 +41,7 @@
 
 .icon {
   display: flex;
-  width: 30px;
+  width: 40px;
   margin: 0 10px;
 }
 
@@ -84,7 +84,7 @@
 .telephone {
   display: flex;
   font-weight: 700;
-  font-size: clamp(0.63rem, 0.51rem + 0.58vw, 0.88rem);
+  font-size: clamp(0.94rem, 0.79rem + 0.68vw, 1.38rem);  
   font-family: var(--main-font);
   white-space: nowrap;
 }
