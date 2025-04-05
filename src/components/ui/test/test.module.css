@@ -1,0 +1,48 @@
+.header {
+  position: absolute;
+  align-self: center;
+  width: 60vw;
+  height: 200px;
+  color: var(--main-color);
+  font-size: clamp(1.5rem, 1rem + 2.32vw, 3rem);
+  font-family: var(--accent-font);
+  text-align: center;
+  text-transform: uppercase;
+
+}
+
+.folders {
+	position: relative;
+	margin-top: 300px;
+}
+
+
+.highlight {
+  position: relative;
+  display: inline-block; 
+  white-space: nowrap;
+}
+
+.highlight::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  color: var(--main-accent-color);
+  font-size: inherit; 
+  font-family: inherit;
+  white-space: nowrap;
+  text-transform: inherit; 
+}
+
+.moove::after {
+  animation: letter-fill 1.5s forwards;
+}
+
+@keyframes letter-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}

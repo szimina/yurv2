@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import styles from './folders.module.css'
-import { useScrollPosition } from '../../utils/useScrollPosition'
-import { FolderUI, ScrollYContainerUI } from '../ui'
+import { ScrollYContainerUI } from '../scroll-y-container'
+import { FolderUI } from '../folder'
+import { useScrollPosition } from '../../../utils/useScrollPosition'
+import styles from './test.module.css'
 
 // Конфигурация папок с предоставленными данными
-export const FOLDERS_DATA = [
+const FOLDERS_DATA = [
   {
     title: 'Консультация',
     startOffset: 500,
@@ -64,7 +65,7 @@ export const FOLDERS_DATA = [
   },
 ]
 
-const Folders = () => {
+const ScrollAnimationComponent = () => {
   const { scrollY } = useScroll()
   const [state, setState] = useState({
     left: 0,
@@ -114,7 +115,7 @@ const Folders = () => {
 
   // Анимации для папок
   const folderAnimations = FOLDERS_DATA.map((folder) => {
-    const startOffset = folder.startOffset + start
+    const startOffset = folder.startOffset
     const endOffset = startOffset + 200
 
     const opacity = useTransform(
@@ -182,4 +183,4 @@ const Folders = () => {
   )
 }
 
-export default Folders;
+export default ScrollAnimationComponent

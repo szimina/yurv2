@@ -5,6 +5,7 @@ import AppHeader from '../app-header/app-header'
 import Intro from '../intro/intro'
 import Circles from '../circles/circles'
 
+
 const Statistics = lazy(() => import('../statistics/statistics'))
 const FemidaBlock = lazy(() => import('../femida/femida'))
 const Cards = lazy(() => import('../cards/cards'))
@@ -17,7 +18,7 @@ const Footer = lazy(() => import('../footer/footer'))
 const App = () => {
 	return (
 		<div className={styles.app}>
-			{/* <ScrollIndicator /> */}
+			<ScrollIndicator />
 			<AppHeader />
 			<Intro
 				title={'Спишем долги быстро и законно'}
