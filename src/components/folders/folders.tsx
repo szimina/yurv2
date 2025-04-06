@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import styles from './folders.module.css'
 import { useScrollPosition } from '../../utils/useScrollPosition'
 import { FolderUI, ScrollYContainerUI } from '../ui'
@@ -65,16 +65,19 @@ export const FOLDERS_DATA = [
 ]
 
 const Folders = () => {
-  const { scrollY } = useScroll()
   const [state, setState] = useState({
     left: 0,
     top: 0,
     isVisible: false,
+    windowSize: { width: 0, height: 0 }
   })
 
   const headerRef = useRef<HTMLDivElement>(null!)
   const foldersRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const start = useScrollPosition(headerRef)
+
+  const { scrollY } = useScroll()
 
   useEffect(() => {
     const handleResize = () => {
@@ -84,12 +87,16 @@ const Folders = () => {
         const isDesktop = viewportWidth > 767
         const baseSize = isDesktop ? 300 : 200
 
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
           left: (containerWidth - baseSize) / 7,
           top: isDesktop
             ? baseSize - (containerWidth - baseSize) / 7
             : (baseSize - (containerWidth - baseSize) / 7) / 2,
+          windowSize: {
+            width: window.innerWidth,
+            height: window.innerHeight
+          }
         }))
       }
     }
@@ -103,7 +110,7 @@ const Folders = () => {
     if (start === 0) return
     const currentScrollPosition = window.scrollY
     if (currentScrollPosition > start - 100 && !state.isVisible) {
-      setState((prev) => ({ ...prev, isVisible: true }))
+      setState(prev => ({ ...prev, isVisible: true }))
     }
   }, [state.isVisible, start])
 
@@ -112,74 +119,86 @@ const Folders = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  // Анимации для папок
-  const folderAnimations = FOLDERS_DATA.map((folder) => {
-    const startOffset = folder.startOffset + start
-    const endOffset = startOffset + 200
+  // Общая анимация для всех папок
+  const baseAnimation = {
+    opacity: useTransform(scrollY, [start, start + 1000], [1, 0]),
+    y: useTransform(scrollY, [start, start + 1000], [0, -100]),
+    scale: useTransform(scrollY, [start, start + 1000], [1, 0.9])
+  }
 
-    const opacity = useTransform(
-      scrollY,
-      [startOffset, startOffset + 200, endOffset, endOffset],
-      [1, 0.5, 0.3, 0]
-    )
-
-    const y = useTransform(scrollY, [startOffset, endOffset], [0, -300])
-
+  // Индивидуальные анимации для каждой папки
+  const folderAnimations = FOLDERS_DATA.map((folder, index) => {
+    const delay = index * 100 // Задержка для каждой следующей папки
+    
     return {
       ...folder,
-      opacity,
-      y,
-      scale: useTransform(scrollY, [startOffset, endOffset], [1, 0.9]),
+      opacity: useTransform(
+        scrollY,
+        [start + delay, start + delay + 300, start + delay + 600, start + delay + 900],
+        [1, 0.8, 0.3, 0]
+      ),
+      y: useTransform(
+        scrollY,
+        [start + delay, start + delay + 900],
+        [0, -200 - (index * 20)]
+      ),
+      scale: useTransform(
+        scrollY,
+        [start + delay, start + delay + 900],
+        [1, 0.85 - (index * 0.02)]
+      )
     }
   })
 
   return (
-    <ScrollYContainerUI height={2500} stop={1900}>
-      <div
-        className={styles.header}
-        ref={headerRef}
-        style={{ marginTop: '100px' }}
-      >
-        8 этапов работы нашей компании{' '}
-        <span
-          className={`${styles.highlight} ${state.isVisible ? styles.moove : ''}`}
-          data-text='с клиентами'
+    <div ref={containerRef}>
+      <ScrollYContainerUI height={2500} stop={1900}>
+        <div
+          className={styles.header}
+          ref={headerRef}
+          style={{ marginTop: '100px' }}
         >
-          с клиентами
-        </span>
-      </div>
+          8 этапов работы нашей компании{' '}
+          <span
+            className={`${styles.highlight} ${state.isVisible ? styles.moove : ''}`}
+            data-text='с клиентами'
+          >
+            с клиентами
+          </span>
+        </div>
 
-      <div className={styles.folders} ref={foldersRef}>
-        {folderAnimations.map((folder) => {
-          const calculatedTop = folder.topCalc(state.top)
-          const calculatedLeft = folder.leftCalc(state.left)
-          
-          return (
-            <motion.div
-              key={folder.title}
-              style={{
-                position: 'absolute',
-                opacity: folder.opacity,
-                y: folder.y,
-                scale: folder.scale,
-                top: `${calculatedTop}px`,
-                left: `${calculatedLeft}px`,
-                zIndex: folder.zIndex,
-                transformOrigin: 'top center',
-              }}
-            >
-              <FolderUI
-                title={folder.title}
-                top={0}
-                left={0}
-                zIndex={folder.zIndex}
-              />
-            </motion.div>
-          )
-        })}
-      </div>
-    </ScrollYContainerUI>
+        <div className={styles.folders} ref={foldersRef}>
+          {folderAnimations.map((folder, index) => {
+            const calculatedTop = folder.topCalc(state.top)
+            const calculatedLeft = folder.leftCalc(state.left)
+
+            return (
+              <motion.div
+                key={folder.title}
+                style={{
+                  position: 'absolute',
+                  opacity: folder.opacity,
+                  y: folder.y,
+                  scale: folder.scale,
+                  top: `${calculatedTop}px`,
+                  left: `${calculatedLeft}px`,
+                  zIndex: folder.zIndex,
+                  transformOrigin: 'top center',
+                  willChange: 'transform, opacity'
+                }}
+              >
+                <FolderUI
+                  title={folder.title}
+                  top={0}
+                  left={0}
+                  zIndex={folder.zIndex}
+                />
+              </motion.div>
+            )
+          })}
+        </div>
+      </ScrollYContainerUI>
+    </div>
   )
 }
-
 export default Folders;
