@@ -69,61 +69,42 @@ const Folders = () => {
     left: 0,
     top: 0,
     isVisible: false,
-    windowSize: { width: 0, height: 0 }
   })
 
   const headerRef = useRef<HTMLDivElement>(null!)
   const foldersRef = useRef<HTMLDivElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
   const start = useScrollPosition(headerRef)
 
-  // Используем useSpring для плавности анимаций
-  const { scrollY } = useScroll({
-    layoutEffect: false
-  })
+  const { scrollY } = useScroll()
 
-  // Фиксируем размеры и позиции при изменении окна
   useEffect(() => {
-    const updateDimensions = () => {
-      if (!foldersRef.current) return
-      
-      const viewportWidth = window.innerWidth
-      const isDesktop = viewportWidth > 767
-      const baseSize = isDesktop ? 300 : 200
-      const containerWidth = foldersRef.current.getBoundingClientRect().width
+    const handleResize = () => {
+      if (foldersRef.current) {
+        const viewportWidth = window.innerWidth
+        const containerWidth = foldersRef.current.getBoundingClientRect().width
+        const isDesktop = viewportWidth > 767
+        const baseSize = isDesktop ? 300 : 200
 
-      setState(prev => ({
-        ...prev,
-        left: (containerWidth - baseSize) / 7,
-        top: isDesktop
-          ? baseSize - (containerWidth - baseSize) / 7
-          : (baseSize - (containerWidth - baseSize) / 7) / 2,
-        windowSize: {
-          width: window.innerWidth,
-          height: window.innerHeight
-        }
-      }))
+        setState((prev) => ({
+          ...prev,
+          left: (containerWidth - baseSize) / 7,
+          top: isDesktop
+            ? baseSize - (containerWidth - baseSize) / 7
+            : (baseSize - (containerWidth - baseSize) / 7) / 2,
+        }))
+      }
     }
 
-    updateDimensions()
-    const resizeObserver = new ResizeObserver(updateDimensions)
-    if (foldersRef.current) {
-      resizeObserver.observe(foldersRef.current)
-    }
-
-    window.addEventListener('resize', updateDimensions)
-    return () => {
-      window.removeEventListener('resize', updateDimensions)
-      resizeObserver.disconnect()
-    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Обработчик появления заголовка
   const handleScroll = useCallback(() => {
     if (start === 0) return
     const currentScrollPosition = window.scrollY
     if (currentScrollPosition > start - 100 && !state.isVisible) {
-      setState(prev => ({ ...prev, isVisible: true }))
+      setState((prev) => ({ ...prev, isVisible: true }))
     }
   }, [state.isVisible, start])
 
@@ -132,85 +113,71 @@ const Folders = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  // Оптимизированные анимации с буферизацией значений
+  
   const folderAnimations = FOLDERS_DATA.map((folder) => {
     const animationStart = start + folder.startOffset
-    const animationEnd = animationStart + 300 // Увеличили длительность анимации
-
-    // Используем useSpring для плавности
-    const opacity = useSpring(
-      useTransform(
-        scrollY,
-        [animationStart - 100, animationStart, animationEnd - 50, animationEnd],
-        [1, 1, 0, 0]
-      ),
-      { damping: 20, stiffness: 150 }
-    )
-
-    const y = useSpring(
-      useTransform(
-        scrollY,
-        [animationStart, animationEnd],
-        [0, -150]
-      ),
-      { damping: 20, stiffness: 150 }
-    )
+    const animationEnd = animationStart + 230 
 
     return {
       ...folder,
-      opacity,
-      y
+      opacity: useTransform(
+        scrollY,
+        [animationStart, animationEnd],
+        [1, 0]
+      ),
+      y: useTransform(
+        scrollY,
+        [animationStart, animationEnd],
+        [0, -150]
+      )
     }
   })
 
   return (
-    <div ref={containerRef}>
-      <ScrollYContainerUI height={2500} stop={2250}>
-        <div
-          className={styles.header}
-          ref={headerRef}
-          style={{ marginTop: '100px' }}
+    <ScrollYContainerUI height={2500} stop={2250}>
+      <div
+        className={styles.header}
+        ref={headerRef}
+        style={{ marginTop: '100px' }}
+      >
+        8 этапов работы нашей компании{' '}
+        <span
+          className={`${styles.highlight} ${state.isVisible ? styles.moove : ''}`}
+          data-text='с клиентами'
         >
-          8 этапов работы нашей компании{' '}
-          <span
-            className={`${styles.highlight} ${state.isVisible ? styles.moove : ''}`}
-            data-text='с клиентами'
-          >
-            с клиентами
-          </span>
-        </div>
+          с клиентами
+        </span>
+      </div>
 
-        <div className={styles.folders} ref={foldersRef}>
-          {folderAnimations.map((folder) => {
-            const calculatedTop = folder.topCalc(state.top)
-            const calculatedLeft = folder.leftCalc(state.left)
-
-            return (
-              <motion.div
-                key={folder.title}
-                style={{
-                  position: 'absolute',
-                  opacity: folder.opacity,
-                  y: folder.y,
-                  top: `${calculatedTop}px`,
-                  left: `${calculatedLeft}px`,
-                  zIndex: folder.zIndex,
-                  willChange: 'transform, opacity',
-                  backfaceVisibility: 'hidden' // Улучшаем производительность
-                }}
-              >
-                <FolderUI
-                  title={folder.title}
-                  top={0}
-                  left={0}
-                  zIndex={folder.zIndex}
-                />
-              </motion.div>
-            )
-          })}
-        </div>
-      </ScrollYContainerUI>
-    </div>
+      <div className={styles.folders} ref={foldersRef}>
+        {folderAnimations.map((folder) => {
+          const calculatedTop = folder.topCalc(state.top)
+          const calculatedLeft = folder.leftCalc(state.left)
+          
+          return (
+            <motion.div
+              key={folder.title}
+              style={{
+                position: 'absolute',
+                opacity: folder.opacity,
+                y: folder.y,
+                top: `${calculatedTop}px`,
+                left: `${calculatedLeft}px`,
+                zIndex: folder.zIndex,
+                willChange: 'transform, opacity',
+              }}
+            >
+              <FolderUI
+                title={folder.title}
+                top={0}
+                left={0}
+                zIndex={folder.zIndex}
+              />
+            </motion.div>
+          )
+        })}
+      </div>
+    </ScrollYContainerUI>
   )
 }
 
