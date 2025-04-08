@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
 import styles from './folders.module.css'
 import { useScrollPosition } from '../../utils/useScrollPosition'
 import { FolderUI, ScrollYContainerUI } from '../ui'
@@ -76,8 +76,18 @@ const Folders = () => {
   const foldersRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const start = useScrollPosition(headerRef)
+  const animationProgress = useMotionValue(0)
 
   const { scrollY } = useScroll()
+
+  // Фиксируем прогресс анимации
+  useEffect(() => {
+    const unsubscribe = scrollY.onChange((latest) => {
+      const progress = Math.min(Math.max((latest - start) / 1000, 0), 1)
+      animationProgress.set(progress)
+    })
+    return () => unsubscribe()
+  }, [start, scrollY, animationProgress])
 
   useEffect(() => {
     const handleResize = () => {
@@ -119,32 +129,26 @@ const Folders = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  // Общая анимация для всех папок
-  const baseAnimation = {
-    opacity: useTransform(scrollY, [start, start + 1000], [1, 0]),
-    y: useTransform(scrollY, [start, start + 1000], [0, -100]),
-    scale: useTransform(scrollY, [start, start + 1000], [1, 0.9])
-  }
-
-  // Индивидуальные анимации для каждой папки
+  // Анимации с фиксированным прогрессом
   const folderAnimations = FOLDERS_DATA.map((folder, index) => {
-    const delay = index * 100 // Задержка для каждой следующей папки
-    
+    const delay = index * 0.1 // Задержка в долях прогресса (0-1)
+    const duration = 0.3 // Длительность анимации для каждой папки
+
     return {
       ...folder,
       opacity: useTransform(
-        scrollY,
-        [start + delay, start + delay + 300, start + delay + 600, start + delay + 900],
-        [1, 0.8, 0.3, 0]
+        animationProgress,
+        [delay, delay + duration],
+        [1, 0]
       ),
       y: useTransform(
-        scrollY,
-        [start + delay, start + delay + 900],
+        animationProgress,
+        [delay, delay + duration],
         [0, -200 - (index * 20)]
       ),
       scale: useTransform(
-        scrollY,
-        [start + delay, start + delay + 900],
+        animationProgress,
+        [delay, delay + duration],
         [1, 0.85 - (index * 0.02)]
       )
     }
@@ -201,4 +205,5 @@ const Folders = () => {
     </div>
   )
 }
+
 export default Folders;
