@@ -5,23 +5,23 @@ import { useParallax } from 'react-scroll-parallax'
 
 export const FolderUI: FC<FolderUIProps> = ({
 	title,
-	// startScroll,
+	startScroll,
 	top,
 	left,
 	zIndex,
 }) => {
-	// const parallax = useParallax<HTMLDivElement>({
-	// 	translateY: ['0px', '-50px'],
-	// 	startScroll: startScroll,
-	// 	endScroll: startScroll + 200,
-	// 	opacity: [1, 0],
-	// })
+	const parallax = useParallax<HTMLDivElement>({
+		translateY: ['0px', '-50px'],
+		startScroll: startScroll,
+		endScroll: startScroll + 200,
+		opacity: [1, 0],
+	})
 
 	return (
 		<div
 			className={styles.container}
 			style={{ zIndex: `${zIndex}`, top: `${top}px`, marginLeft: `${left}px` }}
-			// ref={parallax.ref}
+			ref={parallax.ref}
 		>
 			<svg
 				className={styles.svg}
