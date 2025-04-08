@@ -76,46 +76,49 @@ const Folders = () => {
   const foldersRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const start = useScrollPosition(headerRef)
-  const animationProgress = useMotionValue(0)
 
-  const { scrollY } = useScroll()
+  // Используем useSpring для плавности анимаций
+  const { scrollY } = useScroll({
+    layoutEffect: false
+  })
 
-  // Фиксируем прогресс анимации
+  // Фиксируем размеры и позиции при изменении окна
   useEffect(() => {
-    const unsubscribe = scrollY.onChange((latest) => {
-      const progress = Math.min(Math.max((latest - start) / 1000, 0), 1)
-      animationProgress.set(progress)
-    })
-    return () => unsubscribe()
-  }, [start, scrollY, animationProgress])
+    const updateDimensions = () => {
+      if (!foldersRef.current) return
+      
+      const viewportWidth = window.innerWidth
+      const isDesktop = viewportWidth > 767
+      const baseSize = isDesktop ? 300 : 200
+      const containerWidth = foldersRef.current.getBoundingClientRect().width
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (foldersRef.current) {
-        const viewportWidth = window.innerWidth
-        const containerWidth = foldersRef.current.getBoundingClientRect().width
-        const isDesktop = viewportWidth > 767
-        const baseSize = isDesktop ? 300 : 200
-
-        setState(prev => ({
-          ...prev,
-          left: (containerWidth - baseSize) / 7,
-          top: isDesktop
-            ? baseSize - (containerWidth - baseSize) / 7
-            : (baseSize - (containerWidth - baseSize) / 7) / 2,
-          windowSize: {
-            width: window.innerWidth,
-            height: window.innerHeight
-          }
-        }))
-      }
+      setState(prev => ({
+        ...prev,
+        left: (containerWidth - baseSize) / 7,
+        top: isDesktop
+          ? baseSize - (containerWidth - baseSize) / 7
+          : (baseSize - (containerWidth - baseSize) / 7) / 2,
+        windowSize: {
+          width: window.innerWidth,
+          height: window.innerHeight
+        }
+      }))
     }
 
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    updateDimensions()
+    const resizeObserver = new ResizeObserver(updateDimensions)
+    if (foldersRef.current) {
+      resizeObserver.observe(foldersRef.current)
+    }
+
+    window.addEventListener('resize', updateDimensions)
+    return () => {
+      window.removeEventListener('resize', updateDimensions)
+      resizeObserver.disconnect()
+    }
   }, [])
 
+  // Обработчик появления заголовка
   const handleScroll = useCallback(() => {
     if (start === 0) return
     const currentScrollPosition = window.scrollY
@@ -129,34 +132,40 @@ const Folders = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  // Анимации с фиксированным прогрессом
-  const folderAnimations = FOLDERS_DATA.map((folder, index) => {
-    const delay = index * 0.1 // Задержка в долях прогресса (0-1)
-    const duration = 0.3 // Длительность анимации для каждой папки
+  // Оптимизированные анимации с буферизацией значений
+  const folderAnimations = FOLDERS_DATA.map((folder) => {
+    const animationStart = start + folder.startOffset
+    const animationEnd = animationStart + 300 // Увеличили длительность анимации
+
+    // Используем useSpring для плавности
+    const opacity = useSpring(
+      useTransform(
+        scrollY,
+        [animationStart - 100, animationStart, animationEnd - 50, animationEnd],
+        [1, 1, 0, 0]
+      ),
+      { damping: 20, stiffness: 150 }
+    )
+
+    const y = useSpring(
+      useTransform(
+        scrollY,
+        [animationStart, animationEnd],
+        [0, -150]
+      ),
+      { damping: 20, stiffness: 150 }
+    )
 
     return {
       ...folder,
-      opacity: useTransform(
-        animationProgress,
-        [delay, delay + duration],
-        [1, 0]
-      ),
-      y: useTransform(
-        animationProgress,
-        [delay, delay + duration],
-        [0, -200 - (index * 20)]
-      ),
-      scale: useTransform(
-        animationProgress,
-        [delay, delay + duration],
-        [1, 0.85 - (index * 0.02)]
-      )
+      opacity,
+      y
     }
   })
 
   return (
     <div ref={containerRef}>
-      <ScrollYContainerUI height={2500} stop={1900}>
+      <ScrollYContainerUI height={2500} stop={2250}>
         <div
           className={styles.header}
           ref={headerRef}
@@ -172,7 +181,7 @@ const Folders = () => {
         </div>
 
         <div className={styles.folders} ref={foldersRef}>
-          {folderAnimations.map((folder, index) => {
+          {folderAnimations.map((folder) => {
             const calculatedTop = folder.topCalc(state.top)
             const calculatedLeft = folder.leftCalc(state.left)
 
@@ -183,12 +192,11 @@ const Folders = () => {
                   position: 'absolute',
                   opacity: folder.opacity,
                   y: folder.y,
-                  scale: folder.scale,
                   top: `${calculatedTop}px`,
                   left: `${calculatedLeft}px`,
                   zIndex: folder.zIndex,
-                  transformOrigin: 'top center',
-                  willChange: 'transform, opacity'
+                  willChange: 'transform, opacity',
+                  backfaceVisibility: 'hidden' // Улучшаем производительность
                 }}
               >
                 <FolderUI
