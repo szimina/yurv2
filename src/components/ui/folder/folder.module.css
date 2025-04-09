@@ -1,6 +1,9 @@
 .container{
   position: absolute;
   aspect-ratio: 347/239;
+  top: var(--top-folder);
+  left: var(--left-folder);
+  z-index: var(--z-index-folder);
   display: inline-block;
   width: 300px;
 }

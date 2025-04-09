@@ -9,6 +9,7 @@ import {
 import styles from './folders.module.css'
 import { useScrollPosition } from '../../utils/useScrollPosition'
 import { FolderUI, ScrollYContainerUI } from '../ui'
+import { ParallaxProps } from 'react-scroll-parallax'
 
 // Конфигурация папок с предоставленными данными
 export const FOLDERS_DATA = [
