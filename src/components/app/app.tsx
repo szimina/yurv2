@@ -28,7 +28,7 @@ const App = () => {
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Statistics />
 			</Suspense>
-			<Suspense fallback={<div>Загрузка анимации...</div>}>
+			{/* <Suspense fallback={<div>Загрузка анимации...</div>}>
 				<FemidaBlock />
 			</Suspense>
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
@@ -39,7 +39,7 @@ const App = () => {
 			</Suspense>
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Net />
-			</Suspense>
+			</Suspense> */}
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Folders />
 			</Suspense>

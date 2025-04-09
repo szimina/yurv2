@@ -1,7 +1,8 @@
 import { FC } from 'react'
 import styles from './folder.module.css'
 import { FolderUIProps } from './type'
-import { useScroll, useTransform, motion } from 'framer-motion'
+import { useParallax } from 'react-scroll-parallax'
+
 
 export const FolderUI: FC<FolderUIProps> = ({
   title,
@@ -10,28 +11,17 @@ export const FolderUI: FC<FolderUIProps> = ({
   left,
   zIndex,
 }) => {
-  const { scrollY } = useScroll()
   
-  const opacity = useTransform(scrollY, 
-    [startScroll, startScroll + 200],
-    [1, 0]
-  )
-  
-  const y = useTransform(scrollY, 
-    [startScroll, startScroll + 200],
-    [0, -50]
-  )
+	const parallax = useParallax<HTMLDivElement>({
+		translateY: ['0px', '-200px'],
+		startScroll: startScroll,
+		endScroll: startScroll + 200,
+	})
 
   return (
-    <motion.div
+    <div ref={parallax.ref}
       className={styles.container}
-      style={{ 
-        zIndex,
-        top: `${top}px`, 
-        marginLeft: `${left}px`,
-        opacity,
-        y
-      }}
+			style={{ zIndex: `${zIndex}`, top: `${top}px`, marginLeft: `${left}px` }}
     >
       <svg
         className={styles.svg}
@@ -48,6 +38,6 @@ export const FolderUI: FC<FolderUIProps> = ({
         />
       </svg>
       <h1 className={styles.title}>{title}</h1>
-    </motion.div>
+    </div>
   )
 }
