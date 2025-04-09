@@ -79,13 +79,13 @@ const Folders = memo(() => {
 			],
 			startScroll: [
 				start + 200,
-				start + 400,
-				start + 600,
-				start + 800,
-				start + 1000,
-				start + 1200,
-				start + 1400,
-				start + 1600,
+				start + 410,
+				start + 620,
+				start + 830,
+				start + 1040,
+				start + 1250,
+				start + 1460,
+				start + 1670,
 			],
 		}
 	}, [state.top, state.left, start])
