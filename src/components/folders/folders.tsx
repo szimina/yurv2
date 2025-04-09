@@ -49,7 +49,7 @@ const Folders = memo(() => {
 	}, [state.isVisible, start])
 
 	useEffect(() => {
-		window.addEventListener('scroll', handleScroll, { passive: true })
+		window.addEventListener('scroll', handleScroll, { passive: false })
 		return () => window.removeEventListener('scroll', handleScroll)
 	}, [handleScroll])
 
@@ -88,7 +88,7 @@ const Folders = memo(() => {
 		}
 	}, [state.top, state.left, start])
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		setFoldersState((prev) => ({
 			...prev,
 			left,
@@ -99,6 +99,8 @@ const Folders = memo(() => {
 
 	useEffect(() => {
 		const handleResize = () => {
+			if (!foldersRef.current) return;
+			
 			if (foldersRef.current) {
 				const viewportWidth = window.innerWidth
 				const containerWidth = foldersRef.current.getBoundingClientRect().width
@@ -122,16 +124,24 @@ const Folders = memo(() => {
 
 	const [isReady, setIsReady] = useState(false)
 
-	useEffect(() => {
-		// Проверяем что все позиции не равны 0
-		const positionsCalculated =
-			foldersState.left.every((pos) => pos !== 0) &&
-			foldersState.top.every((pos) => pos !== 0)
+useEffect(() => {
+	const positionsCalculated = 
+		foldersState.left.every(pos => pos !== 0) &&
+		foldersState.top.every(pos => pos !== 0) &&
+		foldersState.startScroll.every(pos => pos !== 0)
 
-		if (positionsCalculated) {
-			setIsReady(true)
-		}
-	}, [foldersState])
+	if (positionsCalculated) {
+		setIsReady(true)
+	}
+}, [foldersState])
+
+const safeFoldersState = useMemo(() => ({
+	left: isReady ? foldersState.left : Array(8).fill(0),
+	top: isReady ? foldersState.top : Array(8).fill(0),
+	startScroll: isReady ? foldersState.startScroll : Array(8).fill(0),
+	zIndex: foldersState.zIndex,
+}), [isReady, foldersState])
+
 
 	return (
 		<ScrollYContainerUI height={2500} stop={1900}>
@@ -154,10 +164,10 @@ const Folders = memo(() => {
 						<FolderUI
 							key={index + 1}
 							title={text}
-							top={foldersState.top[index]}
-							left={foldersState.left[index]}
-							startScroll={foldersState.startScroll[index]}
-							zIndex={foldersState.zIndex[index]}
+							top={safeFoldersState.top[index]}
+							left={safeFoldersState.left[index]}
+							startScroll={safeFoldersState.startScroll[index]}
+							zIndex={safeFoldersState.zIndex[index]}
 						/>
 					))}
 			</div>

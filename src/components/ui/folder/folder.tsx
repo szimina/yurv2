@@ -25,7 +25,7 @@ export const FolderUI: FC<FolderUIProps> = ({
 		<Parallax
 			className={styles.container}
 			style={style}
-			translateY={['0px', '-200px']}
+			translateY={['0px', '200px']}
 			startScroll={startScroll}
 			endScroll={startScroll + 200}
 			opacity={[1, 0, 'easeInOutCubic']}
