@@ -1,0 +1,1 @@
+export { PapkaUI } from "./papka"

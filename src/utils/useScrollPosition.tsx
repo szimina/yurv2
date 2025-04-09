@@ -40,6 +40,6 @@ export const useScrollPosition = (ref: React.RefObject<Element> ) => {
       window.removeEventListener('resize', handleLoadAndResize);
     };
   }, [ref]);
-
+ 
   return start;
 };
