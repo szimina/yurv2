@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import styles from './folder.module.css'
 import { FolderUIProps } from './type'
 
@@ -11,51 +11,65 @@ export const FolderUI: FC<FolderUIProps> = ({
 }) => {
   const [scrollY, setScrollY] = useState(0)
   const folderRef = useRef<HTMLDivElement>(null)
+  const requestRef = useRef<number>(0)
+
+  const isMobile = typeof window !== 'undefined' 
+    ? /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+    : false;
 
   const style = useMemo(
-    () =>
-      ({
-        '--top-folder': `${top}px`,
-        '--left-folder': `${left}px`,
-        '--z-index-folder': `${zIndex}`,
-      }) as React.CSSProperties,
+    () => ({
+      '--top-folder': `${top}px`,
+      '--left-folder': `${left}px`,
+      '--z-index-folder': `${zIndex}`,
+    }) as React.CSSProperties,
     [top, left, zIndex]
   )
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const getAnimationProgress = () => {
+  const getAnimationProgress = useCallback(() => {
     if (!startScroll) return 0
     const scrollPosition = scrollY - startScroll
-    const animationLength = 200 
+    const animationLength = isMobile ? 300 : 200
     return Math.min(Math.max(scrollPosition / animationLength, 0), 1)
-  }
+  }, [scrollY, startScroll, isMobile])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current)
+      }
+      requestRef.current = requestAnimationFrame(() => {
+        setScrollY(window.scrollY)
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current)
+      }
+    }
+  }, [])
 
   const progress = getAnimationProgress()
-
-
-  const translateY = `${progress * -200}px` 
-  const opacity = 1 - progress 
+  const translateY = `${progress * (isMobile ? 300 : 200)}px`
+  const opacity = 1 - progress
 
   return (
     <div
       ref={folderRef}
-      className={styles.container}
+      className={`${styles.container} ${isMobile ? styles.mobile : ''}`}
       style={{
         ...style,
         transform: `translateY(${translateY})`,
         opacity: opacity,
-        transition: 'transform 0.1s ease-out, opacity 0.3s ease-out',
+        transition: isMobile 
+          ? 'transform 0.2s ease-out, opacity 0.4s ease-out' 
+          : 'transform 0.1s ease-out, opacity 0.3s ease-out',
       }}
     >
-      <svg
+<svg
         className={styles.svg}
         xmlns='http://www.w3.org/2000/svg'
         viewBox='0 0 376 255'

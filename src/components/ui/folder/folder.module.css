@@ -6,6 +6,7 @@
   z-index: var(--z-index-folder);
   display: inline-block;
   width: 300px;
+  will-change: transform, opacity; 
 }
 
 .title{
@@ -36,5 +37,7 @@
 @media (width <=767px) {
   .container {
     width: 200px;
+    will-change: transform, opacity; 
+    backface-visibility: hidden;
   }  
 }
