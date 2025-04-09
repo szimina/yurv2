@@ -16,6 +16,7 @@ export const FolderUI: FC<FolderUIProps> = ({
 		translateY: ['0px', '-200px'],
 		startScroll: startScroll,
 		endScroll: startScroll + 200,
+		shouldAlwaysCompleteAnimation: true,
 	})
 
   return (
