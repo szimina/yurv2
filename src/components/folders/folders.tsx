@@ -53,6 +53,8 @@ const Folders = memo(() => {
 		return () => window.removeEventListener('scroll', handleScroll)
 	}, [handleScroll])
 
+
+
 	const { left, top, startScroll } = useMemo(() => {
 		return {
 			top: [
@@ -124,23 +126,18 @@ const Folders = memo(() => {
 
 	const [isReady, setIsReady] = useState(false)
 
-useEffect(() => {
-	const positionsCalculated = 
-		foldersState.left.every(pos => pos !== 0) &&
-		foldersState.top.every(pos => pos !== 0) &&
-		foldersState.startScroll.every(pos => pos !== 0)
+	useEffect(() => {
+		// Проверяем что все позиции не равны 0
+		const positionsCalculated =
+			foldersState.left.every((pos) => pos !== 0) &&
+			foldersState.top.every((pos) => pos !== 0)
 
-	if (positionsCalculated) {
-		setIsReady(true)
-	}
-}, [foldersState])
+		if (positionsCalculated) {
+			setIsReady(true)
+		}
+	}, [foldersState])
 
-const safeFoldersState = useMemo(() => ({
-	left: isReady ? foldersState.left : Array(8).fill(0),
-	top: isReady ? foldersState.top : Array(8).fill(0),
-	startScroll: isReady ? foldersState.startScroll : Array(8).fill(0),
-	zIndex: foldersState.zIndex,
-}), [isReady, foldersState])
+	
 
 
 	return (
@@ -164,10 +161,10 @@ const safeFoldersState = useMemo(() => ({
 						<FolderUI
 							key={index + 1}
 							title={text}
-							top={safeFoldersState.top[index]}
-							left={safeFoldersState.left[index]}
-							startScroll={safeFoldersState.startScroll[index]}
-							zIndex={safeFoldersState.zIndex[index]}
+							top={foldersState.top[index]}
+							left={foldersState.left[index]}
+							startScroll={foldersState.startScroll[index]}
+							zIndex={foldersState.zIndex[index]}
 						/>
 					))}
 			</div>
