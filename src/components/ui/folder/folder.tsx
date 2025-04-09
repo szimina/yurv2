@@ -11,11 +11,11 @@ export const FolderUI: FC<FolderUIProps> = ({
 }) => {
   const [scrollY, setScrollY] = useState(0)
   const folderRef = useRef<HTMLDivElement>(null)
-  const requestRef = useRef<number>(0)
+  const requestRef = useRef<number | null>(null) // Явно указываем тип
 
   const isMobile = typeof window !== 'undefined' 
     ? /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-    : false;
+    : false
 
   const style = useMemo(
     () => ({
@@ -44,6 +44,7 @@ export const FolderUI: FC<FolderUIProps> = ({
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+    
     return () => {
       window.removeEventListener('scroll', handleScroll)
       if (requestRef.current) {
@@ -53,7 +54,7 @@ export const FolderUI: FC<FolderUIProps> = ({
   }, [])
 
   const progress = getAnimationProgress()
-  const translateY = `${progress * (isMobile ? 300 : 200)}px`
+  const translateY = `${progress * (isMobile ? -300 : -200)}px`
   const opacity = 1 - progress
 
   return (
@@ -69,11 +70,7 @@ export const FolderUI: FC<FolderUIProps> = ({
           : 'transform 0.1s ease-out, opacity 0.3s ease-out',
       }}
     >
-<svg
-        className={styles.svg}
-        xmlns='http://www.w3.org/2000/svg'
-        viewBox='0 0 376 255'
-      >
+      <svg className={styles.svg} viewBox='0 0 376 255'>
         <path
           className={styles.path}
           d='M127 13.081C127 5.857 121.143 0 113.919 0H23.916C10.707 0 0 10.707 0 23.916V219c0 19.882 16.118 36 36 36h304c19.882 0 36-16.118 36-36V54c0-14.912-12.088-27-27-27H140.919C133.232 27 127 20.768 127 13.081Z'
