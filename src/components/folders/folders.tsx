@@ -1,86 +1,101 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-	motion,
-	useMotionValue,
-	useScroll,
-	useSpring,
-	useTransform,
-} from 'framer-motion'
+	memo,
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react'
+
 import styles from './folders.module.css'
 import { useScrollPosition } from '../../utils/useScrollPosition'
 import { FolderUI, ScrollYContainerUI } from '../ui'
-import { ParallaxProps } from 'react-scroll-parallax'
 
-// Конфигурация папок с предоставленными данными
-export const FOLDERS_DATA = [
-	{
-		title: 'Консультация',
-		startOffset: 200,
-		topCalc: (top: number) => top,
-		leftCalc: (_left: number) => 0,
-		zIndex: 8,
-	},
-	{
-		title: 'Анализ долгов',
-		startOffset: 400,
-		topCalc: (_top: number) => 0,
-		leftCalc: (left: number) => left + 5,
-		zIndex: 7,
-	},
-	{
-		title: 'Сбор документов',
-		startOffset: 600,
-		topCalc: (top: number) => top * 1.5,
-		leftCalc: (left: number) => left * 2,
-		zIndex: 6,
-	},
-	{
-		title: 'Подача заявления',
-		startOffset: 800,
-		topCalc: (top: number) => top * 0.3,
-		leftCalc: (left: number) => left * 3 - 7,
-		zIndex: 5,
-	},
-	{
-		title: 'Судебное сопровождение',
-		startOffset: 1000,
-		topCalc: (top: number) => top * 0.1,
-		leftCalc: (left: number) => left * 4,
-		zIndex: 4,
-	},
-	{
-		title: 'Взаимодействие с кредиторами',
-		startOffset: 1200,
-		topCalc: (top: number) => top * 1.8,
-		leftCalc: (left: number) => left * 5 - 5,
-		zIndex: 3,
-	},
-	{
-		title: 'Реализация имущества',
-		startOffset: 1400,
-		topCalc: (top: number) => top * 0.1,
-		leftCalc: (left: number) => left * 6 + 7,
-		zIndex: 2,
-	},
-	{
-		title: 'Завершение процедуры',
-		startOffset: 1600,
-		topCalc: (top: number) => top * 1.2,
-		leftCalc: (left: number) => left * 7,
-		zIndex: 1,
-	},
+const FOLDERS_TEXT = [
+	'Консультация',
+	'Анализ долгов',
+	'Сбор документов',
+	'Подача заявления',
+	'Судебное сопровождение',
+	'Взаимодействие с кредиторами',
+	'Реализация имущества',
+	'Завершение процедуры',
 ]
 
-const Folders = () => {
+const Folders = memo(() => {
 	const [state, setState] = useState({
+		isVisible: false,
 		left: 0,
 		top: 0,
-		isVisible: false,
+	})
+	const [foldersState, setFoldersState] = useState({
+		left: new Array(8).fill(0),
+		top: new Array(8).fill(0),
+		startScroll: new Array(8).fill(0),
+		zIndex: [8, 7, 6, 5, 4, 3, 2, 1],
 	})
 
 	const headerRef = useRef<HTMLDivElement>(null!)
 	const foldersRef = useRef<HTMLDivElement>(null)
 	const start = useScrollPosition(headerRef)
+
+	const handleScroll = useCallback(() => {
+		if (start === 0) return
+		const currentScrollPosition = window.scrollY
+		if (currentScrollPosition > start - 100 && !state.isVisible) {
+			setState((prev) => ({ ...prev, isVisible: true }))
+		}
+	}, [state.isVisible, start])
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll, { passive: true })
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [handleScroll])
+
+	const { left, top, startScroll } = useMemo(() => {
+		return {
+			top: [
+				state.top,
+				1,
+				state.top * 1.5,
+				state.top * 0.3,
+				state.top * 0.1,
+				state.top * 1.8,
+				state.top * 0.1,
+				state.top * 1.2,
+			],
+			left: [
+				1,
+				state.left + 5,
+				state.left * 2,
+				state.left * 3 - 7,
+				state.left * 4,
+				state.left * 5 - 5,
+				state.left * 6 + 7,
+				state.left * 7,
+			],
+			startScroll: [
+				start + 200,
+				start + 400,
+				start + 600,
+				start + 800,
+				start + 1000,
+				start + 1200,
+				start + 1400,
+				start + 1600,
+			],
+		}
+	}, [state.top, state.left, start])
+
+	useLayoutEffect(() => {
+		setFoldersState((prev) => ({
+			...prev,
+			left,
+			top,
+			startScroll,
+		}))
+	}, [state.left, state.top, start])
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -105,18 +120,18 @@ const Folders = () => {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
-	const handleScroll = useCallback(() => {
-		if (start === 0) return
-		const currentScrollPosition = window.scrollY
-		if (currentScrollPosition > start - 100 && !state.isVisible) {
-			setState((prev) => ({ ...prev, isVisible: true }))
-		}
-	}, [state.isVisible, start])
+	const [isReady, setIsReady] = useState(false)
 
 	useEffect(() => {
-		window.addEventListener('scroll', handleScroll, { passive: true })
-		return () => window.removeEventListener('scroll', handleScroll)
-	}, [handleScroll])
+		// Проверяем что все позиции не равны 0
+		const positionsCalculated =
+			foldersState.left.every((pos) => pos !== 0) &&
+			foldersState.top.every((pos) => pos !== 0)
+
+		if (positionsCalculated) {
+			setIsReady(true)
+		}
+	}, [foldersState])
 
 	return (
 		<ScrollYContainerUI height={2500} stop={1900}>
@@ -134,19 +149,20 @@ const Folders = () => {
 				</span>
 			</div>
 			<div className={styles.folders} ref={foldersRef}>
-				{FOLDERS_DATA.map((folder) => (
-					<FolderUI
-						key={folder.title}
-						title={folder.title}
-						startScroll={start + folder.startOffset}
-						top={folder.topCalc(state.top)}
-						left={folder.leftCalc(state.left)}
-						zIndex={folder.zIndex}
-					/>
-				))}
+				{isReady &&
+					FOLDERS_TEXT.map((text, index) => (
+						<FolderUI
+							key={index + 1}
+							title={text}
+							top={foldersState.top[index]}
+							left={foldersState.left[index]}
+							startScroll={foldersState.startScroll[index]}
+							zIndex={foldersState.zIndex[index]}
+						/>
+					))}
 			</div>
 		</ScrollYContainerUI>
 	)
-}
+})
 
 export default Folders

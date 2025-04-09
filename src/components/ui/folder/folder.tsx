@@ -28,7 +28,7 @@ export const FolderUI: FC<FolderUIProps> = ({
 			translateY={['0px', '-200px']}
 			startScroll={startScroll}
 			endScroll={startScroll + 200}
-			opacity={[1, 0]}
+			opacity={[1, 0, 'easeInOutCubic']}
 			shouldAlwaysCompleteAnimation
 		>
 			<svg
