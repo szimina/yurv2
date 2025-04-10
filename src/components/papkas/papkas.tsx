@@ -1,7 +1,6 @@
-import { useRef, useState, useLayoutEffect, memo, useCallback, useMemo, useEffect } from 'react';
+import { useRef, useState, memo, useCallback, useMemo, useEffect } from 'react';
 import styles from './papkas.module.css';
-import { Parallax } from 'react-scroll-parallax';
-import { ScrollYContainerUI, CircleUI, LogoUI } from '../ui';
+import { ScrollYContainerUI} from '../ui';
 import { PapkaUI } from '../ui/papka';
 import { useScrollPosition } from '../../utils/useScrollPosition';
 
@@ -17,10 +16,10 @@ const FOLDERS_TEXT = [
 ]
 
 const Papkas = memo(() => {
-  const papkasRef = useRef<HTMLDivElement>(null!);
+  const containerRef = useRef<HTMLDivElement>(null!);
   const foldersRef = useRef<HTMLDivElement>(null);
 
-  const start = useScrollPosition(papkasRef) + 400
+  const start = useScrollPosition(containerRef) + 400
 
   const [stateContainer, setStateContainer] = useState({
 		isVisible: false,
@@ -34,7 +33,7 @@ const Papkas = memo(() => {
 			
 			if (foldersRef.current) {
 				const viewportWidth = window.innerWidth
-				const containerWidth = papkasRef.current.getBoundingClientRect().width
+				const containerWidth = containerRef.current.getBoundingClientRect().width
 				const isDesktop = viewportWidth > 767
 				const baseSize = isDesktop ? 300 : 200
 
@@ -119,15 +118,6 @@ const Papkas = memo(() => {
 	}, [stateContainer.left, stateContainer.top, start])
 
 
-
-  const [isMobile, setIsMobile] = useState(false);
-  const [dimensions, setDimensions] = useState({
-    windowWidth: 0,
-    windowHeight: 0,
-  });
-
-
-
   const handleScroll = useCallback(() => {
 		if (start === 0) return
 		const currentScrollPosition = window.scrollY
@@ -144,7 +134,6 @@ const Papkas = memo(() => {
 	const [isReady, setIsReady] = useState(false)
 
 	useEffect(() => {
-		// Проверяем что все позиции не равны 0
 		const positionsCalculated =
     stateFolders.left.every((pos) => pos !== 0) &&
     stateFolders.top.every((pos) => pos !== 0)
@@ -155,14 +144,11 @@ const Papkas = memo(() => {
 	}, [stateFolders])
 
 
-
-
-
   return (
     <ScrollYContainerUI
       height={2500}
       stop={1900}
-      ref={papkasRef}
+      ref={containerRef}
     >
      <div
 				className={styles.header}

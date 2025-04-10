@@ -26,7 +26,7 @@ export const PapkaUI: FC<PapkaUIProps> = React.memo(({
       className={styles.papka}
       style={style}
       translateY={translateY as ParallaxProps['translateY']}
-      // opacity={[1, 0]}
+      opacity={[1, 0]}
       startScroll={startScroll}
       endScroll={endScroll}
       shouldAlwaysCompleteAnimation
