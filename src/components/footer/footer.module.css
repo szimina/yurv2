@@ -7,7 +7,7 @@
   width: 100%;
   height: 25vh;
   margin: 50px 0 20px;
-  padding: 1px; /* Толщина "бордера" */
+  padding: 1px; 
   background: var(--gradient);
   border-radius: 30px;
 }

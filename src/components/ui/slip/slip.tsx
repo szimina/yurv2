@@ -59,7 +59,6 @@ export const SlipUI: FC<SlipUIProps> = ({
     }
   }, [startScroll, endScroll])
 
-  // ... остальной код компонента остается без изменений
   const opacity =
     progress < 0.3 ? progress * 100 : progress < 0.9 ? 1 : 1 - progress
 

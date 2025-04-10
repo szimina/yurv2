@@ -12,7 +12,6 @@ const Cards = lazy(() => import('../cards/cards'))
 const Pipe = lazy(() => import('../pipe/pipe'))
 const Net = lazy(() => import('../net/net'))
 const Folders = lazy(() => import('../folders/folders'))
-const Papkas = lazy(() => import('../papkas/papkas'))
 const Final = lazy(() => import('../final/final'))
 const Footer = lazy(() => import('../footer/footer'))
 
@@ -20,6 +19,7 @@ const App = () => {
 	return (
 		<div className={styles.app}>
 			{/* <ScrollIndicator /> */}
+			<ScrollbarWidth />
 			<AppHeader />
 			<Intro
 				title={'Спишем долги быстро и законно'}
@@ -41,13 +41,9 @@ const App = () => {
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Net />
 			</Suspense>
-			{/* <Suspense fallback={<div>Загрузка анимации...</div>}>
-				<Folders />
-			</Suspense> */}
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
-				<Papkas />
+				<Folders />
 			</Suspense>
-			<ScrollbarWidth />
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Final />
 			</Suspense>

@@ -1,5 +1,5 @@
+
 .header {
-  position: absolute;
   align-self: center;
   width: 60vw;
   height: 200px;
@@ -8,18 +8,16 @@
   font-family: var(--accent-font);
   text-align: center;
   text-transform: uppercase;
-
 }
 
 .folders {
-	position: relative;
-	margin-top: 300px;
-}
-
+  position: relative;
+  display: flex;
+  }
 
 .highlight {
   position: relative;
-  display: inline-block; /* Важно для корректного позиционирования ::after */
+  display: inline-block; 
   white-space: nowrap;
 }
 

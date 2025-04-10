@@ -1,8 +1,10 @@
+
 import styles from './net.module.css';
 import { useRef, useMemo } from 'react';
 
 import { useScrollPosition } from '../../utils/useScrollPosition';
 import { ShadowHeaderUI, SlipUI, NetSvg, ScrollYContainerUI } from '../ui';
+import { LabelUI } from '../ui/label';
 
 
 const SCROLL_STEP = 900;
@@ -33,7 +35,7 @@ const Net: React.FC = () => {
 
   const slips = useMemo(() => (
     SLIP_DATA.map(({ header, buttons }, index) => (
-      <SlipUI
+      <LabelUI
         key={header}
         startScroll={start + index * SCROLL_STEP}
         endScroll={start + (index + 1) * SCROLL_STEP}

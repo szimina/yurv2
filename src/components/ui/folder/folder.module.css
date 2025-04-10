@@ -1,29 +1,32 @@
-.container {
-	position: absolute;
+.folder {
+  position: absolute;
+  top: var(--top-folder);
+  left: var(--left-folder);
+  z-index: var(--z-index-folder);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 	aspect-ratio: 347/239;
-	top: var(--top-folder);
-	left: var(--left-folder);
-	z-index: var(--z-index-folder);
-	display: inline-block;
-	width: 300px;
-	will-change: transform, opacity;
-	-webkit-backface-visibility: hidden;
-	-webkit-transform-style: preserve-3d;
-	transition:
-		transform 0.15s cubic-bezier(0.25, 0.1, 0.25, 1),
-		opacity 0.25s ease-out;
-}
+  width: 300px;
+  overflow: hidden;
+  border-radius: var(--size);
+  will-change: transform, opacity;
+ 
+  }
 
 .title {
-	position: absolute;
+  position: absolute;
 	top: 40px;
 	left: 15px;
-	max-width: 270px;
+  z-index: calc(var(--z-index-folder) + 1);
+  display: flex;
+  padding: 0 10px;
 	color: var(--main-color);
-	font: var(--main-font);
 	font-weight: 700;
 	font-size: clamp(0.75rem, 0.62rem + 0.58vw, 1.12rem);
-	letter-spacing: 1px;
+  font-family: var(--main-font);
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 .svg {
@@ -38,12 +41,7 @@
 }
 
 @media (width <=767px) {
-	.container {
+	.folder {
 		width: 200px;
-		will-change: transform, opacity;
-		backface-visibility: hidden;
-		transition:
-			transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-			opacity 0.3s ease-out;
-	}
+}
 }

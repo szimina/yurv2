@@ -1,0 +1,1 @@
+export { LabelUI } from './label';

@@ -28,7 +28,6 @@ const Circles = memo(() => {
     logoOpacity: [0, 0] as [number, number],
   });
 
-  // Calculate scrollbar width once
   const scrollbarWidth = useMemo(() => {
     const value = getComputedStyle(document.documentElement)
       .getPropertyValue('--scrollbar-width')

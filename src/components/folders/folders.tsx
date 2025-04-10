@@ -1,16 +1,8 @@
-import {
-	memo,
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useMemo,
-	useRef,
-	useState,
-} from 'react'
-
-import styles from './folders.module.css'
-import { useScrollPosition } from '../../utils/useScrollPosition'
-import { FolderUI, ScrollYContainerUI } from '../ui'
+import { useRef, useState, memo, useCallback, useMemo, useEffect } from 'react';
+import styles from './folders.module.css';
+import { ScrollYContainerUI} from '../ui';
+import { FolderUI } from '../ui/folder';
+import { useScrollPosition } from '../../utils/useScrollPosition';
 
 const FOLDERS_TEXT = [
 	'Консультация',
@@ -24,97 +16,33 @@ const FOLDERS_TEXT = [
 ]
 
 const Folders = memo(() => {
-	const [state, setState] = useState({
+  const containerRef = useRef<HTMLDivElement>(null!);
+  const foldersRef = useRef<HTMLDivElement>(null);
+
+  const start = useScrollPosition(containerRef) + 400
+
+  const [stateContainer, setStateContainer] = useState({
 		isVisible: false,
 		left: 0,
 		top: 0,
 	})
-	const [foldersState, setFoldersState] = useState({
-		left: new Array(8).fill(0),
-		top: new Array(8).fill(0),
-		startScroll: new Array(8).fill(0),
-		zIndex: [8, 7, 6, 5, 4, 3, 2, 1],
-	})
 
-	const headerRef = useRef<HTMLDivElement>(null!)
-	const foldersRef = useRef<HTMLDivElement>(null)
-	const start = useScrollPosition(headerRef)
-
-	const handleScroll = useCallback(() => {
-		if (start === 0) return
-		const currentScrollPosition = window.scrollY
-		if (currentScrollPosition > start - 100 && !state.isVisible) {
-			setState((prev) => ({ ...prev, isVisible: true }))
-		}
-	}, [state.isVisible, start])
-
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll, { passive: false })
-		return () => window.removeEventListener('scroll', handleScroll)
-	}, [handleScroll])
-
-
-
-	const { left, top, startScroll } = useMemo(() => {
-		return {
-			top: [
-				state.top * 2,
-				state.top * 2,
-				state.top * 1.5,
-				state.top * 0.3,
-				state.top * 0.1,
-				state.top * 1.8,
-				state.top * 0.1,
-				state.top * 1.2,
-			],
-			left: [
-				1,
-				state.left + 5,
-				state.left * 2,
-				state.left * 3 - 7,
-				state.left * 4,
-				state.left * 5 - 5,
-				state.left * 6 + 7,
-				state.left * 7,
-			],
-			startScroll: [
-				start + 200,
-				start + 410,
-				start + 620,
-				start + 830,
-				start + 1040,
-				start + 1250,
-				start + 1460,
-				start + 1670,
-			],
-		}
-	}, [state.top, state.left, start])
-
-	useEffect(() => {
-		setFoldersState((prev) => ({
-			...prev,
-			left,
-			top,
-			startScroll,
-		}))
-	}, [state.left, state.top, start])
-
-	useEffect(() => {
+  useEffect(() => {
 		const handleResize = () => {
 			if (!foldersRef.current) return;
 			
 			if (foldersRef.current) {
 				const viewportWidth = window.innerWidth
-				const containerWidth = foldersRef.current.getBoundingClientRect().width
+				const containerWidth = containerRef.current.getBoundingClientRect().width
 				const isDesktop = viewportWidth > 767
 				const baseSize = isDesktop ? 300 : 200
 
-				setState((prev) => ({
+				setStateContainer((prev) => ({
 					...prev,
 					left: (containerWidth - baseSize) / 7,
 					top: isDesktop
-						? baseSize - (containerWidth - baseSize) / 7
-						: (baseSize - (containerWidth - baseSize) / 7) / 2,
+						? baseSize - (containerWidth - baseSize) / 7  
+						: (baseSize - (containerWidth - baseSize) / 7) / 1,
 				}))
 			}
 		}
@@ -124,52 +52,133 @@ const Folders = memo(() => {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
+
+  const [stateFolders, setStateFolders] = useState({
+    left: [0, 0, 0, 0, 0, 0, 0, 0],
+    top: [0, 0, 0, 0, 0, 0, 0, 0],
+    startScroll: [0, 0, 0, 0, 0, 0, 0, 0],
+    endScroll: [0, 0, 0, 0, 0, 0, 0, 0],
+    zIndex: [8, 7, 6, 5, 4, 3, 2, 1],
+  });
+  
+
+  const { left, top, startScroll, endScroll } = useMemo(() => {
+		return {
+			top: [
+				stateContainer.top,
+				stateContainer.top * 0.4,
+				stateContainer.top * 1.5,
+				stateContainer.top * 0.3,
+				stateContainer.top * 0.1,
+				stateContainer.top * 1.8,
+				stateContainer.top * 0.6,
+				stateContainer.top * 1.2,
+			],
+			left: [
+				1,
+				stateContainer.left + 5,
+				stateContainer.left * 2,
+				stateContainer.left * 3 - 7,
+				stateContainer.left * 4,
+				stateContainer.left * 5 - 5,
+				stateContainer.left * 6 + 7,
+				stateContainer.left * 7,
+			],
+			startScroll: [
+				start + 200,
+				start + 400,
+				start + 600,
+				start + 800,
+				start + 1000,
+				start + 1200,
+				start + 1400,
+				start + 1600,
+			],
+      endScroll: [
+				start + 400,
+				start + 600,
+				start + 800,
+				start + 1000,
+				start + 1200,
+				start + 1400,
+				start + 1600,
+				start + 1800,
+			],
+		}
+	}, [stateContainer.top, stateContainer.left, start])
+
+  useEffect(() => {
+		setStateFolders((prev) => ({
+			...prev,
+			left,
+			top,
+			startScroll,
+      endScroll
+		}))
+	}, [stateContainer.left, stateContainer.top, start])
+
+
+  const handleScroll = useCallback(() => {
+		if (start === 0) return
+		const currentScrollPosition = window.scrollY
+		if (currentScrollPosition > start - 300 && !stateContainer.isVisible) {
+			setStateContainer((prev) => ({ ...prev, isVisible: true }))
+		}
+	}, [stateContainer.isVisible, start])
+
+  useEffect(() => {
+		window.addEventListener('scroll', handleScroll, { passive: false })
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [handleScroll])
+
 	const [isReady, setIsReady] = useState(false)
 
 	useEffect(() => {
-		// Проверяем что все позиции не равны 0
 		const positionsCalculated =
-			foldersState.left.every((pos) => pos !== 0) &&
-			foldersState.top.every((pos) => pos !== 0)
+    stateFolders.left.every((pos) => pos !== 0) &&
+    stateFolders.top.every((pos) => pos !== 0)
 
 		if (positionsCalculated) {
 			setIsReady(true)
 		}
-	}, [foldersState])
-
-	
+	}, [stateFolders])
 
 
-	return (
-		<ScrollYContainerUI height={2500} stop={1900}>
-			<div
+  return (
+    <ScrollYContainerUI
+      height={2500}
+      stop={1900}
+      ref={containerRef}
+    >
+     <div
 				className={styles.header}
-				ref={headerRef}
 				style={{ marginTop: '100px' }}
 			>
 				8 этапов работы нашей компании{' '}
 				<span
-					className={`${styles.highlight} ${state.isVisible ? styles.moove : ''}`}
+					className={`${styles.highlight} ${stateContainer.isVisible ? styles.moove : ''}`}
 					data-text='с клиентами'
 				>
 					с клиентами
 				</span>
 			</div>
-			<div className={styles.folders} ref={foldersRef}>
-				{isReady &&
-					FOLDERS_TEXT.map((text, index) => (
-						<FolderUI
-							key={index + 1}
-							title={text}
-							top={foldersState.top[index]}
-							left={foldersState.left[index]}
-							startScroll={foldersState.startScroll[index]}
-							zIndex={foldersState.zIndex[index]}
-						/>
-					))}
-			</div>
-		</ScrollYContainerUI>
-	)
-})
+      <div ref={foldersRef} className={styles.folders}>
+      {isReady && FOLDERS_TEXT.map((text, index) => (
+        <FolderUI
+          key={text}
+          size={200}
+          top={stateFolders.top[index]}
+          text={FOLDERS_TEXT[index]}
+          left={stateFolders.left[index]}
+          translateY={['0px', `-200px`, 'easeIn']}
+          startScroll={stateFolders.startScroll[index]}
+          endScroll={stateFolders.endScroll[index]}
+          zIndex={stateFolders.zIndex[index]}
+        />
+      ))}</div>
 
-export default Folders
+    </ScrollYContainerUI>
+  );
+});
+
+export default Folders;
