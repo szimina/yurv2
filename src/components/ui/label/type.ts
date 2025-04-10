@@ -3,11 +3,8 @@ export type LabelUIProps = {
   buttons: string[];
   startScroll: number;
   endScroll: number;
-  index: number;
+  translateX?: [string, string] | [string, string, EasingParam];
 };
 
 type EasingParam = 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic'; 
-
-export type CSSEffect = [string, string, EasingParam];
-
 

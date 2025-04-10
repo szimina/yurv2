@@ -1,6 +1,6 @@
 
 import styles from './net.module.css';
-import { useRef, useMemo, useState, useEffect, useLayoutEffect } from 'react';
+import { useRef, useMemo, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 
 import { useScrollPosition } from '../../utils/useScrollPosition';
 import { ShadowHeaderUI, SlipUI, NetSvg, ScrollYContainerUI } from '../ui';
@@ -33,8 +33,25 @@ const Net: React.FC = () => {
 
   const netContainerStyle = window.innerWidth <= 768 ? 300 : 500;
 
+  const [distance, setDistance] = useState(0)
 
-  
+	const handleResize = useCallback(() => {
+		const windowWidth = window.visualViewport?.width || window.innerWidth
+		const moove = windowWidth - 300
+		setDistance(moove)
+	}, [])
+
+	useLayoutEffect(() => {
+		handleResize()
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [handleResize])
+
+
+
 
   const slips = useMemo(() => (
     SLIP_DATA.map(({ header, buttons }, index) => (
@@ -44,7 +61,7 @@ const Net: React.FC = () => {
         endScroll={start + (index + 1) * SCROLL_STEP}
         header={header}
         buttons={buttons}
-        index={index}
+        translateX={['300px', `-${distance}px`]}
       />
     ))
   ), [start]);
