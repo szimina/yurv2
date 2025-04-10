@@ -1,1 +1,0 @@
-export { SlipUI } from './slip';

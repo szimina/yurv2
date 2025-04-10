@@ -24,7 +24,7 @@
 
 .net {
 	position: absolute;
-	top: -18vw;
+	top: -100px;
 	width: calc(100vw - var(--scrollbar-width) - 2px);
 	aspect-ratio: 1710 / 1244;
 }

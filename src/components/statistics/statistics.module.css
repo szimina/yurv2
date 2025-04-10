@@ -1,7 +1,7 @@
 .container {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 170px;
+	margin-top: 200px;
 }
 
 @media (width <=1061px) {
@@ -12,6 +12,6 @@
 
 @media (width <=921px) {
 	.container {
-		gap: 10px;
+		gap: 20px;
 	}
 }

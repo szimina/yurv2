@@ -52,6 +52,7 @@ export const AnimatedHeaderUI: FC<AnimatedHeaderUIProps> = ({
 						key={index}
 						ref={effects[index]?.ref as Ref<HTMLDivElement> | undefined}
 						className={styles.letter}
+						style={{opacity: '0'}}
 						aria-hidden='true'
 						role='presentation'
 					>

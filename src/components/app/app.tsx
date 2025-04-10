@@ -9,7 +9,6 @@ const Statistics = lazy(() => import('../statistics/statistics'))
 const FemidaBlock = lazy(() => import('../femida/femida'))
 const Cards = lazy(() => import('../cards/cards'))
 const Pipe = lazy(() => import('../pipe/pipe'))
-const Net = lazy(() => import('../net/net'))
 const Folders = lazy(() => import('../folders/folders'))
 const Final = lazy(() => import('../final/final'))
 const Footer = lazy(() => import('../footer/footer'))
@@ -38,9 +37,6 @@ const App = () => {
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Pipe />
 			</Suspense>
-			{/* <Suspense fallback={<div>Загрузка анимации...</div>}>
-				<Net />
-			</Suspense> */}
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Labels />
 			</Suspense>

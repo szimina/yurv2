@@ -6,7 +6,7 @@ export * from './animated-header';
 export * from './card';
 export * from './background';
 export * from './scroll-indicator';
-export * from './slip';
+export * from './label';
 export * from './folder';
 export * from './scroll-y-container';
 export * from './circle';

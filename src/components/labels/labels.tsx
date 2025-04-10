@@ -3,15 +3,13 @@ import {
 	useState,
 	memo,
 	useCallback,
-	useMemo,
 	useEffect,
 	useLayoutEffect,
 } from 'react'
 import styles from './labels.module.css'
-import { NetSvg, ScrollYContainerUI, ShadowHeaderUI } from '../ui'
-import { FolderUI } from '../ui/folder'
+import { LabelUI, NetSvg, ScrollYContainerUI, ShadowHeaderUI } from '../ui'
 import { useScrollPosition } from '../../utils/useScrollPosition'
-import { LabelUI } from '../ui/label'
+
 
 const LABELS_DATA = [
 	{
@@ -65,7 +63,7 @@ const Labels = memo(() => {
 	}, [distance])
 
 	return (
-		<ScrollYContainerUI height={5000} stop={4500} ref={containerRef}>
+		<ScrollYContainerUI height={4500} stop={4000} ref={containerRef}>
 			<div className={styles.container}>
 				<div className={styles.net}>
 					<NetSvg />

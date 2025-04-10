@@ -1,4 +1,4 @@
-import { FC, useState, useRef, useCallback, useLayoutEffect } from 'react'
+import { FC, useRef } from 'react'
 import { Parallax } from 'react-scroll-parallax'
 import styles from './label.module.css'
 import { CSSEffect, LabelUIProps } from './type'
