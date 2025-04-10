@@ -1,7 +1,7 @@
 import { FC, useState, useRef, useCallback, useLayoutEffect } from 'react'
 import { Parallax } from 'react-scroll-parallax'
 import styles from './label.module.css'
-import { LabelUIProps } from './type'
+import { CSSEffect, LabelUIProps } from './type'
 
 export const LabelUI: FC<LabelUIProps> = ({
 	header,
@@ -9,8 +9,22 @@ export const LabelUI: FC<LabelUIProps> = ({
 	startScroll,
 	endScroll,
 	translateX = ['0', '0'],
+  index,
 }) => {
 	const scaleRef = useRef<HTMLDivElement>(null)
+
+    const getTranslateX: CSSEffect[] = [
+      ['0%', '-50%', 'easeOutCubic'],
+      ['0%', '50%', 'easeOutCubic'],
+      ['0%', '50%', 'easeOutCubic'],
+      ['0%', '50%', 'easeOutCubic'],
+    ]
+    const getTranslateY: CSSEffect[] = [
+      ['0%', '-250%', 'easeOutCubic'],
+      ['0%', '-250%', 'easeOutCubic'],
+      ['0%', '200%', 'easeOutCubic'],
+      ['0%', '200%', 'easeOutCubic'],
+    ]
 
 	return (
 		<Parallax
@@ -31,7 +45,20 @@ export const LabelUI: FC<LabelUIProps> = ({
 			}}
 		>
 			<div ref={scaleRef} className={styles.container} style={{opacity: '0'}}>
-				<div className={styles.circle} />
+				<div className={styles.circle}>
+        <Parallax
+          translateX={getTranslateX[index]}
+          translateY={getTranslateY[index]}
+          startScroll={startScroll + 100}
+          endScroll={endScroll}
+          className={styles.flashbox}
+          shouldAlwaysCompleteAnimation={true}
+        >
+          <div
+            className={styles.flash}
+          />
+        </Parallax> 
+        </div>
 				<h3 className={styles.header}>{header}</h3>
 				<div className={styles.buttons}>
 					{buttons.map((button, i) => (

@@ -63,6 +63,7 @@ const Net: React.FC = () => {
         header={header}
         buttons={buttons}
         translateX={['300px', `-${distance}px`]}
+        index={index}
       />
     ))
   ), [start]);

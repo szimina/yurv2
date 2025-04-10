@@ -32,7 +32,7 @@ const LABELS_DATA = [
 	},
 ]
 
-const SCROLL_STEP = 900
+const SCROLL_STEP = 800
 
 const Labels = memo(() => {
 	const containerRef = useRef<HTMLDivElement>(null!)
@@ -78,7 +78,7 @@ const Labels = memo(() => {
 						'банкротства',
 					]}
 					start={start}
-					marginTop={100}
+					marginTop={200}
 				/>
 				<div className={styles.labels}>
 					{isReady &&
@@ -90,6 +90,7 @@ const Labels = memo(() => {
 								header={data.header}
 								buttons={data.buttons}
 								translateX={['0px', `-${distance}px`]}
+								index={index}
 							/>
 						))}
 				</div>
