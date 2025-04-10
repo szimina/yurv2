@@ -1,6 +1,6 @@
 
 import styles from './net.module.css';
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState, useEffect, useLayoutEffect } from 'react';
 
 import { useScrollPosition } from '../../utils/useScrollPosition';
 import { ShadowHeaderUI, SlipUI, NetSvg, ScrollYContainerUI } from '../ui';
@@ -32,6 +32,9 @@ const Net: React.FC = () => {
   const start = useScrollPosition(divRef);
 
   const netContainerStyle = window.innerWidth <= 768 ? 300 : 500;
+
+
+  
 
   const slips = useMemo(() => (
     SLIP_DATA.map(({ header, buttons }, index) => (

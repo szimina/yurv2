@@ -25,7 +25,7 @@
   width: calc(100vw - var(--scrollbar-width) - 2px);
   place-self: center flex-end;
   height: 300px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 @media (width <= 998px) {
