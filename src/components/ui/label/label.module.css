@@ -9,6 +9,7 @@
 	padding: 10px;
 	will-change: opacity, transform;
 	transition: opacity 0.3s ease;
+	/* border: 1px solid pink; */
 }
 
 .circle {

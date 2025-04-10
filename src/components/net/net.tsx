@@ -50,6 +50,7 @@ const Net: React.FC = () => {
 		}
 	}, [handleResize])
 
+  
 
 
 

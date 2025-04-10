@@ -21,7 +21,7 @@ export const LabelUI: FC<LabelUIProps> = ({
 			shouldAlwaysCompleteAnimation
 			onProgressChange={(progress) => {
 				let scale
-				if (progress < 0.3) scale = progress / 0.3
+				if (progress < 0.1) scale = progress / 0.1
 				else if (progress <= 0.8) scale = 1
 				else scale = 1 - (progress - 0.8) / 0.2
 				if (scaleRef.current) {
@@ -30,7 +30,7 @@ export const LabelUI: FC<LabelUIProps> = ({
 				}
 			}}
 		>
-			<div ref={scaleRef} className={styles.container}>
+			<div ref={scaleRef} className={styles.container} style={{opacity: '0'}}>
 				<div className={styles.circle} />
 				<h3 className={styles.header}>{header}</h3>
 				<div className={styles.buttons}>

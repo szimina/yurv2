@@ -5,7 +5,6 @@ import AppHeader from '../app-header/app-header'
 import Intro from '../intro/intro'
 import Circles from '../circles/circles'
 
-
 const Statistics = lazy(() => import('../statistics/statistics'))
 const FemidaBlock = lazy(() => import('../femida/femida'))
 const Cards = lazy(() => import('../cards/cards'))
@@ -14,6 +13,7 @@ const Net = lazy(() => import('../net/net'))
 const Folders = lazy(() => import('../folders/folders'))
 const Final = lazy(() => import('../final/final'))
 const Footer = lazy(() => import('../footer/footer'))
+const Labels = lazy(() => import('../labels/labels'))
 
 const App = () => {
 	return (
@@ -38,8 +38,11 @@ const App = () => {
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Pipe />
 			</Suspense>
-			<Suspense fallback={<div>Загрузка анимации...</div>}>
+			{/* <Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Net />
+			</Suspense> */}
+			<Suspense fallback={<div>Загрузка анимации...</div>}>
+				<Labels />
 			</Suspense>
 			<Suspense fallback={<div>Загрузка анимации...</div>}>
 				<Folders />
