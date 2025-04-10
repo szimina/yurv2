@@ -1,7 +1,6 @@
 type EasingParam = 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'easeIn';
 
 export type PapkaUIProps = {
-  index: number;
   text: string;
   size: number;
   top?: number;

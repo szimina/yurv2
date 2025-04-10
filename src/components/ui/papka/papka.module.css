@@ -1,4 +1,4 @@
-.circle {
+.papka {
   position: absolute;
   top: var(--top-papka);
   left: var(--left-papka);
@@ -46,4 +46,10 @@
 .path {
 	fill: var(--main-background-color);
 	stroke: var(--main-color);
+}
+
+@media (width <=767px) {
+	.papka {
+		width: 200px;
+}
 }

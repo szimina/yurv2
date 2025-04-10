@@ -96,7 +96,7 @@ ScrollYContainerUIProps & {
 				style={{
 					height: `${height}px`,
 					position: 'relative',
-					border: '1px solid white',
+					// border: '1px solid white',
 					marginTop: `${marginTop}px`,
 				}}
 				ref={setRefs}

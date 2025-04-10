@@ -18,8 +18,105 @@ const FOLDERS_TEXT = [
 
 const Papkas = memo(() => {
   const papkasRef = useRef<HTMLDivElement>(null!);
+  const foldersRef = useRef<HTMLDivElement>(null);
+
   const start = useScrollPosition(papkasRef) + 400
 
+  const [stateContainer, setStateContainer] = useState({
+		isVisible: false,
+		left: 0,
+		top: 0,
+	})
+
+  useEffect(() => {
+		const handleResize = () => {
+			if (!foldersRef.current) return;
+			
+			if (foldersRef.current) {
+				const viewportWidth = window.innerWidth
+				const containerWidth = papkasRef.current.getBoundingClientRect().width
+				const isDesktop = viewportWidth > 767
+				const baseSize = isDesktop ? 300 : 200
+
+				setStateContainer((prev) => ({
+					...prev,
+					left: (containerWidth - baseSize) / 7,
+					top: isDesktop
+						? baseSize - (containerWidth - baseSize) / 7  
+						: (baseSize - (containerWidth - baseSize) / 7) / 1,
+				}))
+			}
+		}
+
+		handleResize()
+		window.addEventListener('resize', handleResize)
+		return () => window.removeEventListener('resize', handleResize)
+	}, [])
+
+
+  const [stateFolders, setStateFolders] = useState({
+    left: [0, 0, 0, 0, 0, 0, 0, 0],
+    top: [0, 0, 0, 0, 0, 0, 0, 0],
+    startScroll: [0, 0, 0, 0, 0, 0, 0, 0],
+    endScroll: [0, 0, 0, 0, 0, 0, 0, 0],
+    zIndex: [8, 7, 6, 5, 4, 3, 2, 1],
+  });
+  
+
+  const { left, top, startScroll, endScroll } = useMemo(() => {
+		return {
+			top: [
+				stateContainer.top,
+				stateContainer.top * 0.4,
+				stateContainer.top * 1.5,
+				stateContainer.top * 0.3,
+				stateContainer.top * 0.1,
+				stateContainer.top * 1.8,
+				stateContainer.top * 0.6,
+				stateContainer.top * 1.2,
+			],
+			left: [
+				1,
+				stateContainer.left + 5,
+				stateContainer.left * 2,
+				stateContainer.left * 3 - 7,
+				stateContainer.left * 4,
+				stateContainer.left * 5 - 5,
+				stateContainer.left * 6 + 7,
+				stateContainer.left * 7,
+			],
+			startScroll: [
+				start + 200,
+				start + 400,
+				start + 600,
+				start + 800,
+				start + 1000,
+				start + 1200,
+				start + 1400,
+				start + 1600,
+			],
+      endScroll: [
+				start + 400,
+				start + 600,
+				start + 800,
+				start + 1000,
+				start + 1200,
+				start + 1400,
+				start + 1600,
+				start + 1800,
+			],
+		}
+	}, [stateContainer.top, stateContainer.left, start])
+
+  useEffect(() => {
+		setStateFolders((prev) => ({
+			...prev,
+			left,
+			top,
+			startScroll,
+      endScroll
+		}))
+	}, [stateContainer.left, stateContainer.top, start])
 
 
 
@@ -27,109 +124,37 @@ const Papkas = memo(() => {
   const [dimensions, setDimensions] = useState({
     windowWidth: 0,
     windowHeight: 0,
-    // circleDiameter: 300,
   });
 
-  const [state, setState] = useState({
-    left: [0, 350, 700, 900, 300, 500, 800, 900],
-    top: [300, 320, 400, 350, 380, 3000, 330, 360],
-    startScroll: [0, 0, 0, 0, 0, 0, 0, 0],
-    endScroll: [0, 0, 0, 0, 0, 0, 0, 0],
-    zIndex: [8, 7, 6, 5, 4, 3, 2, 1],
-  });
 
+
+  const handleScroll = useCallback(() => {
+		if (start === 0) return
+		const currentScrollPosition = window.scrollY
+		if (currentScrollPosition > start - 300 && !stateContainer.isVisible) {
+			setStateContainer((prev) => ({ ...prev, isVisible: true }))
+		}
+	}, [stateContainer.isVisible, start])
 
   useEffect(() => {
-    setState((prev) => ({
-      ...prev,
-      startScroll: [start + 200, start + 400, start + 600, start + 800, start + 1000, start + 1200, start + 1400, start + 1600],
-      endScroll: [start + 400, start + 600, start + 800, start + 1000, start + 1200, start + 1400, start + 1600, start + 1800],
-      }))
-  }, [start]);
+		window.addEventListener('scroll', handleScroll, { passive: false })
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [handleScroll])
+
+	const [isReady, setIsReady] = useState(false)
+
+	useEffect(() => {
+		// Проверяем что все позиции не равны 0
+		const positionsCalculated =
+    stateFolders.left.every((pos) => pos !== 0) &&
+    stateFolders.top.every((pos) => pos !== 0)
+
+		if (positionsCalculated) {
+			setIsReady(true)
+		}
+	}, [stateFolders])
 
 
-  
-  // Calculate scrollbar width once
-  const scrollbarWidth = useMemo(() => {
-    const value = getComputedStyle(document.documentElement)
-      .getPropertyValue('--scrollbar-width')
-      .trim();
-    return Number(value.replace(/\D/g, ''));
-  }, []);
-
-  const handleResize = useCallback(() => {
-    const realWindowWidth = window.visualViewport?.width || window.innerWidth;
-    const realWindowHeight = window.visualViewport?.height || window.innerHeight;
-    const windowWidth = realWindowWidth - scrollbarWidth;
-    const isMobileView = window.matchMedia(`(max-width: ${767 - scrollbarWidth}px)`).matches;
-
-    setIsMobile(isMobileView);
-
-    // const circleDiameter = isMobileView
-    //   ? (windowWidth - 10) / 2
-    //   : Math.min(windowWidth / 4 - 10, 450);
-
-    setDimensions({
-      windowWidth,
-      windowHeight: realWindowHeight,
-      // circleDiameter,
-    });
-
-    setState(prev => ({
-      ...prev,
-      logoOpacity: isMobileView ? [1, 0] : [0, 1],
-    }));
-  }, [scrollbarWidth]);
-
-  useLayoutEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [handleResize]);
-
-
-
-
-
-  // useLayoutEffect(() => {
-  //   setState(prev => ({
-  //     ...prev,
-  //     left,
-  //     mooveY,
-  //   }));
-  // }, [left, mooveY]);
-
-  // const handleTouchPositionChange = useCallback(
-  //   (touchPosition: number) => {
-  //     if (isMobile) {
-  //       const value = Array(5).fill(touchPosition);
-  //       setState(prev => ({
-  //         ...prev,
-  //         startScroll: value,
-  //         endScroll: value.map(v => v + 280 * 4),
-  //       }));
-  //     } else {
-  //       setState(prev => ({
-  //         ...prev,
-  //         startScroll: [
-  //           touchPosition + 280 * 2 - 100,
-  //           touchPosition,
-  //           touchPosition,
-  //           touchPosition + 280 * 2 - 100,
-  //           touchPosition + 280 * 4,
-  //         ],
-  //         endScroll: [
-  //           touchPosition + 280 * 4,
-  //           touchPosition + 280 * 2,
-  //           touchPosition + 280 * 2,
-  //           touchPosition + 280 * 4,
-  //           touchPosition + 280 * 5,
-  //         ],
-  //       }));
-  //     }
-  //   },
-  //   [isMobile]
-  // );
 
 
 
@@ -138,33 +163,33 @@ const Papkas = memo(() => {
       height={2500}
       stop={1900}
       ref={papkasRef}
-      // onTouchPositionChange={handleTouchPositionChange}
     >
-      <div
+     <div
 				className={styles.header}
 				style={{ marginTop: '100px' }}
 			>
 				8 этапов работы нашей компании{' '}
 				<span
+					className={`${styles.highlight} ${stateContainer.isVisible ? styles.moove : ''}`}
 					data-text='с клиентами'
 				>
 					с клиентами
 				</span>
 			</div>
-      {FOLDERS_TEXT.map((text, index) => (
+      <div ref={foldersRef} className={styles.folders}>
+      {isReady && FOLDERS_TEXT.map((text, index) => (
         <PapkaUI
           key={text}
           size={200}
-          top={state.top[index]}
-          index={index + 1}
+          top={stateFolders.top[index]}
           text={FOLDERS_TEXT[index]}
-          left={state.left[index]}
+          left={stateFolders.left[index]}
           translateY={['0px', `-200px`, 'easeIn']}
-          startScroll={state.startScroll[index]}
-          endScroll={state.endScroll[index]}
-          zIndex={state.zIndex[index]}
+          startScroll={stateFolders.startScroll[index]}
+          endScroll={stateFolders.endScroll[index]}
+          zIndex={stateFolders.zIndex[index]}
         />
-      ))}
+      ))}</div>
 
     </ScrollYContainerUI>
   );

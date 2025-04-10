@@ -1,37 +1,50 @@
-.circle {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  will-change: transform, opacity;
-  opacity: 0;
+
+.header {
+  /* position: absolute; */
+  align-self: center;
+  width: 60vw;
+  height: 200px;
+  color: var(--main-color);
+  font-size: clamp(1.5rem, 1rem + 2.32vw, 3rem);
+  font-family: var(--accent-font);
+  text-align: center;
+  text-transform: uppercase;
+
 }
 
-.circle::before {
-  content: "";
+.folders {
+  /* border: 1px solid yellow; */
+  display: flex;
+  position: relative;
+  height: 500px
+}
+
+.highlight {
+  position: relative;
+  display: inline-block; /* Важно для корректного позиционирования ::after */
+  white-space: nowrap;
+}
+
+.highlight::after {
+  content: attr(data-text);
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 0;
   height: 100%;
-  background: var(--gradient);
-  animation: rotate-gradient 5s linear infinite;
+  overflow: hidden;
+  color: var(--main-accent-color);
+  font-size: inherit; 
+  font-family: inherit;
+  white-space: nowrap;
+  text-transform: inherit; 
 }
 
-@keyframes rotate-gradient {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
+.moove::after {
+  animation: letter-fill 1.5s forwards;
 }
 
-@media (width <=767px) {
-  .circle {
-    opacity: 1;
-  }
+@keyframes letter-fill {
+  from { width: 0; }
+  to { width: 100%; }
 }

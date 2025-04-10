@@ -58,8 +58,8 @@ const Folders = memo(() => {
 	const { left, top, startScroll } = useMemo(() => {
 		return {
 			top: [
-				state.top,
-				1,
+				state.top * 2,
+				state.top * 2,
 				state.top * 1.5,
 				state.top * 0.3,
 				state.top * 0.1,

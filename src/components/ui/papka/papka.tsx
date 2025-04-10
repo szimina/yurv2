@@ -6,7 +6,6 @@ import { Parallax, ParallaxProps } from 'react-scroll-parallax'
 
 export const PapkaUI: FC<PapkaUIProps> = React.memo(({
   text,
-  index,
   size,
   top = 0,
   left = 0,
@@ -20,11 +19,11 @@ export const PapkaUI: FC<PapkaUIProps> = React.memo(({
     '--top-papka': `${top}px`,
     '--left-papka': `${left}px`,
     '--z-index-papka': `${zIndex}`,
-  } as React.CSSProperties), [size, top, left, index]);
+  } as React.CSSProperties), [size, top, left]);
 
   return (
     <Parallax
-      className={styles.circle}
+      className={styles.papka}
       style={style}
       translateY={translateY as ParallaxProps['translateY']}
       // opacity={[1, 0]}
